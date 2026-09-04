@@ -1,19 +1,21 @@
-import { CANVA } from './icons/canva';
 import { HOZANA } from './icons/hozana';
 import { LOVABLE } from './icons/lovable';
-import { MANUS } from './icons/manus';
 
 const favicon = (domain: string) => `https://www.google.com/s2/favicons?domain=${domain}&sz=64`;
 const svgIcon = (body: string) => `data:image/svg+xml,${encodeURIComponent(`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">${body}</svg>`)}`;
 
-// Use exact brand assets where we already have them. For reference directories and
-// personal projects without a dedicated brand mark, use their own favicon or a
+// Prefer official brand assets when the brand publishes them. For reference directories
+// and personal projects without a dedicated brand mark, use their own favicon or a
 // neutral semantic mark instead of incorrectly reusing another brand's logo.
 export const APP_IMAGES: Record<string, string> = {
-  Canva: CANVA,
+  // Canva's official UI guidance specifies its icon logo for surfaces below 50px.
+  Canva: 'https://static.canva.com/web/images/8439b51bb7a19f6e65ce1064bc37c197.svg',
+
+  // Manus publishes an official standalone glyph for compact brand marks.
+  Manus: 'https://files.manuscdn.com/assets/image/brand/image/Manus-Glyph-Black.svg',
+
   Hozana: HOZANA,
   Lovable: LOVABLE,
-  Manus: MANUS,
   DeepSeek: favicon('deepseek.com'),
 
   'Component Gallery': favicon('component.gallery'),
