@@ -38,3 +38,24 @@ export function readHiddenApps(): string[] {
 export function writeHiddenApps(next: string[]) {
   localStorage.setItem(HIDDEN_KEY, JSON.stringify(next));
 }
+
+export type WorkbenchBackup = {
+  overrides: IconOverrides;
+  hidden: string[];
+};
+
+export function makeBackup(overrides: IconOverrides, hidden: string[]): WorkbenchBackup {
+  return { overrides, hidden };
+}
+
+export function parseBackup(raw: string): WorkbenchBackup | null {
+  try {
+    const parsed = JSON.parse(raw) as Partial<WorkbenchBackup>;
+    if (!parsed || typeof parsed !== 'object') return null;
+    const overrides = parsed.overrides && typeof parsed.overrides === 'object' ? parsed.overrides : {};
+    const hidden = Array.isArray(parsed.hidden) ? parsed.hidden.filter((x) => typeof x === 'string') : [];
+    return { overrides, hidden };
+  } catch {
+    return null;
+  }
+}
