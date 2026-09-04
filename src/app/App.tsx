@@ -55,9 +55,9 @@ export default function App() {
   };
 
   return (
-    <div className="min-h-screen" style={{ background: 'var(--bg)', color: 'var(--text)' }}>
+    <div className="min-h-screen w-full overflow-x-hidden" style={{ background: 'var(--bg)', color: 'var(--text)' }}>
       <header className="sticky top-0 z-30 border-b backdrop-blur-xl" style={{ background: 'color-mix(in srgb, var(--bg) 90%, transparent)', borderColor: 'var(--line)' }}>
-        <div className="mx-auto flex h-14 max-w-5xl items-center justify-between px-5 md:px-8">
+        <div className="mx-auto flex h-14 w-full max-w-5xl items-center justify-between px-4 sm:px-5 md:px-8">
           <div className="flex items-center gap-2.5">
             <img src={MEYRA_AVATAR} alt="" className="h-7 w-7 rounded-full object-cover" />
             <span className="text-[13px] font-semibold tracking-[0.08em]">MEYRA</span>
@@ -75,13 +75,13 @@ export default function App() {
         </div>
       </header>
 
-      <main className="mx-auto max-w-5xl px-5 pb-24 pt-12 md:px-8 md:pt-20">
+      <main className="mx-auto w-full max-w-5xl px-4 pb-24 pt-10 sm:px-5 sm:pt-12 md:px-8 md:pt-20">
         <section>
           <div className="flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
             <div>
               <p className="mb-3 text-[10px] font-semibold uppercase tracking-[0.2em]" style={{ color: 'var(--dim)' }}>NOW</p>
               <div className="flex items-baseline gap-3">
-                <h1 className="text-[42px] font-medium tracking-[-0.055em] md:text-[64px]">InkPai</h1>
+                <h1 className="text-[42px] font-medium tracking-[-0.055em] sm:text-[48px] md:text-[64px]">InkPai</h1>
                 <span className="text-sm" style={{ color: 'var(--dim)' }}>× 1 user</span>
               </div>
             </div>
@@ -90,26 +90,26 @@ export default function App() {
             </a>
           </div>
 
-          <div className="mt-9 border-y py-4" style={{ borderColor: 'var(--line)' }}>
-            <div className="flex min-w-[560px] items-center">
+          <div className="mt-8 overflow-hidden border-y py-4 sm:mt-9" style={{ borderColor: 'var(--line)' }}>
+            <div className="grid grid-cols-5 gap-1 sm:flex sm:items-center">
               {FLOW.map((step, index) => (
-                <div key={step} className="flex flex-1 items-center">
-                  <div className="flex items-center gap-2">
+                <div key={step} className="flex min-w-0 items-center sm:flex-1">
+                  <div className="flex min-w-0 items-center gap-1.5 sm:gap-2">
                     <span className="font-mono text-[9px]" style={{ color: index === 0 ? 'var(--text)' : 'var(--dim)' }}>{index + 1}</span>
-                    <span className="text-[11px] font-medium" style={{ color: index === 0 ? 'var(--text)' : 'var(--mute)' }}>{step}</span>
+                    <span className="truncate text-[10px] font-medium sm:text-[11px]" style={{ color: index === 0 ? 'var(--text)' : 'var(--mute)' }}>{step}</span>
                   </div>
-                  {index < FLOW.length - 1 ? <span className="mx-3 h-px flex-1" style={{ background: 'var(--line)' }} /> : null}
+                  {index < FLOW.length - 1 ? <span className="mx-1 h-px flex-1 sm:mx-3" style={{ background: 'var(--line)' }} /> : null}
                 </div>
               ))}
             </div>
           </div>
         </section>
 
-        <section className="mt-10">
+        <section className="mt-8 sm:mt-10">
           <RoleSection apps={byRole('now')} overrides={overrides} large />
         </section>
 
-        <section className="mt-16">
+        <section className="mt-14 sm:mt-16">
           <button type="button" onClick={() => setMoreOpen((v) => !v)} className="group flex w-full items-center justify-between border-b pb-3 text-left" style={{ borderColor: 'var(--line)' }}>
             <span className="text-[10px] font-semibold uppercase tracking-[0.2em]" style={{ color: 'var(--dim)' }}>Everything</span>
             <span className="flex items-center gap-2 text-[10px]" style={{ color: 'var(--dim)' }}>
@@ -118,7 +118,7 @@ export default function App() {
             </span>
           </button>
           {moreOpen ? (
-            <div className="mt-8 space-y-12">
+            <div className="mt-8 space-y-10 sm:space-y-12">
               {(['backup', 'explore', 'rest'] as AppRole[]).map((role) => <RoleSection key={role} title={ROLE_LABELS[role]} apps={byRole(role)} overrides={overrides} />)}
             </div>
           ) : null}
@@ -141,7 +141,7 @@ function RoleSection({ title, apps, overrides, large = false }: { title?: string
   return (
     <div>
       {title ? <div className="mb-4 flex items-center gap-2"><h2 className="text-[10px] font-semibold uppercase tracking-[0.2em]" style={{ color: 'var(--mute)' }}>{title}</h2><span className="text-[10px]" style={{ color: 'var(--dim)' }}>{apps.length}</span></div> : null}
-      <div className={large ? 'grid grid-cols-2 gap-2 sm:grid-cols-3 lg:grid-cols-6' : 'grid grid-cols-2 gap-2 sm:grid-cols-3 lg:grid-cols-4'}>
+      <div className={large ? 'grid grid-cols-1 gap-2 sm:grid-cols-2 lg:grid-cols-6' : 'grid grid-cols-1 gap-2 sm:grid-cols-2 lg:grid-cols-4'}>
         {apps.map((app) => <AppCard key={`${app.role}-${app.name}`} app={app} customSrc={overrides[appKey(app.name, app.role)]} large={large} />)}
       </div>
     </div>
@@ -150,7 +150,7 @@ function RoleSection({ title, apps, overrides, large = false }: { title?: string
 
 function AppCard({ app, customSrc, large }: { app: AppEntry; customSrc?: string; large?: boolean }) {
   return (
-    <a href={app.url} target={app.url.startsWith('/') ? undefined : '_blank'} rel="noopener noreferrer" className="group flex items-center gap-2.5 rounded-xl px-3 transition-colors" style={{ minHeight: large ? 64 : 50, background: 'var(--bg-elev)', border: '1px solid var(--line)' }} onMouseEnter={(e) => { e.currentTarget.style.background = 'var(--bg-hover)'; e.currentTarget.style.borderColor = 'var(--line-strong)'; }} onMouseLeave={(e) => { e.currentTarget.style.background = 'var(--bg-elev)'; e.currentTarget.style.borderColor = 'var(--line)'; }}>
+    <a href={app.url} target={app.url.startsWith('/') ? undefined : '_blank'} rel="noopener noreferrer" className="group flex min-w-0 items-center gap-2.5 rounded-xl px-3 transition-colors" style={{ minHeight: large ? 64 : 50, background: 'var(--bg-elev)', border: '1px solid var(--line)' }} onMouseEnter={(e) => { e.currentTarget.style.background = 'var(--bg-hover)'; e.currentTarget.style.borderColor = 'var(--line-strong)'; }} onMouseLeave={(e) => { e.currentTarget.style.background = 'var(--bg-elev)'; e.currentTarget.style.borderColor = 'var(--line)'; }}>
       <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg" style={{ background: 'var(--chip)' }}><AppMark app={app} customSrc={customSrc} /></span>
       <span className="min-w-0 flex-1 truncate text-[12px] font-medium">{app.name}</span>
       <ArrowUpRight className="h-3 w-3 shrink-0 opacity-0 transition-opacity group-hover:opacity-45" style={{ color: 'var(--mute)' }} />
