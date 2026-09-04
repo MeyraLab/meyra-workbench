@@ -46,6 +46,9 @@ a:focus-visible {
   outline: 2px solid var(--text);
   outline-offset: 3px;
 }
+html[data-theme="dark"] img.icon-ink {
+  filter: invert(1);
+}
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after {
     animation: none !important;
