@@ -3,7 +3,7 @@ import { ExternalLink, Moon, Sun, Monitor, X } from 'lucide-react';
 import { APPS, CATEGORIES, type AppCategory, type AppEntry } from './apps';
 import { applyTheme, readThemePref, type ThemePref } from './theme';
 import { BrandIcon } from './BrandIcon';
-import { appKey, readHiddenApps, readIconOverrides, writeHiddenApps, writeIconOverrides, type IconOverrides } from './iconOverrides';
+import { appKey, makeBackup, parseBackup, readHiddenApps, readIconOverrides, writeHiddenApps, writeIconOverrides, type IconOverrides } from './iconOverrides';
 import { MEYRA_AVATAR } from './avatar';
 
 const THEME_OPTIONS: Array<{ id: ThemePref; label: string; icon: typeof Sun }> = [
@@ -110,7 +110,21 @@ export default function App() {
           );
         })}
       </main>
-      {settingsOpen ? <SettingsPanel overrides={overrides} hidden={hidden} onClose={() => setSettingsOpen(false)} onSet={setOverride} onToggleHidden={toggleHidden} /> : null}
+      {settingsOpen ? (
+        <SettingsPanel
+          overrides={overrides}
+          hidden={hidden}
+          onClose={() => setSettingsOpen(false)}
+          onSet={setOverride}
+          onToggleHidden={toggleHidden}
+          onImport={(next) => {
+            writeIconOverrides(next.overrides);
+            writeHiddenApps(next.hidden);
+            setOverrides(next.overrides);
+            setHidden(next.hidden);
+          }}
+        />
+      ) : null}
     </div>
   );
 }
@@ -132,7 +146,7 @@ function AppCard({ app, customSrc }: { app: AppEntry; customSrc?: string }) {
   );
 }
 
-function SettingsPanel({ overrides, hidden, onClose, onSet, onToggleHidden }: { overrides: IconOverrides; hidden: string[]; onClose: () => void; onSet: (key: string, src?: string) => void; onToggleHidden: (key: string, hide: boolean) => void }) {
+function SettingsPanel({ overrides, hidden, onClose, onSet, onToggleHidden, onImport }: { overrides: IconOverrides; hidden: string[]; onClose: () => void; onSet: (key: string, src?: string) => void; onToggleHidden: (key: string, hide: boolean) => void; onImport: (next: { overrides: IconOverrides; hidden: string[] }) => void }) {
   return (
     <div className="fixed inset-0 z-40 flex" role="dialog" aria-modal="true" aria-labelledby="settings-title">
       <button type="button" className="absolute inset-0" aria-label="关闭设置" onClick={onClose} style={{ background: 'rgba(0,0,0,.36)' }} />
@@ -147,6 +161,32 @@ function SettingsPanel({ overrides, hidden, onClose, onSet, onToggleHidden }: { 
           </button>
         </div>
         <div className="flex-1 overflow-y-auto px-5 py-4">
+          <div className="mb-6 flex gap-2">
+            <button type="button" className="rounded-full px-4 py-2 text-sm" style={{ background: 'var(--chip)', border: '1px solid var(--line)' }} onClick={() => {
+              const blob = new Blob([JSON.stringify(makeBackup(overrides, hidden))], { type: 'application/json' });
+              const url = URL.createObjectURL(blob);
+              const a = document.createElement('a');
+              a.href = url;
+              a.download = 'meyra-workbench.json';
+              a.click();
+              URL.revokeObjectURL(url);
+            }}>导出到手机</button>
+            <label className="cursor-pointer rounded-full px-4 py-2 text-sm" style={{ background: 'var(--chip)', border: '1px solid var(--line)' }}>
+              从文件导入
+              <input type="file" accept="application/json,.json" className="hidden" onChange={(e) => {
+                const file = e.target.files?.[0];
+                if (!file) return;
+                const reader = new FileReader();
+                reader.onload = () => {
+                  if (typeof reader.result !== 'string') return;
+                  const parsed = parseBackup(reader.result);
+                  if (parsed) onImport(parsed);
+                };
+                reader.readAsText(file);
+                e.target.value = '';
+              }} />
+            </label>
+          </div>
           {CATEGORIES.map((cat) => (
             <section key={cat} className="mb-6">
               <h3 className="mb-2 text-sm" style={{ color: 'var(--mute)' }}>{cat}</h3>
