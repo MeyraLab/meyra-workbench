@@ -2,8 +2,7 @@ import { useEffect, useMemo, useState } from 'react';
 import { ExternalLink, Moon, Sun, Monitor } from 'lucide-react';
 import { APPS, CATEGORIES, type AppCategory, type AppEntry } from './apps';
 import { applyTheme, readThemePref, type ThemePref } from './theme';
-
-const INK_ICONS = new Set(['x', 'chatgpt', 'grok', 'notebooklm']);
+import { BrandIcon } from './BrandIcon';
 
 const THEME_OPTIONS: Array<{ id: ThemePref; label: string; icon: typeof Sun }> = [
   { id: 'light', label: '浅色模式', icon: Sun },
@@ -85,7 +84,7 @@ function AppCard({ app }: { app: AppEntry }) {
     <a href={app.url} target="_blank" rel="noopener noreferrer" className="group flex min-h-[132px] flex-col rounded-2xl p-4 transition-colors duration-200" style={{ background: 'var(--bg-elev)', border: '1px solid var(--line)', boxShadow: 'var(--shadow)' }} onMouseEnter={(e) => { e.currentTarget.style.background = 'var(--bg-hover)'; e.currentTarget.style.borderColor = 'var(--line-strong)'; }} onMouseLeave={(e) => { e.currentTarget.style.background = 'var(--bg-elev)'; e.currentTarget.style.borderColor = 'var(--line)'; }}>
       <div className="mb-3 flex items-center gap-3">
         <span className="flex h-10 w-10 items-center justify-center rounded-xl" style={{ background: 'var(--chip)', color: 'var(--text)' }}>
-          <img src={`/icons/${app.icon}.svg`} alt="" width={20} height={20} className={INK_ICONS.has(app.icon) ? 'icon-ink h-5 w-5' : 'h-5 w-5'} />
+          <BrandIcon id={app.icon} className="h-5 w-5" />
         </span>
         <div className="min-w-0 flex-1">
           <p className="truncate text-sm font-medium">{app.name}</p>
