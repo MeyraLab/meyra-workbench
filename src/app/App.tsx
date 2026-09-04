@@ -43,7 +43,6 @@ export default function App() {
           <div>
             <p className="mb-1 text-[11px] uppercase tracking-[0.2em]" style={{ color: 'var(--dim)' }}>MeyraLab</p>
             <h1 className="text-[28px] font-medium leading-none tracking-tight md:text-[32px]">Meyra's 工作台</h1>
-            <p className="mt-2 text-sm" style={{ color: 'var(--mute)' }}>我在哪里冲浪</p>
           </div>
           <div className="flex items-center gap-1 rounded-full p-1" style={{ background: 'var(--chip)', border: '1px solid var(--line)' }} role="radiogroup" aria-label="主题">
             {THEME_OPTIONS.map((opt) => {
@@ -81,18 +80,12 @@ export default function App() {
 
 function AppCard({ app }: { app: AppEntry }) {
   return (
-    <a href={app.url} target="_blank" rel="noopener noreferrer" className="group flex min-h-[132px] flex-col rounded-2xl p-4 transition-colors duration-200" style={{ background: 'var(--bg-elev)', border: '1px solid var(--line)', boxShadow: 'var(--shadow)' }} onMouseEnter={(e) => { e.currentTarget.style.background = 'var(--bg-hover)'; e.currentTarget.style.borderColor = 'var(--line-strong)'; }} onMouseLeave={(e) => { e.currentTarget.style.background = 'var(--bg-elev)'; e.currentTarget.style.borderColor = 'var(--line)'; }}>
-      <div className="mb-3 flex items-center gap-3">
-        <span className="flex h-10 w-10 items-center justify-center rounded-xl" style={{ background: 'var(--chip)', color: 'var(--text)' }}>
-          <BrandIcon id={app.icon} className="h-5 w-5" />
-        </span>
-        <div className="min-w-0 flex-1">
-          <p className="truncate text-sm font-medium">{app.name}</p>
-          <p className="text-xs" style={{ color: 'var(--dim)' }}>{app.category}</p>
-        </div>
-        <ExternalLink className="h-4 w-4 opacity-40 group-hover:opacity-80" style={{ color: 'var(--mute)' }} />
-      </div>
-      <p className="text-sm leading-relaxed" style={{ color: 'var(--mute)' }}>{app.purpose}</p>
+    <a href={app.url} target="_blank" rel="noopener noreferrer" className="group flex min-h-14 items-center gap-3 rounded-2xl px-3 py-3 transition-colors duration-200" style={{ background: 'var(--bg-elev)', border: '1px solid var(--line)', boxShadow: 'var(--shadow)' }} onMouseEnter={(e) => { e.currentTarget.style.background = 'var(--bg-hover)'; e.currentTarget.style.borderColor = 'var(--line-strong)'; }} onMouseLeave={(e) => { e.currentTarget.style.background = 'var(--bg-elev)'; e.currentTarget.style.borderColor = 'var(--line)'; }}>
+      <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl" style={{ background: 'var(--chip)', color: 'var(--text)' }}>
+        <BrandIcon id={app.icon} className="h-5 w-5" />
+      </span>
+      <p className="min-w-0 flex-1 truncate text-sm font-medium">{app.name}</p>
+      <ExternalLink className="h-4 w-4 shrink-0 opacity-0 group-hover:opacity-50" style={{ color: 'var(--mute)' }} />
     </a>
   );
 }
