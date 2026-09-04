@@ -14,6 +14,7 @@ export const APP_IMAGES: Record<string, string> = {
   Hozana: HOZANA,
   Lovable: LOVABLE,
   Manus: MANUS,
+  DeepSeek: favicon('deepseek.com'),
 
   'Component Gallery': favicon('component.gallery'),
   Curations: favicon('curations.supply'),
