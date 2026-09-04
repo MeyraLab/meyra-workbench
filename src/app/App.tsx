@@ -1,9 +1,10 @@
 import { useEffect, useMemo, useState } from 'react';
-import { ExternalLink, Moon, Sun, Monitor, Settings, X } from 'lucide-react';
+import { ExternalLink, Moon, Sun, Monitor, X } from 'lucide-react';
 import { APPS, CATEGORIES, type AppCategory, type AppEntry } from './apps';
 import { applyTheme, readThemePref, type ThemePref } from './theme';
 import { BrandIcon } from './BrandIcon';
 import { appKey, readIconOverrides, writeIconOverrides, type IconOverrides } from './iconOverrides';
+import { MEYRA_AVATAR } from './avatar';
 
 const THEME_OPTIONS: Array<{ id: ThemePref; label: string; icon: typeof Sun }> = [
   { id: 'light', label: '浅色模式', icon: Sun },
@@ -49,22 +50,22 @@ export default function App() {
     <div className="min-h-screen" style={{ background: 'var(--bg)', color: 'var(--text)' }}>
       <header className="sticky top-0 z-20 backdrop-blur-xl" style={{ background: 'color-mix(in srgb, var(--bg) 82%, transparent)', borderBottom: '1px solid var(--line)' }}>
         <div className="mx-auto flex max-w-6xl items-center justify-between gap-4 px-5 py-4 md:px-8">
+          <h1 className="text-[24px] font-medium tracking-tight md:text-[28px]">Meyra's 工作台</h1>
           <div className="flex items-center gap-3">
-            <button type="button" aria-label="设置" title="设置" onClick={() => setSettingsOpen(true)} className="flex h-11 w-11 items-center justify-center rounded-full transition-colors duration-200" style={{ background: 'var(--chip)', color: 'var(--text)', border: '1px solid var(--line)' }}>
-              <Settings className="h-4 w-4" />
+            <div className="flex items-center gap-1 rounded-full p-1" style={{ background: 'var(--chip)', border: '1px solid var(--line)' }} role="radiogroup" aria-label="主题">
+              {THEME_OPTIONS.map((opt) => {
+                const Icon = opt.icon;
+                const on = pref === opt.id;
+                return (
+                  <button key={opt.id} type="button" role="radio" aria-checked={on} aria-label={opt.label} title={opt.label} onClick={() => { setPref(opt.id); applyTheme(opt.id); }} className="flex min-h-11 min-w-11 items-center justify-center rounded-full transition-colors duration-200" style={{ background: on ? 'var(--chip-on)' : 'transparent', color: on ? 'var(--chip-on-text)' : 'var(--mute)' }}>
+                    <Icon className="h-4 w-4" />
+                  </button>
+                );
+              })}
+            </div>
+            <button type="button" aria-label="Meyra 设置" title="设置" onClick={() => setSettingsOpen(true)} className="h-11 w-11 overflow-hidden rounded-full" style={{ border: '1px solid var(--line)' }}>
+              <img src={MEYRA_AVATAR} alt="Meyra" className="h-full w-full object-cover" />
             </button>
-            <h1 className="text-[24px] font-medium tracking-tight md:text-[28px]">Meyra's 工作台</h1>
-          </div>
-          <div className="flex items-center gap-1 rounded-full p-1" style={{ background: 'var(--chip)', border: '1px solid var(--line)' }} role="radiogroup" aria-label="主题">
-            {THEME_OPTIONS.map((opt) => {
-              const Icon = opt.icon;
-              const on = pref === opt.id;
-              return (
-                <button key={opt.id} type="button" role="radio" aria-checked={on} aria-label={opt.label} title={opt.label} onClick={() => { setPref(opt.id); applyTheme(opt.id); }} className="flex min-h-11 min-w-11 items-center justify-center rounded-full transition-colors duration-200" style={{ background: on ? 'var(--chip-on)' : 'transparent', color: on ? 'var(--chip-on-text)' : 'var(--mute)' }}>
-                  <Icon className="h-4 w-4" />
-                </button>
-              );
-            })}
           </div>
         </div>
         <nav className="mx-auto flex max-w-6xl gap-2 overflow-x-auto px-5 pb-3 md:px-8" aria-label="分类">
@@ -116,9 +117,12 @@ function SettingsPanel({ overrides, onClose, onSet }: { overrides: IconOverrides
   return (
     <div className="fixed inset-0 z-40 flex" role="dialog" aria-modal="true" aria-labelledby="settings-title">
       <button type="button" className="absolute inset-0" aria-label="关闭设置" onClick={onClose} style={{ background: 'rgba(0,0,0,.36)' }} />
-      <aside className="relative z-10 flex h-full w-full max-w-md flex-col" style={{ background: 'var(--bg-elev)', borderRight: '1px solid var(--line)' }}>
+      <aside className="relative z-10 ml-auto flex h-full w-full max-w-md flex-col" style={{ background: 'var(--bg-elev)', borderLeft: '1px solid var(--line)' }}>
         <div className="flex items-center justify-between px-5 py-4" style={{ borderBottom: '1px solid var(--line)' }}>
-          <h2 id="settings-title" className="text-lg font-medium">设置</h2>
+          <div className="flex items-center gap-3">
+            <img src={MEYRA_AVATAR} alt="" className="h-9 w-9 rounded-full object-cover" />
+            <h2 id="settings-title" className="text-lg font-medium">设置</h2>
+          </div>
           <button type="button" aria-label="关闭" onClick={onClose} className="flex h-11 w-11 items-center justify-center rounded-full" style={{ background: 'var(--chip)' }}>
             <X className="h-4 w-4" />
           </button>
