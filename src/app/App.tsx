@@ -85,7 +85,7 @@ export default function App() {
                 <span className="text-sm" style={{ color: 'var(--dim)' }}>× 1 user</span>
               </div>
             </div>
-            <a href="https://inkpai.lovable.app" target="_blank" rel="noopener noreferrer" className="group inline-flex w-fit items-center gap-1.5 rounded-full px-3.5 py-2 text-xs font-medium" style={{ background: 'var(--chip-on)', color: 'var(--chip-on-text)' }}>
+            <a href="https://inkpai.hongmeichen1219.workers.dev" target="_blank" rel="noopener noreferrer" className="group inline-flex w-fit items-center gap-1.5 rounded-full px-3.5 py-2 text-xs font-medium" style={{ background: 'var(--chip-on)', color: 'var(--chip-on-text)' }}>
               Open <ArrowUpRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
             </a>
           </div>
