@@ -1,56 +1,64 @@
-export type AppCategory = '外网' | '建造' | '自制' | '设计' | '资料';
+export type AppRole = 'now' | 'backup' | 'explore' | 'rest';
 
 export type AppEntry = {
   name: string;
-  category: AppCategory;
+  role: AppRole;
   url: string;
   icon: import('./BrandIcon').BrandId;
 };
 
-export const CATEGORIES: AppCategory[] = ['外网', '建造', '自制', '设计', '资料'];
+export const ROLES: AppRole[] = ['now', 'backup', 'explore', 'rest'];
+
+export const ROLE_LABELS: Record<AppRole, string> = {
+  now: 'NOW',
+  backup: 'BACKUP',
+  explore: 'EXPLORE',
+  rest: 'REST',
+};
 
 export const APPS: AppEntry[] = [
-  { name: 'X', icon: 'x', category: '外网', url: 'https://x.com' },
-  { name: 'Grok', icon: 'grok', category: '外网', url: 'https://grok.com' },
-  { name: 'Lovable', icon: 'lovable', category: '外网', url: 'https://lovable.dev' },
-  { name: 'GitHub', icon: 'github', category: '外网', url: 'https://github.com' },
-  { name: 'Reddit', icon: 'reddit', category: '外网', url: 'https://reddit.com' },
-  { name: 'Substack', icon: 'substack', category: '外网', url: 'https://substack.com' },
-  { name: 'Hozana', icon: 'hozana', category: '外网', url: 'https://hozana.org' },
-  { name: 'Google 文档', icon: 'docs', category: '外网', url: 'https://docs.google.com' },
-  { name: 'NotebookLM', icon: 'notebooklm', category: '外网', url: 'https://notebooklm.google.com' },
-  { name: 'ChatGPT', icon: 'chatgpt', category: '外网', url: 'https://chatgpt.com' },
-  { name: 'Gemini', icon: 'gemini', category: '外网', url: 'https://gemini.google.com' },
-  { name: 'YouTube', icon: 'youtube', category: '外网', url: 'https://youtube.com' },
-  { name: 'Figma', icon: 'figma', category: '外网', url: 'https://figma.com' },
-  { name: 'Pinterest', icon: 'pinterest', category: '外网', url: 'https://pinterest.com' },
-  { name: 'Suno', icon: 'suno', category: '外网', url: 'https://suno.com' },
-  { name: 'Canva', icon: 'canva', category: '外网', url: 'https://canva.com' },
-  { name: 'Cursor', icon: 'cursor', category: '建造', url: 'https://cursor.com' },
-  { name: 'Vercel', icon: 'vercel', category: '建造', url: 'https://vercel.com' },
-  { name: 'Cloudflare', icon: 'cloudflare', category: '建造', url: 'https://dash.cloudflare.com' },
-  { name: 'Supabase', icon: 'supabase', category: '建造', url: 'https://supabase.com' },
-  { name: 'Manus', icon: 'cursor', category: '建造', url: 'https://manus.im' },
-  { name: 'DeepSeek', icon: 'deepseek', category: '建造', url: 'https://platform.deepseek.com' },
-  { name: '公众号', icon: 'wechat', category: '建造', url: 'https://mp.weixin.qq.com' },
-  { name: '墨排后台', icon: 'cloudflare', category: '建造', url: 'https://dash.cloudflare.com' },
-  { name: '书摘卡片', icon: 'docs', category: '自制', url: 'https://github.com/MeyraLab' },
-  { name: '图片书摘', icon: 'pinterest', category: '自制', url: 'https://github.com/MeyraLab' },
-  { name: '墨排编辑器', icon: 'wechat', category: '自制', url: 'https://dash.cloudflare.com' },
-  { name: '墨排管理', icon: 'cloudflare', category: '自制', url: 'https://dash.cloudflare.com' },
-  { name: "Meyra's 工作台", icon: 'github', category: '自制', url: '/' },
-  { name: 'Component Gallery', icon: 'figma', category: '设计', url: 'https://component.gallery' },
-  { name: 'Curations', icon: 'figma', category: '设计', url: 'https://www.curations.supply' },
-  { name: 'Flowbite', icon: 'figma', category: '设计', url: 'https://flowbite.com' },
-  { name: 'Material', icon: 'figma', category: '设计', url: 'https://m3.material.io' },
-  { name: 'Apple HIG', icon: 'figma', category: '设计', url: 'https://developer.apple.com/design/human-interface-guidelines' },
-  { name: 'TOOOLS', icon: 'figma', category: '设计', url: 'https://www.toools.design' },
-  { name: 'Mobbin', icon: 'figma', category: '设计', url: 'https://mobbin.com' },
-  { name: 'OpenAI API', icon: 'chatgpt', category: '资料', url: 'https://platform.openai.com' },
-  { name: '微信读书', icon: 'weread', category: '资料', url: 'https://weread.qq.com' },
-  { name: 'Perplexity', icon: 'perplexity', category: '资料', url: 'https://perplexity.ai' },
-  { name: 'Telegram', icon: 'telegram', category: '资料', url: 'https://web.telegram.org' },
-  { name: 'Spotify', icon: 'spotify', category: '资料', url: 'https://open.spotify.com' },
-  { name: 'Google Drive', icon: 'drive', category: '资料', url: 'https://drive.google.com' },
-  { name: 'Obsidian', icon: 'obsidian', category: '资料', url: 'obsidian://open' },
+  { name: 'Grok', icon: 'grok', role: 'now', url: 'https://grok.com' },
+  { name: 'Cursor', icon: 'cursor', role: 'now', url: 'https://cursor.com' },
+  { name: 'GitHub', icon: 'github', role: 'now', url: 'https://github.com/MeyraLab/inkpai' },
+  { name: 'Vercel', icon: 'vercel', role: 'now', url: 'https://vercel.com' },
+  { name: 'InkPai', icon: 'wechat', role: 'now', url: 'https://inkpai.lovable.app' },
+  { name: '公众号', icon: 'wechat', role: 'now', url: 'https://mp.weixin.qq.com' },
+
+  { name: 'ChatGPT', icon: 'chatgpt', role: 'backup', url: 'https://chatgpt.com' },
+  { name: 'Cloudflare', icon: 'cloudflare', role: 'backup', url: 'https://dash.cloudflare.com' },
+  { name: 'Figma', icon: 'figma', role: 'backup', url: 'https://figma.com' },
+  { name: 'Google 文档', icon: 'docs', role: 'backup', url: 'https://docs.google.com' },
+
+  { name: 'X', icon: 'x', role: 'explore', url: 'https://x.com' },
+  { name: 'Lovable', icon: 'lovable', role: 'explore', url: 'https://lovable.dev' },
+  { name: 'Reddit', icon: 'reddit', role: 'explore', url: 'https://reddit.com' },
+  { name: 'Substack', icon: 'substack', role: 'explore', url: 'https://substack.com' },
+  { name: 'NotebookLM', icon: 'notebooklm', role: 'explore', url: 'https://notebooklm.google.com' },
+  { name: 'Gemini', icon: 'gemini', role: 'explore', url: 'https://gemini.google.com' },
+  { name: 'YouTube', icon: 'youtube', role: 'explore', url: 'https://youtube.com' },
+  { name: 'Pinterest', icon: 'pinterest', role: 'explore', url: 'https://pinterest.com' },
+  { name: 'Suno', icon: 'suno', role: 'explore', url: 'https://suno.com' },
+  { name: 'Canva', icon: 'canva', role: 'explore', url: 'https://canva.com' },
+  { name: 'Manus', icon: 'cursor', role: 'explore', url: 'https://manus.im' },
+  { name: 'DeepSeek', icon: 'deepseek', role: 'explore', url: 'https://platform.deepseek.com' },
+  { name: 'Supabase', icon: 'supabase', role: 'explore', url: 'https://supabase.com' },
+  { name: 'OpenAI API', icon: 'chatgpt', role: 'explore', url: 'https://platform.openai.com' },
+  { name: 'Perplexity', icon: 'perplexity', role: 'explore', url: 'https://perplexity.ai' },
+  { name: 'Telegram', icon: 'telegram', role: 'explore', url: 'https://web.telegram.org' },
+  { name: '微信读书', icon: 'weread', role: 'explore', url: 'https://weread.qq.com' },
+  { name: 'Google Drive', icon: 'drive', role: 'explore', url: 'https://drive.google.com' },
+  { name: 'Obsidian', icon: 'obsidian', role: 'explore', url: 'obsidian://open' },
+  { name: 'Component Gallery', icon: 'figma', role: 'explore', url: 'https://component.gallery' },
+  { name: 'Curations', icon: 'figma', role: 'explore', url: 'https://www.curations.supply' },
+  { name: 'Flowbite', icon: 'figma', role: 'explore', url: 'https://flowbite.com' },
+  { name: 'Material', icon: 'figma', role: 'explore', url: 'https://m3.material.io' },
+  { name: 'Apple HIG', icon: 'figma', role: 'explore', url: 'https://developer.apple.com/design/human-interface-guidelines' },
+  { name: 'TOOOLS', icon: 'figma', role: 'explore', url: 'https://www.toools.design' },
+  { name: 'Mobbin', icon: 'figma', role: 'explore', url: 'https://mobbin.com' },
+  { name: '墨排', icon: 'wechat', role: 'explore', url: 'https://inkpai.lovable.app' },
+  { name: '书摘卡片', icon: 'docs', role: 'explore', url: 'https://github.com/MeyraLab' },
+  { name: '图片书摘', icon: 'pinterest', role: 'explore', url: 'https://github.com/MeyraLab' },
+
+  { name: 'Spotify', icon: 'spotify', role: 'rest', url: 'https://open.spotify.com' },
+  { name: 'Hozana', icon: 'hozana', role: 'rest', url: 'https://hozana.org' },
 ];
