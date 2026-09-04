@@ -3,7 +3,7 @@ import { ExternalLink, Moon, Sun, Monitor, X } from 'lucide-react';
 import { APPS, CATEGORIES, type AppCategory, type AppEntry } from './apps';
 import { applyTheme, readThemePref, type ThemePref } from './theme';
 import { BrandIcon } from './BrandIcon';
-import { appKey, readIconOverrides, writeIconOverrides, type IconOverrides } from './iconOverrides';
+import { appKey, readHiddenApps, readIconOverrides, writeHiddenApps, writeIconOverrides, type IconOverrides } from './iconOverrides';
 import { MEYRA_AVATAR } from './avatar';
 
 const THEME_OPTIONS: Array<{ id: ThemePref; label: string; icon: typeof Sun }> = [
@@ -17,12 +17,14 @@ export default function App() {
   const [folder, setFolder] = useState<'全部' | AppCategory>('全部');
   const [settingsOpen, setSettingsOpen] = useState(false);
   const [overrides, setOverrides] = useState<IconOverrides>({});
+  const [hidden, setHidden] = useState<string[]>([]);
 
   useEffect(() => {
     const initial = readThemePref();
     setPref(initial);
     applyTheme(initial);
     setOverrides(readIconOverrides());
+    setHidden(readHiddenApps());
     const mq = window.matchMedia('(prefers-color-scheme: dark)');
     const onChange = () => {
       if (readThemePref() === 'system') applyTheme('system');
@@ -35,6 +37,19 @@ export default function App() {
     () => (folder === '全部' ? CATEGORIES : CATEGORIES.filter((c) => c === folder)),
     [folder],
   );
+
+  const visibleApps = useMemo(
+    () => APPS.filter((app) => !hidden.includes(appKey(app.name, app.category))),
+    [hidden],
+  );
+
+  const toggleHidden = (key: string, hide: boolean) => {
+    setHidden((prev) => {
+      const next = hide ? Array.from(new Set([...prev, key])) : prev.filter((k) => k !== key);
+      writeHiddenApps(next);
+      return next;
+    });
+  };
 
   const setOverride = (key: string, src?: string) => {
     setOverrides((prev) => {
@@ -80,18 +95,22 @@ export default function App() {
         </nav>
       </header>
       <main className="mx-auto max-w-6xl space-y-10 px-5 py-8 md:px-8">
-        {sections.map((cat) => (
-          <section key={cat} id={cat}>
-            <h2 className="mb-4 text-[15px] tracking-wide" style={{ color: 'var(--mute)' }}>{cat}</h2>
-            <div className="grid grid-cols-1 gap-2 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-              {APPS.filter((app) => app.category === cat).map((app) => (
-                <AppCard key={`${app.category}-${app.name}`} app={app} customSrc={overrides[appKey(app.name, app.category)]} />
-              ))}
-            </div>
-          </section>
-        ))}
+        {sections.map((cat) => {
+          const cards = visibleApps.filter((app) => app.category === cat);
+          if (cards.length === 0) return null;
+          return (
+            <section key={cat} id={cat}>
+              <h2 className="mb-4 text-[15px] tracking-wide" style={{ color: 'var(--mute)' }}>{cat}</h2>
+              <div className="grid grid-cols-1 gap-2 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+                {cards.map((app) => (
+                  <AppCard key={`${app.category}-${app.name}`} app={app} customSrc={overrides[appKey(app.name, app.category)]} />
+                ))}
+              </div>
+            </section>
+          );
+        })}
       </main>
-      {settingsOpen ? <SettingsPanel overrides={overrides} onClose={() => setSettingsOpen(false)} onSet={setOverride} /> : null}
+      {settingsOpen ? <SettingsPanel overrides={overrides} hidden={hidden} onClose={() => setSettingsOpen(false)} onSet={setOverride} onToggleHidden={toggleHidden} /> : null}
     </div>
   );
 }
@@ -113,7 +132,7 @@ function AppCard({ app, customSrc }: { app: AppEntry; customSrc?: string }) {
   );
 }
 
-function SettingsPanel({ overrides, onClose, onSet }: { overrides: IconOverrides; onClose: () => void; onSet: (key: string, src?: string) => void }) {
+function SettingsPanel({ overrides, hidden, onClose, onSet, onToggleHidden }: { overrides: IconOverrides; hidden: string[]; onClose: () => void; onSet: (key: string, src?: string) => void; onToggleHidden: (key: string, hide: boolean) => void }) {
   return (
     <div className="fixed inset-0 z-40 flex" role="dialog" aria-modal="true" aria-labelledby="settings-title">
       <button type="button" className="absolute inset-0" aria-label="关闭设置" onClick={onClose} style={{ background: 'rgba(0,0,0,.36)' }} />
@@ -135,26 +154,32 @@ function SettingsPanel({ overrides, onClose, onSet }: { overrides: IconOverrides
                 {APPS.filter((app) => app.category === cat).map((app) => {
                   const key = appKey(app.name, app.category);
                   const customSrc = overrides[key];
+                  const isHidden = hidden.includes(key);
                   return (
-                    <div key={key} className="flex items-center gap-3 rounded-2xl px-3 py-2" style={{ background: 'var(--chip)' }}>
+                    <div key={key} className="flex items-center gap-3 rounded-2xl px-3 py-2" style={{ background: 'var(--chip)', opacity: isHidden ? 0.45 : 1 }}>
                       <span className="flex h-9 w-9 items-center justify-center rounded-xl" style={{ background: 'var(--bg-elev)' }}>
                         <AppMark app={app} customSrc={customSrc} />
                       </span>
                       <p className="min-w-0 flex-1 truncate text-sm">{app.name}</p>
-                      <label className="cursor-pointer rounded-full px-3 py-1.5 text-xs" style={{ background: 'var(--bg-elev)', border: '1px solid var(--line)' }}>
-                        上传
-                        <input type="file" accept="image/*,.svg" className="hidden" onChange={(e) => {
-                          const file = e.target.files?.[0];
-                          if (!file) return;
-                          const reader = new FileReader();
-                          reader.onload = () => { if (typeof reader.result === 'string') onSet(key, reader.result); };
-                          reader.readAsDataURL(file);
-                          e.target.value = '';
-                        }} />
-                      </label>
-                      {customSrc ? (
+                      {!isHidden ? (
+                        <label className="cursor-pointer rounded-full px-3 py-1.5 text-xs" style={{ background: 'var(--bg-elev)', border: '1px solid var(--line)' }}>
+                          上传
+                          <input type="file" accept="image/*,.svg" className="hidden" onChange={(e) => {
+                            const file = e.target.files?.[0];
+                            if (!file) return;
+                            const reader = new FileReader();
+                            reader.onload = () => { if (typeof reader.result === 'string') onSet(key, reader.result); };
+                            reader.readAsDataURL(file);
+                            e.target.value = '';
+                          }} />
+                        </label>
+                      ) : null}
+                      {customSrc && !isHidden ? (
                         <button type="button" className="rounded-full px-3 py-1.5 text-xs" style={{ color: 'var(--mute)' }} onClick={() => onSet(key)}>还原</button>
                       ) : null}
+                      <button type="button" className="rounded-full px-3 py-1.5 text-xs" style={{ background: 'var(--bg-elev)', border: '1px solid var(--line)' }} onClick={() => onToggleHidden(key, !isHidden)}>
+                        {isHidden ? '恢复' : '删除'}
+                      </button>
                     </div>
                   );
                 })}
