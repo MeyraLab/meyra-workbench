@@ -5,6 +5,7 @@ import { applyTheme, readThemePref, type ThemePref } from './theme';
 import { BrandIcon } from './BrandIcon';
 import { appKey, makeBackup, parseBackup, readHiddenApps, readIconOverrides, writeHiddenApps, writeIconOverrides, type IconOverrides } from './iconOverrides';
 import { MEYRA_AVATAR } from './avatar';
+import { APP_IMAGES } from './brandImages';
 
 const THEME_OPTIONS: Array<{ id: ThemePref; label: string; icon: typeof Sun }> = [
   { id: 'light', label: '浅色模式', icon: Sun },
@@ -130,7 +131,8 @@ export default function App() {
 }
 
 function AppMark({ app, customSrc }: { app: AppEntry; customSrc?: string }) {
-  if (customSrc) return <img src={customSrc} alt="" className="h-5 w-5 object-contain" />;
+  const src = customSrc || APP_IMAGES[app.name];
+  if (src) return <img src={src} alt="" className="h-5 w-5 object-contain" />;
   return <BrandIcon id={app.icon} className="h-5 w-5" />;
 }
 
