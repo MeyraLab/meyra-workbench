@@ -1,4 +1,4 @@
-export type AppRole = 'now' | 'backup' | 'explore' | 'design' | 'rest';
+export type AppRole = 'now' | 'backup' | 'explore' | 'picPrompt' | 'design' | 'rest';
 
 export type AppEntry = {
   name: string;
@@ -7,12 +7,13 @@ export type AppEntry = {
   icon: import('./BrandIcon').BrandId;
 };
 
-export const ROLES: AppRole[] = ['now', 'backup', 'explore', 'design', 'rest'];
+export const ROLES: AppRole[] = ['now', 'backup', 'explore', 'picPrompt', 'design', 'rest'];
 
 export const ROLE_LABELS: Record<AppRole, string> = {
   now: 'NOW',
   backup: 'BACKUP',
   explore: 'EXPLORE',
+  picPrompt: 'Pic Prompt',
   design: '设计 / 资源',
   rest: 'REST',
 };
@@ -49,6 +50,11 @@ export const APPS: AppEntry[] = [
   { name: '微信读书', icon: 'weread', role: 'explore', url: 'https://weread.qq.com' },
   { name: 'Google Drive', icon: 'drive', role: 'explore', url: 'https://drive.google.com' },
   { name: 'Obsidian', icon: 'obsidian', role: 'explore', url: 'obsidian://open' },
+
+  { name: 'Joy Caption Beta One', icon: 'figma', role: 'picPrompt', url: 'https://huggingface.co/spaces/fancyfeast/joy-caption-beta-one' },
+  { name: 'ImageToPrompt.me', icon: 'figma', role: 'picPrompt', url: 'https://imagetoprompt.me' },
+  { name: 'ImagePrompt.org', icon: 'figma', role: 'picPrompt', url: 'https://imageprompt.org/zh' },
+  { name: 'Fotor', icon: 'figma', role: 'picPrompt', url: 'https://www.fotor.com/features/image-to-prompt/' },
 
   { name: 'Design Engineer Tools', icon: 'figma', role: 'design', url: 'https://designengineer.tools' },
 
