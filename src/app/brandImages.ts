@@ -2,7 +2,7 @@ import { HOZANA } from './icons/hozana';
 import { LOVABLE } from './icons/lovable';
 
 const favicon = (domain: string) => `https://www.google.com/s2/favicons?domain=${domain}&sz=64`;
-const svgIcon = (body: string) => `data:image/svg+xml,${encodeURIComponent(`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">${body}</svg>`)};
+const svgIcon = (body: string) => `data:image/svg+xml,${encodeURIComponent(`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">${body}</svg>`)}`;
 
 // Prefer official brand assets when the brand publishes them. For reference directories
 // and personal projects without a dedicated brand mark, use their own favicon or a
@@ -17,6 +17,7 @@ export const APP_IMAGES: Record<string, string> = {
   Hozana: HOZANA,
   Lovable: LOVABLE,
   DeepSeek: favicon('deepseek.com'),
+  'Cheaper Inference': favicon('cheaperinference.com'),
 
   'Component Gallery': favicon('component.gallery'),
   Curations: favicon('curations.supply'),
