@@ -1,4 +1,4 @@
-export type AppRole = 'now' | 'backup' | 'explore' | 'rest';
+export type AppRole = 'now' | 'backup' | 'explore' | 'design' | 'rest';
 
 export type AppEntry = {
   name: string;
@@ -7,12 +7,13 @@ export type AppEntry = {
   icon: import('./BrandIcon').BrandId;
 };
 
-export const ROLES: AppRole[] = ['now', 'backup', 'explore', 'rest'];
+export const ROLES: AppRole[] = ['now', 'backup', 'explore', 'design', 'rest'];
 
 export const ROLE_LABELS: Record<AppRole, string> = {
   now: 'NOW',
   backup: 'BACKUP',
   explore: 'EXPLORE',
+  design: '设计 / 资源',
   rest: 'REST',
 };
 
@@ -48,6 +49,8 @@ export const APPS: AppEntry[] = [
   { name: '微信读书', icon: 'weread', role: 'explore', url: 'https://weread.qq.com' },
   { name: 'Google Drive', icon: 'drive', role: 'explore', url: 'https://drive.google.com' },
   { name: 'Obsidian', icon: 'obsidian', role: 'explore', url: 'obsidian://open' },
+
+  { name: 'Design Engineer Tools', icon: 'figma', role: 'design', url: 'https://designengineer.tools' },
 
   { name: 'Spotify', icon: 'spotify', role: 'rest', url: 'https://open.spotify.com' },
   { name: 'Hozana', icon: 'hozana', role: 'rest', url: 'https://hozana.org' },
