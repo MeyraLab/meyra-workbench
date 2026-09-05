@@ -22,6 +22,7 @@ export const APPS: AppEntry[] = [
   { name: 'GitHub', icon: 'github', role: 'now', url: 'https://github.com/MeyraLab/inkpai' },
   { name: 'Vercel', icon: 'vercel', role: 'now', url: 'https://vercel.com' },
   { name: 'InkPai', icon: 'wechat', role: 'now', url: 'https://inkpai.hongmeichen1219.workers.dev' },
+  { name: 'InkPai (Admin)', icon: 'wechat', role: 'now', url: 'https://inkpai.hongmeichen1219.workers.dev/admin' },
   { name: '公众号', icon: 'wechat', role: 'now', url: 'https://mp.weixin.qq.com' },
 
   { name: 'ChatGPT', icon: 'chatgpt', role: 'backup', url: 'https://chatgpt.com' },
