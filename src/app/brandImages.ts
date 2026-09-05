@@ -7,7 +7,8 @@ const svgIcon = (body: string) => `data:image/svg+xml,${encodeURIComponent(`<svg
 // Prefer official brand assets when the brand publishes them. For reference directories
 // and personal projects without a dedicated brand mark, use their own favicon or a
 // neutral semantic mark instead of incorrectly reusing another brand's logo.
-const API_ICON = svgIcon('<rect x="2.5" y="5" width="19" height="14" rx="3" fill="currentColor"/><path d="M5.2 8.2h13.6v7.6H5.2z" fill="white"/><text x="12" y="13.7" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-size="5.2" font-weight="700" fill="currentColor">API</text>');
+// Shared API mark: white background, black rounded frame, black "API" lettering.
+const API_ICON = svgIcon('<rect x="2.5" y="5" width="19" height="14" rx="3" fill="#000"/><rect x="5.2" y="8.2" width="13.6" height="7.6" fill="#fff"/><text x="12" y="13.65" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-size="5.2" font-weight="700" fill="#000">API</text>');
 
 export const APP_IMAGES: Record<string, string> = {
   // Canva's official UI guidance specifies its icon logo for surfaces below 50px.
@@ -20,7 +21,7 @@ export const APP_IMAGES: Record<string, string> = {
   Lovable: LOVABLE,
   DeepSeek: favicon('deepseek.com'),
 
-  // One shared API icon with an explicit “API” label for every API endpoint in Explore.
+  // All API services in Explore use exactly the same API mark.
   'OpenAI API': API_ICON,
   'DeepSeek API': API_ICON,
   'Cheaper Inference': API_ICON,
