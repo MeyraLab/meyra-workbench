@@ -9,6 +9,8 @@ const svgIcon = (body: string) => `data:image/svg+xml,${encodeURIComponent(`<svg
 // neutral semantic mark instead of incorrectly reusing another brand's logo.
 // Shared API mark: white background, black rounded frame, black "API" lettering.
 const API_ICON = svgIcon('<rect x="2.5" y="5" width="19" height="14" rx="3" fill="#000"/><rect x="5.2" y="8.2" width="13.6" height="7.6" fill="#fff"/><text x="12" y="13.65" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-size="5.2" font-weight="700" fill="#000">API</text>');
+// Shared UI/UX mark: same visual treatment as API, with "UI/UX" lettering.
+const UI_UX_ICON = svgIcon('<rect x="2.5" y="5" width="19" height="14" rx="3" fill="#000"/><rect x="5.2" y="8.2" width="13.6" height="7.6" fill="#fff"/><text x="12" y="13.65" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-size="4.2" font-weight="700" fill="#000">UI/UX</text>');
 
 export const APP_IMAGES: Record<string, string> = {
   // Canva's official UI guidance specifies its icon logo for surfaces below 50px.
@@ -38,5 +40,5 @@ export const APP_IMAGES: Record<string, string> = {
   '公众号': favicon('mp.weixin.qq.com'),
   InkPai: svgIcon('<rect x="3" y="3" width="18" height="18" rx="5" fill="currentColor"/><path d="M8 8h8v2H8zm0 4h5v2H8z" fill="white"/>'),
   'InkPai (Admin)': svgIcon('<rect x="3" y="3" width="18" height="18" rx="5" fill="currentColor"/><path d="M8 8h8v2H8zm0 4h5v2H8z" fill="white"/>'),
-  'Design Engineer Tools': favicon('designengineer.tools'),
+  'Design Engineer Tools': UI_UX_ICON,
 };
