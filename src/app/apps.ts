@@ -48,9 +48,6 @@ export const APPS: AppEntry[] = [
   { name: '微信读书', icon: 'weread', role: 'explore', url: 'https://weread.qq.com' },
   { name: 'Google Drive', icon: 'drive', role: 'explore', url: 'https://drive.google.com' },
   { name: 'Obsidian', icon: 'obsidian', role: 'explore', url: 'obsidian://open' },
-  { name: '墨排', icon: 'wechat', role: 'explore', url: 'https://inkpai.hongmeichen1219.workers.dev' },
-  { name: '书摘卡片', icon: 'docs', role: 'explore', url: 'https://inkpai.hongmeichen1219.workers.dev' },
-  { name: '图片书摘', icon: 'pinterest', role: 'explore', url: 'https://inkpai.hongmeichen1219.workers.dev' },
 
   { name: 'Spotify', icon: 'spotify', role: 'rest', url: 'https://open.spotify.com' },
   { name: 'Hozana', icon: 'hozana', role: 'rest', url: 'https://hozana.org' },
