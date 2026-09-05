@@ -7,6 +7,8 @@ const svgIcon = (body: string) => `data:image/svg+xml,${encodeURIComponent(`<svg
 // Prefer official brand assets when the brand publishes them. For reference directories
 // and personal projects without a dedicated brand mark, use their own favicon or a
 // neutral semantic mark instead of incorrectly reusing another brand's logo.
+const API_ICON = svgIcon('<rect x="2.5" y="5" width="19" height="14" rx="3" fill="currentColor"/><path d="M5.2 8.2h13.6v7.6H5.2z" fill="white"/><text x="12" y="13.7" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-size="5.2" font-weight="700" fill="currentColor">API</text>');
+
 export const APP_IMAGES: Record<string, string> = {
   // Canva's official UI guidance specifies its icon logo for surfaces below 50px.
   Canva: 'https://static.canva.com/web/images/8439b51bb7a19f6e65ce1064bc37c197.svg',
@@ -18,10 +20,10 @@ export const APP_IMAGES: Record<string, string> = {
   Lovable: LOVABLE,
   DeepSeek: favicon('deepseek.com'),
 
-  // One consistent API mark for every API/developer endpoint in Explore.
-  'OpenAI API': svgIcon('<rect x="2.5" y="5" width="19" height="14" rx="3" fill="currentColor"/><path d="M6 9h2.2v6H6zm4.1 0h2.2v6h-2.2zm4.1 0h3.8v2h-3.8zm0 4h2.7v2h-2.7z" fill="white"/>'),
-  'DeepSeek API': svgIcon('<rect x="2.5" y="5" width="19" height="14" rx="3" fill="currentColor"/><path d="M5.2 8.2h13.6v7.6H5.2z" fill="white"/><text x="12" y="13.7" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-size="5.2" font-weight="700" fill="currentColor">API</text>'),
-  'Cheaper Inference': svgIcon('<rect x="2.5" y="5" width="19" height="14" rx="3" fill="currentColor"/><path d="M5.2 8.2h13.6v7.6H5.2z" fill="white"/><text x="12" y="13.7" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-size="5.2" font-weight="700" fill="currentColor">API</text>'),
+  // One shared API icon with an explicit “API” label for every API endpoint in Explore.
+  'OpenAI API': API_ICON,
+  'DeepSeek API': API_ICON,
+  'Cheaper Inference': API_ICON,
 
   'Component Gallery': favicon('component.gallery'),
   Curations: favicon('curations.supply'),
