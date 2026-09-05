@@ -11,6 +11,8 @@ const svgIcon = (body: string) => `data:image/svg+xml,${encodeURIComponent(`<svg
 const API_ICON = svgIcon('<rect x="2.5" y="5" width="19" height="14" rx="3" fill="#000"/><rect x="5.2" y="8.2" width="13.6" height="7.6" fill="#fff"/><text x="12" y="13.65" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-size="5.2" font-weight="700" fill="#000">API</text>');
 // Shared UI/UX mark: same visual treatment as API, with "UI/UX" lettering.
 const UI_UX_ICON = svgIcon('<rect x="2.5" y="5" width="19" height="14" rx="3" fill="#000"/><rect x="5.2" y="8.2" width="13.6" height="7.6" fill="#fff"/><text x="12" y="13.65" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-size="4.2" font-weight="700" fill="#000">UI/UX</text>');
+// Shared Pic Prompt mark: same visual treatment, with "PROMPT" lettering.
+const PROMPT_ICON = svgIcon('<rect x="2.5" y="5" width="19" height="14" rx="3" fill="#000"/><rect x="5.2" y="8.2" width="13.6" height="7.6" fill="#fff"/><text x="12" y="13.55" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-size="3.35" font-weight="700" fill="#000">PROMPT</text>');
 
 export const APP_IMAGES: Record<string, string> = {
   // Canva's official UI guidance specifies its icon logo for surfaces below 50px.
@@ -27,6 +29,12 @@ export const APP_IMAGES: Record<string, string> = {
   'OpenAI API': API_ICON,
   'DeepSeek API': API_ICON,
   'Cheaper Inference': API_ICON,
+
+  // All image-to-prompt services use exactly the same Pic Prompt mark.
+  'Joy Caption Beta One': PROMPT_ICON,
+  'ImageToPrompt.me': PROMPT_ICON,
+  'ImagePrompt.org': PROMPT_ICON,
+  Fotor: PROMPT_ICON,
 
   'Component Gallery': favicon('component.gallery'),
   Curations: favicon('curations.supply'),
