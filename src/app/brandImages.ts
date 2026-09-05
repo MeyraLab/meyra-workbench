@@ -17,7 +17,11 @@ export const APP_IMAGES: Record<string, string> = {
   Hozana: HOZANA,
   Lovable: LOVABLE,
   DeepSeek: favicon('deepseek.com'),
-  'Cheaper Inference': favicon('cheaperinference.com'),
+
+  // One consistent API mark for every API/developer endpoint in Explore.
+  'OpenAI API': svgIcon('<rect x="2.5" y="5" width="19" height="14" rx="3" fill="currentColor"/><path d="M6 9h2.2v6H6zm4.1 0h2.2v6h-2.2zm4.1 0h3.8v2h-3.8zm0 4h2.7v2h-2.7z" fill="white"/>'),
+  'DeepSeek API': svgIcon('<rect x="2.5" y="5" width="19" height="14" rx="3" fill="currentColor"/><path d="M5.2 8.2h13.6v7.6H5.2z" fill="white"/><text x="12" y="13.7" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-size="5.2" font-weight="700" fill="currentColor">API</text>'),
+  'Cheaper Inference': svgIcon('<rect x="2.5" y="5" width="19" height="14" rx="3" fill="currentColor"/><path d="M5.2 8.2h13.6v7.6H5.2z" fill="white"/><text x="12" y="13.7" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-size="5.2" font-weight="700" fill="currentColor">API</text>'),
 
   'Component Gallery': favicon('component.gallery'),
   Curations: favicon('curations.supply'),
@@ -27,9 +31,9 @@ export const APP_IMAGES: Record<string, string> = {
   TOOOLS: favicon('toools.design'),
   Mobbin: favicon('mobbin.com'),
 
-  // Use the exact logo image supplied by the user for the WeChat public-account assistant.
+  // Use the official WeChat public-account favicon rather than a cropped local asset.
+  '公众号': favicon('mp.weixin.qq.com'),
   InkPai: svgIcon('<rect x="3" y="3" width="18" height="18" rx="5" fill="currentColor"/><path d="M8 8h8v2H8zm0 4h5v2H8z" fill="white"/>'),
-  '公众号': '/wechat-official-logo.png',
   '墨排': svgIcon('<path d="M6 4h12v3H9v3h7v3H9v4h9v3H6z" fill="currentColor"/>'),
   '书摘卡片': svgIcon('<path d="M6 3h10a3 3 0 0 1 3 3v15H8a2 2 0 0 1-2-2z" fill="currentColor"/><path d="M8 5v14c0-.55.45-1 1-1h8V6a1 1 0 0 0-1-1z" fill="white" opacity=".9"/><path d="M10 8h5v1.5h-5zm0 3h5v1.5h-5z" fill="currentColor"/>'),
   '图片书摘': svgIcon('<rect x="3" y="4" width="18" height="16" rx="2.5" fill="currentColor"/><circle cx="8.5" cy="9" r="1.5" fill="white"/><path d="m5 18 4.5-4.5 3 3 2.5-2.5L19 18z" fill="white"/>'),
