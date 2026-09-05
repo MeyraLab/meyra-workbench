@@ -131,8 +131,10 @@ export default function App() {
 }
 
 function AppMark({ app, customSrc }: { app: AppEntry; customSrc?: string }) {
-  // The WeChat Assistant mark is fixed to the supplied asset and must not be replaced by a saved icon override.
-  const src = app.name === '公众号' ? APP_IMAGES['公众号'] : (customSrc || APP_IMAGES[app.name]);
+  // InkPai and InkPai (Admin) intentionally share the exact same mark.
+  const src = app.name === '公众号'
+    ? APP_IMAGES['公众号']
+    : (app.name === 'InkPai (Admin)' ? APP_IMAGES['InkPai'] : (customSrc || APP_IMAGES[app.name]));
   if (src) return <img src={src} alt="" className="h-5 w-5 object-contain" />;
   return <BrandIcon id={app.icon} className="h-5 w-5" />;
 }
