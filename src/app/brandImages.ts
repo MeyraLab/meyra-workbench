@@ -38,7 +38,5 @@ export const APP_IMAGES: Record<string, string> = {
   '公众号': favicon('mp.weixin.qq.com'),
   InkPai: svgIcon('<rect x="3" y="3" width="18" height="18" rx="5" fill="currentColor"/><path d="M8 8h8v2H8zm0 4h5v2H8z" fill="white"/>'),
   'InkPai (Admin)': svgIcon('<rect x="3" y="3" width="18" height="18" rx="5" fill="currentColor"/><path d="M8 8h8v2H8zm0 4h5v2H8z" fill="white"/>'),
-  '墨排': svgIcon('<path d="M6 4h12v3H9v3h7v3H9v4h9v3H6z" fill="currentColor"/>'),
-  '书摘卡片': svgIcon('<path d="M6 3h10a3 3 0 0 1 3 3v15H8a2 2 0 0 1-2-2z" fill="currentColor"/><path d="M8 5v14c0-.55.45-1 1-1h8V6a1 1 0 0 0-1-1z" fill="white" opacity=".9"/><path d="M10 8h5v1.5h-5zm0 3h5v1.5h-5z" fill="currentColor"/>'),
-  '图片书摘': svgIcon('<rect x="3" y="4" width="18" height="16" rx="2.5" fill="currentColor"/><circle cx="8.5" cy="9" r="1.5" fill="white"/><path d="m5 18 4.5-4.5 3 3 2.5-2.5L19 18z" fill="white"/>'),
+  'Design Engineer Tools': favicon('designengineer.tools'),
 };
