@@ -1,1 +1,0 @@
-The WeChat Assistant logo asset is maintained at public/wechat-official-logo.png.
