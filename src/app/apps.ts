@@ -43,7 +43,7 @@ export const APPS: AppEntry[] = [
   { name: 'DeepSeek', icon: 'deepseek', role: 'explore', url: 'https://chat.deepseek.com' },
   { name: 'Supabase', icon: 'supabase', role: 'explore', url: 'https://supabase.com' },
   { name: 'OpenAI API', icon: 'chatgpt', role: 'explore', url: 'https://platform.openai.com' },
-  { name: 'DeepSeek API', icon: 'deepseek', role: 'explore', url: 'https://platform.deepseek.com/usage' },
+  { name: 'DeepSeek API', icon: 'chatgpt', role: 'explore', url: 'https://platform.deepseek.com/usage' },
   { name: 'Cheaper Inference', icon: 'chatgpt', role: 'explore', url: 'https://www.cheaperinference.com' },
   { name: 'Perplexity', icon: 'perplexity', role: 'explore', url: 'https://perplexity.ai' },
   { name: 'Telegram', icon: 'telegram', role: 'explore', url: 'https://web.telegram.org' },
