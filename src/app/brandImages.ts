@@ -11,8 +11,8 @@ const svgIcon = (body: string) => `data:image/svg+xml,${encodeURIComponent(`<svg
 const API_ICON = svgIcon('<rect x="2.5" y="5" width="19" height="14" rx="3" fill="#000"/><rect x="5.2" y="8.2" width="13.6" height="7.6" fill="#fff"/><text x="12" y="13.65" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-size="5.2" font-weight="700" fill="#000">API</text>');
 // Shared UI/UX mark: same visual treatment as API, with "UI/UX" lettering.
 const UI_UX_ICON = svgIcon('<rect x="2.5" y="5" width="19" height="14" rx="3" fill="#000"/><rect x="5.2" y="8.2" width="13.6" height="7.6" fill="#fff"/><text x="12" y="13.65" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-size="4.2" font-weight="700" fill="#000">UI/UX</text>');
-// Shared Pic Prompt mark: same visual treatment, with "PROMPT" lettering.
-const PROMPT_ICON = svgIcon('<rect x="2.5" y="5" width="19" height="14" rx="3" fill="#000"/><rect x="5.2" y="8.2" width="13.6" height="7.6" fill="#fff"/><text x="12" y="13.55" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-size="3.35" font-weight="700" fill="#000">PROMPT</text>');
+// Shared Pic Prompt mark: a larger folder-inspired Grok-style black/white mark, with "PROMPT" preserved.
+const PROMPT_ICON = svgIcon('<path d="M2.25 7.15A2.65 2.65 0 0 1 4.9 4.5h4.15c.72 0 1.41.3 1.9.83l1.18 1.3h6.97a2.65 2.65 0 0 1 2.65 2.65v9.07A2.65 2.65 0 0 1 19.1 21H4.9a2.65 2.65 0 0 1-2.65-2.65V7.15Z" fill="#000"/><path d="M3.75 9.45h16.5v8.65c0 .58-.47 1.05-1.05 1.05H4.8c-.58 0-1.05-.47-1.05-1.05V9.45Z" fill="#fff"/><rect x="4.9" y="10.55" width="14.2" height="6.35" rx="1.05" fill="#fff"/><text x="12" y="14.55" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-size="3.35" font-weight="700" letter-spacing="0.05" fill="#000">PROMPT</text>');
 
 export const APP_IMAGES: Record<string, string> = {
   // Canva's official UI guidance specifies its icon logo for surfaces below 50px.
