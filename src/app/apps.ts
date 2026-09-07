@@ -59,6 +59,7 @@ export const APPS: AppEntry[] = [
 
   { name: 'Design Engineer Tools', icon: 'figma', role: 'design', url: 'https://designengineer.tools' },
   { name: 'Open Source UI', icon: 'figma', role: 'design', url: 'https://opensourceui.in/components' },
+  { name: 'Dit.ai', icon: 'figma', role: 'design', url: 'https://dit.ai/' },
 
   { name: 'Spotify', icon: 'spotify', role: 'rest', url: 'https://open.spotify.com' },
   { name: 'Hozana', icon: 'hozana', role: 'rest', url: 'https://hozana.org' },
