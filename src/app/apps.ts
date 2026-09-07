@@ -50,6 +50,7 @@ export const APPS: AppEntry[] = [
   { name: '微信读书', icon: 'weread', role: 'explore', url: 'https://weread.qq.com' },
   { name: 'Google Drive', icon: 'drive', role: 'explore', url: 'https://drive.google.com' },
   { name: 'Obsidian', icon: 'obsidian', role: 'explore', url: 'obsidian://open' },
+  { name: '图片书摘', icon: 'figma', role: 'explore', url: 'https://speech-extra-64282262.figma.site/' },
 
   { name: 'Joy Caption Beta One', icon: 'figma', role: 'picPrompt', url: 'https://huggingface.co/spaces/fancyfeast/joy-caption-beta-one' },
   { name: 'ImageToPrompt.me', icon: 'figma', role: 'picPrompt', url: 'https://imagetoprompt.me' },
