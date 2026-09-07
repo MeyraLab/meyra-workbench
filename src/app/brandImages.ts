@@ -50,6 +50,7 @@ export const APP_IMAGES: Record<string, string> = {
   InkPai: svgIcon('<rect x="3" y="3" width="18" height="18" rx="5" fill="currentColor"/><path d="M8 8h8v2H8zm0 4h5v2H8z" fill="white"/>'),
   'InkPai (Admin)': svgIcon('<rect x="3" y="3" width="18" height="18" rx="5" fill="currentColor"/><path d="M8 8h8v2H8zm0 4h5v2H8z" fill="white"/>'),
   'Design Engineer Tools': UI_UX_ICON,
+  'Open Source UI': UI_UX_ICON,
 
   // 图片书摘 uses the BK mark provided by the owner.
   '图片书摘': BK_ICON,

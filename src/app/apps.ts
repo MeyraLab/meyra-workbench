@@ -58,6 +58,7 @@ export const APPS: AppEntry[] = [
   { name: 'Fotor', icon: 'figma', role: 'picPrompt', url: 'https://www.fotor.com/features/image-to-prompt/' },
 
   { name: 'Design Engineer Tools', icon: 'figma', role: 'design', url: 'https://designengineer.tools' },
+  { name: 'Open Source UI', icon: 'figma', role: 'design', url: 'https://opensourceui.in/components' },
 
   { name: 'Spotify', icon: 'spotify', role: 'rest', url: 'https://open.spotify.com' },
   { name: 'Hozana', icon: 'hozana', role: 'rest', url: 'https://hozana.org' },
