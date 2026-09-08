@@ -70,7 +70,7 @@ html[data-theme="dark"] img.icon-ink {
   background: transparent;
   cursor: grab;
   filter: drop-shadow(0 10px 12px rgba(210, 70, 110, 0.22));
-  animation: pai-bob 2.6s ease-in-out infinite;
+  animation: pai-bob 2.8s ease-in-out infinite;
 }
 .meyra-quad .pai:active {
   cursor: grabbing;
@@ -86,8 +86,8 @@ html[data-theme="dark"] img.icon-ink {
   animation: pai-blink 4.2s ease-in-out infinite;
 }
 @keyframes pai-bob {
-  0%, 100% { transform: translateY(0) rotate(-1.6deg); }
-  50% { transform: translateY(-5px) rotate(1.6deg); }
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-3px); }
 }
 @keyframes pai-blink {
   0%, 88%, 100% { transform: scaleY(1); }
