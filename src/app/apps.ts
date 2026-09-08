@@ -62,6 +62,7 @@ export const APPS: AppEntry[] = [
   { name: 'Dit.ai', icon: 'figma', role: 'design', url: 'https://dit.ai/' },
   { name: 'Cheaper Inference', icon: 'figma', role: 'design', url: 'https://www.cheaperinference.com' },
   { name: 'AI UX Playground', icon: 'figma', role: 'design', url: 'https://aiuxplayground.com/patterns' },
+  { name: 'Best Designs on X', icon: 'figma', role: 'design', url: 'https://bestdesignsonx.com/' },
 
   { name: 'Spotify', icon: 'spotify', role: 'rest', url: 'https://open.spotify.com' },
   { name: 'Hozana', icon: 'hozana', role: 'rest', url: 'https://hozana.org' },
