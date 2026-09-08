@@ -63,69 +63,27 @@ html[data-theme="dark"] img.icon-ink {
   user-select: none;
 }
 .meyra-quad .pai {
-  position: relative;
-  width: 40px;
-  height: 40px;
+  width: 58px;
+  height: 54px;
   padding: 0;
   border: none;
   background: transparent;
   cursor: grab;
+  filter: drop-shadow(0 8px 10px rgba(210, 70, 110, 0.22));
+  animation: pai-bob 2.4s ease-in-out infinite;
 }
-.meyra-quad .pai:active { cursor: grabbing; }
-.meyra-quad .pai .face {
-  position: absolute;
-  inset: 6px 4px 2px;
-  border-radius: 16px 16px 18px 18px;
-  background: linear-gradient(180deg, #fff6ec 0%, #ffd9c2 100%);
-  box-shadow: 0 4px 10px rgba(180, 90, 50, 0.22), inset 0 -4px 8px rgba(255, 140, 90, 0.18);
+.meyra-quad .pai:active {
+  cursor: grabbing;
+  animation: none;
 }
-.meyra-quad .pai .ear {
-  position: absolute;
-  top: 2px;
-  width: 11px;
-  height: 11px;
-  border-radius: 50%;
+.meyra-quad .pai-svg {
+  display: block;
+  width: 58px;
+  height: 54px;
 }
-.meyra-quad .pai .ear.left {
-  left: 4px;
-  background: #111;
-  box-shadow: 12px 1px 0 0 #ff4d4d;
-}
-.meyra-quad .pai .ear.right {
-  right: 4px;
-  background: #37A7FF;
-  box-shadow: -12px 1px 0 0 #222;
-}
-.meyra-quad .pai .eye {
-  position: absolute;
-  top: 10px;
-  width: 4px;
-  height: 5px;
-  border-radius: 50%;
-  background: #2a1a12;
-}
-.meyra-quad .pai .eye.l { left: 8px; }
-.meyra-quad .pai .eye.r { right: 8px; }
-.meyra-quad .pai .blush {
-  position: absolute;
-  top: 14px;
-  width: 5px;
-  height: 3px;
-  border-radius: 50%;
-  background: #ff8aa0;
-  opacity: .7;
-}
-.meyra-quad .pai .blush.l { left: 4px; }
-.meyra-quad .pai .blush.r { right: 4px; }
-.meyra-quad .pai .mouth {
-  position: absolute;
-  left: 50%;
-  top: 17px;
-  width: 6px;
-  height: 3px;
-  margin-left: -3px;
-  border-radius: 0 0 6px 6px;
-  border-bottom: 1.5px solid #2a1a12;
+@keyframes pai-bob {
+  0%, 100% { transform: translateY(0) rotate(-2deg); }
+  50% { transform: translateY(-4px) rotate(2deg); }
 }
 .meyra-quad.is-open {
   padding: 10px;
