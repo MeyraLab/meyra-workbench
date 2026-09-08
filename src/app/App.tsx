@@ -110,11 +110,6 @@ export default function App() {
           <RoleSection apps={byRole('now')} overrides={overrides} large />
         </section>
 
-        <section className="mt-10 sm:mt-12">
-          <p className="mb-4 text-[10px] font-semibold uppercase tracking-[0.2em]" style={{ color: 'var(--dim)' }}>Quick</p>
-          <SocialQuad />
-        </section>
-
         <section className="mt-14 sm:mt-16">
           <button type="button" onClick={() => setMoreOpen((v) => !v)} className="group flex w-full items-center justify-between border-b pb-3 text-left" style={{ borderColor: 'var(--line)' }}>
             <span className="text-[10px] font-semibold uppercase tracking-[0.2em]" style={{ color: 'var(--dim)' }}>Everything</span>
@@ -130,6 +125,8 @@ export default function App() {
           ) : null}
         </section>
       </main>
+
+      <SocialQuad />
 
       {settingsOpen ? <SettingsPanel overrides={overrides} hidden={hidden} onClose={() => setSettingsOpen(false)} onSet={setOverride} onToggleHidden={toggleHidden} onImport={(next) => { writeIconOverrides(next.overrides); writeHiddenApps(next.hidden); setOverrides(next.overrides); setHidden(next.hidden); }} /> : null}
     </div>
