@@ -52,6 +52,7 @@ export const APP_IMAGES: Record<string, string> = {
   'Design Engineer Tools': UI_UX_ICON,
   'Open Source UI': UI_UX_ICON,
   'Dit.ai': API_ICON,
+  'AI UX Playground': UI_UX_ICON,
 
   // 图片书摘 uses the BK mark provided by the owner.
   '图片书摘': BK_ICON,
