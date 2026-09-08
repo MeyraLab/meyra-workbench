@@ -63,14 +63,14 @@ html[data-theme="dark"] img.icon-ink {
   user-select: none;
 }
 .meyra-quad .pai {
-  width: 58px;
-  height: 54px;
+  width: 72px;
+  height: 66px;
   padding: 0;
   border: none;
   background: transparent;
   cursor: grab;
-  filter: drop-shadow(0 8px 10px rgba(210, 70, 110, 0.22));
-  animation: pai-bob 2.4s ease-in-out infinite;
+  filter: drop-shadow(0 10px 12px rgba(210, 70, 110, 0.22));
+  animation: pai-bob 2.6s ease-in-out infinite;
 }
 .meyra-quad .pai:active {
   cursor: grabbing;
@@ -78,12 +78,20 @@ html[data-theme="dark"] img.icon-ink {
 }
 .meyra-quad .pai-svg {
   display: block;
-  width: 58px;
-  height: 54px;
+  width: 72px;
+  height: 66px;
+}
+.meyra-quad .pai-eyes {
+  transform-origin: 80px 58px;
+  animation: pai-blink 4.2s ease-in-out infinite;
 }
 @keyframes pai-bob {
-  0%, 100% { transform: translateY(0) rotate(-2deg); }
-  50% { transform: translateY(-4px) rotate(2deg); }
+  0%, 100% { transform: translateY(0) rotate(-1.6deg); }
+  50% { transform: translateY(-5px) rotate(1.6deg); }
+}
+@keyframes pai-blink {
+  0%, 88%, 100% { transform: scaleY(1); }
+  92% { transform: scaleY(0.12); }
 }
 .meyra-quad.is-open {
   padding: 10px;
