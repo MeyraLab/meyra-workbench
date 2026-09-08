@@ -58,33 +58,60 @@ html[data-theme="dark"] img.icon-ink {
 
 .meyra-quad {
   position: fixed;
-  right: 16px;
-  bottom: 16px;
   z-index: 40;
-  padding: 8px;
-  border-radius: 20px;
+  touch-action: none;
+  user-select: none;
+}
+.meyra-quad .orb {
+  width: 36px;
+  height: 36px;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 0;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr 1fr;
+  gap: 2px;
+  background: color-mix(in srgb, var(--bg-elev) 90%, transparent);
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.14);
+  backdrop-filter: blur(14px);
+  cursor: grab;
+}
+.meyra-quad .orb:active { cursor: grabbing; }
+.meyra-quad .petal {
+  display: block;
+  background: #d4d4d8;
+}
+.meyra-quad .p1 { border-radius: 10px 3px 3px 3px; background: #111; }
+.meyra-quad .p2 { border-radius: 3px 10px 3px 3px; background: #FF0000; }
+.meyra-quad .p3 { border-radius: 3px 3px 3px 10px; background: #37A7FF; }
+.meyra-quad .p4 { border-radius: 3px 3px 10px 3px; background: #111; }
+.meyra-quad.is-open {
+  padding: 6px;
+  border-radius: 16px;
   background: color-mix(in srgb, var(--bg-elev) 88%, transparent);
   border: 1px solid var(--line);
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
   backdrop-filter: blur(16px);
+  cursor: grab;
 }
 .meyra-quad .main {
   display: flex;
   flex-direction: column;
-  gap: 5px;
+  gap: 4px;
 }
 .meyra-quad .up,
 .meyra-quad .down {
   display: flex;
   flex-direction: row;
-  gap: 5px;
+  gap: 4px;
 }
 .meyra-quad .card1,
 .meyra-quad .card2,
 .meyra-quad .card3,
 .meyra-quad .card4 {
-  width: 42px;
-  height: 42px;
+  width: 34px;
+  height: 34px;
   outline: none;
   border: none;
   background: #fff;
@@ -96,10 +123,10 @@ html[data-theme="dark"] img.icon-ink {
   text-decoration: none;
   color: inherit;
 }
-.meyra-quad .card1 { border-radius: 42px 4px 4px 4px; }
-.meyra-quad .card2 { border-radius: 4px 42px 4px 4px; }
-.meyra-quad .card3 { border-radius: 4px 4px 4px 42px; }
-.meyra-quad .card4 { border-radius: 4px 4px 42px 4px; }
+.meyra-quad .card1 { border-radius: 34px 3px 3px 3px; }
+.meyra-quad .card2 { border-radius: 3px 34px 3px 3px; }
+.meyra-quad .card3 { border-radius: 3px 3px 3px 34px; }
+.meyra-quad .card4 { border-radius: 3px 3px 34px 3px; }
 .meyra-quad .instagram svg { fill: #000; color: #000; }
 .meyra-quad .twitter svg { fill: #FF0000; color: #FF0000; }
 .meyra-quad .github svg { fill: #37A7FF; color: #37A7FF; }
