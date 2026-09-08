@@ -40,7 +40,7 @@ export function SocialQuad() {
       setPos(saved);
       return;
     }
-    setPos({ x: window.innerWidth - 56, y: window.innerHeight - 56 });
+    setPos({ x: window.innerWidth - 72, y: window.innerHeight - 80 });
   }, []);
 
   useEffect(() => {
@@ -64,8 +64,8 @@ export function SocialQuad() {
     if (Math.abs(dx) + Math.abs(dy) > 4) d.moved = true;
     const el = root.current;
     const box = el?.getBoundingClientRect();
-    const bw = box?.width ?? 40;
-    const bh = box?.height ?? 40;
+    const bw = box?.width ?? 56;
+    const bh = box?.height ?? 56;
     setPos({
       x: Math.min(window.innerWidth - bw - 8, Math.max(8, d.px + dx)),
       y: Math.min(window.innerHeight - bh - 8, Math.max(8, d.py + dy)),
@@ -104,18 +104,48 @@ export function SocialQuad() {
         </div>
       ) : (
         <button type="button" className="pai" aria-label="打开快捷入口" tabIndex={-1}>
-          <span className="ear left" />
-          <span className="ear right" />
-          <span className="face">
-            <span className="eye l" />
-            <span className="eye r" />
-            <span className="blush l" />
-            <span className="blush r" />
-            <span className="mouth" />
-          </span>
+          <PaiPet />
         </button>
       )}
     </div>
+  );
+}
+
+function PaiPet() {
+  return (
+    <svg className="pai-svg" viewBox="0 0 120 110" aria-hidden="true">
+      <defs>
+        <radialGradient id="paiBody" cx="38%" cy="32%" r="70%">
+          <stop offset="0%" stopColor="#ffd6e4" />
+          <stop offset="55%" stopColor="#ff9db8" />
+          <stop offset="100%" stopColor="#f07a9a" />
+        </radialGradient>
+        <radialGradient id="paiFoot" cx="35%" cy="30%" r="70%">
+          <stop offset="0%" stopColor="#ff8aa8" />
+          <stop offset="100%" stopColor="#d94a73" />
+        </radialGradient>
+        <filter id="paiSoft" x="-20%" y="-20%" width="140%" height="140%">
+          <feDropShadow dx="0" dy="6" stdDeviation="4" floodColor="#e28" floodOpacity="0.22" />
+        </filter>
+      </defs>
+      <ellipse cx="60" cy="102" rx="28" ry="5" fill="#000" opacity=".08" />
+      <g filter="url(#paiSoft)">
+        <ellipse cx="28" cy="70" rx="14" ry="11" fill="url(#paiBody)" stroke="#c45b6f" strokeWidth="2.2" />
+        <ellipse cx="92" cy="70" rx="14" ry="11" fill="url(#paiBody)" stroke="#c45b6f" strokeWidth="2.2" />
+        <ellipse cx="60" cy="52" rx="40" ry="36" fill="url(#paiBody)" stroke="#c45b6f" strokeWidth="2.4" />
+        <ellipse cx="38" cy="88" rx="16" ry="12" fill="url(#paiFoot)" stroke="#b44562" strokeWidth="2.2" />
+        <ellipse cx="82" cy="88" rx="16" ry="12" fill="url(#paiFoot)" stroke="#b44562" strokeWidth="2.2" />
+        <ellipse cx="48" cy="50" rx="9" ry="7" fill="#ffb7c9" opacity=".7" />
+        <ellipse cx="72" cy="50" rx="9" ry="7" fill="#ffb7c9" opacity=".7" />
+        <ellipse cx="50" cy="44" rx="5.2" ry="7.2" fill="#4a2a22" />
+        <ellipse cx="66" cy="44" rx="5.2" ry="7.2" fill="#4a2a22" />
+        <ellipse cx="48.6" cy="41.6" rx="2.1" ry="2.6" fill="#fff" />
+        <ellipse cx="64.6" cy="41.6" rx="2.1" ry="2.6" fill="#fff" />
+        <ellipse cx="51.4" cy="46.6" rx="1.3" ry="1.4" fill="#7eb6d6" />
+        <ellipse cx="67.4" cy="46.6" rx="1.3" ry="1.4" fill="#7eb6d6" />
+        <path d="M56 54c2 2.4 6 2.4 8 0" fill="none" stroke="#4a2a22" strokeWidth="1.6" strokeLinecap="round" />
+      </g>
+    </svg>
   );
 }
 
