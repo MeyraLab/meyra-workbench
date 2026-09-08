@@ -62,33 +62,74 @@ html[data-theme="dark"] img.icon-ink {
   touch-action: none;
   user-select: none;
 }
-.meyra-quad .orb {
-  width: 36px;
-  height: 36px;
-  border: 1px solid var(--line);
-  border-radius: 12px;
+.meyra-quad .pai {
+  position: relative;
+  width: 40px;
+  height: 40px;
   padding: 0;
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  grid-template-rows: 1fr 1fr;
-  gap: 2px;
-  background: color-mix(in srgb, var(--bg-elev) 90%, transparent);
-  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.14);
-  backdrop-filter: blur(14px);
+  border: none;
+  background: transparent;
   cursor: grab;
 }
-.meyra-quad .orb:active { cursor: grabbing; }
-.meyra-quad .petal {
-  display: block;
-  background: #d4d4d8;
+.meyra-quad .pai:active { cursor: grabbing; }
+.meyra-quad .pai .face {
+  position: absolute;
+  inset: 6px 4px 2px;
+  border-radius: 16px 16px 18px 18px;
+  background: linear-gradient(180deg, #fff6ec 0%, #ffd9c2 100%);
+  box-shadow: 0 4px 10px rgba(180, 90, 50, 0.22), inset 0 -4px 8px rgba(255, 140, 90, 0.18);
 }
-.meyra-quad .p1 { border-radius: 10px 3px 3px 3px; background: #111; }
-.meyra-quad .p2 { border-radius: 3px 10px 3px 3px; background: #FF0000; }
-.meyra-quad .p3 { border-radius: 3px 3px 3px 10px; background: #37A7FF; }
-.meyra-quad .p4 { border-radius: 3px 3px 10px 3px; background: #111; }
+.meyra-quad .pai .ear {
+  position: absolute;
+  top: 2px;
+  width: 11px;
+  height: 11px;
+  border-radius: 50%;
+}
+.meyra-quad .pai .ear.left {
+  left: 4px;
+  background: #111;
+  box-shadow: 12px 1px 0 0 #ff4d4d;
+}
+.meyra-quad .pai .ear.right {
+  right: 4px;
+  background: #37A7FF;
+  box-shadow: -12px 1px 0 0 #222;
+}
+.meyra-quad .pai .eye {
+  position: absolute;
+  top: 10px;
+  width: 4px;
+  height: 5px;
+  border-radius: 50%;
+  background: #2a1a12;
+}
+.meyra-quad .pai .eye.l { left: 8px; }
+.meyra-quad .pai .eye.r { right: 8px; }
+.meyra-quad .pai .blush {
+  position: absolute;
+  top: 14px;
+  width: 5px;
+  height: 3px;
+  border-radius: 50%;
+  background: #ff8aa0;
+  opacity: .7;
+}
+.meyra-quad .pai .blush.l { left: 4px; }
+.meyra-quad .pai .blush.r { right: 4px; }
+.meyra-quad .pai .mouth {
+  position: absolute;
+  left: 50%;
+  top: 17px;
+  width: 6px;
+  height: 3px;
+  margin-left: -3px;
+  border-radius: 0 0 6px 6px;
+  border-bottom: 1.5px solid #2a1a12;
+}
 .meyra-quad.is-open {
-  padding: 6px;
-  border-radius: 16px;
+  padding: 10px;
+  border-radius: 18px;
   background: color-mix(in srgb, var(--bg-elev) 88%, transparent);
   border: 1px solid var(--line);
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);

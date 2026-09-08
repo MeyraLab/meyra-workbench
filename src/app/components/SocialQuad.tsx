@@ -64,8 +64,8 @@ export function SocialQuad() {
     if (Math.abs(dx) + Math.abs(dy) > 4) d.moved = true;
     const el = root.current;
     const box = el?.getBoundingClientRect();
-    const bw = box?.width ?? 36;
-    const bh = box?.height ?? 36;
+    const bw = box?.width ?? 40;
+    const bh = box?.height ?? 40;
     setPos({
       x: Math.min(window.innerWidth - bw - 8, Math.max(8, d.px + dx)),
       y: Math.min(window.innerHeight - bh - 8, Math.max(8, d.py + dy)),
@@ -103,11 +103,16 @@ export function SocialQuad() {
           </div>
         </div>
       ) : (
-        <button type="button" className="orb" aria-label="打开快捷入口" tabIndex={-1}>
-          <span className="petal p1" />
-          <span className="petal p2" />
-          <span className="petal p3" />
-          <span className="petal p4" />
+        <button type="button" className="pai" aria-label="打开快捷入口" tabIndex={-1}>
+          <span className="ear left" />
+          <span className="ear right" />
+          <span className="face">
+            <span className="eye l" />
+            <span className="eye r" />
+            <span className="blush l" />
+            <span className="blush r" />
+            <span className="mouth" />
+          </span>
         </button>
       )}
     </div>
