@@ -6,6 +6,7 @@ import { BrandIcon } from './BrandIcon';
 import { appKey, makeBackup, parseBackup, readHiddenApps, readIconOverrides, writeHiddenApps, writeIconOverrides, type IconOverrides } from './iconOverrides';
 import { MEYRA_AVATAR } from './avatar';
 import { APP_IMAGES } from './brandImages';
+import { SocialQuad } from './components/SocialQuad';
 
 const THEME_OPTIONS: Array<{ id: ThemePref; label: string; icon: typeof Sun }> = [
   { id: 'light', label: '浅', icon: Sun },
@@ -109,6 +110,11 @@ export default function App() {
           <RoleSection apps={byRole('now')} overrides={overrides} large />
         </section>
 
+        <section className="mt-10 sm:mt-12">
+          <p className="mb-4 text-[10px] font-semibold uppercase tracking-[0.2em]" style={{ color: 'var(--dim)' }}>Quick</p>
+          <SocialQuad />
+        </section>
+
         <section className="mt-14 sm:mt-16">
           <button type="button" onClick={() => setMoreOpen((v) => !v)} className="group flex w-full items-center justify-between border-b pb-3 text-left" style={{ borderColor: 'var(--line)' }}>
             <span className="text-[10px] font-semibold uppercase tracking-[0.2em]" style={{ color: 'var(--dim)' }}>Everything</span>
@@ -131,7 +137,6 @@ export default function App() {
 }
 
 function AppMark({ app, customSrc }: { app: AppEntry; customSrc?: string }) {
-  // InkPai and InkPai (Admin) intentionally share the exact same mark.
   const src = app.name === '公众号'
     ? APP_IMAGES['公众号']
     : (app.name === 'InkPai (Admin)' ? APP_IMAGES['InkPai'] : (customSrc || APP_IMAGES[app.name]));
