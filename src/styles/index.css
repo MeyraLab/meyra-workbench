@@ -56,28 +56,39 @@ html[data-theme="dark"] img.icon-ink {
   }
 }
 
-/* Uiverse-style quad launcher — Praashoo7, remapped to X / YouTube / WeRead / Grok */
+.meyra-quad {
+  position: fixed;
+  right: 16px;
+  bottom: 16px;
+  z-index: 40;
+  padding: 8px;
+  border-radius: 20px;
+  background: color-mix(in srgb, var(--bg-elev) 88%, transparent);
+  border: 1px solid var(--line);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+  backdrop-filter: blur(16px);
+}
 .meyra-quad .main {
   display: flex;
   flex-direction: column;
-  gap: 0.5em;
+  gap: 5px;
 }
 .meyra-quad .up,
 .meyra-quad .down {
   display: flex;
   flex-direction: row;
-  gap: 0.5em;
+  gap: 5px;
 }
 .meyra-quad .card1,
 .meyra-quad .card2,
 .meyra-quad .card3,
 .meyra-quad .card4 {
-  width: 90px;
-  height: 90px;
+  width: 42px;
+  height: 42px;
   outline: none;
   border: none;
   background: #fff;
-  box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
+  box-shadow: rgba(50, 50, 93, 0.18) 0px 1px 3px -1px, rgba(0, 0, 0, 0.18) 0px 1px 2px -1px;
   transition: .2s ease-in-out;
   display: flex;
   align-items: center;
@@ -85,43 +96,27 @@ html[data-theme="dark"] img.icon-ink {
   text-decoration: none;
   color: inherit;
 }
-.meyra-quad .card1 { border-radius: 90px 5px 5px 5px; }
-.meyra-quad .card2 { border-radius: 5px 90px 5px 5px; }
-.meyra-quad .card3 { border-radius: 5px 5px 5px 90px; }
-.meyra-quad .card4 { border-radius: 5px 5px 90px 5px; }
+.meyra-quad .card1 { border-radius: 42px 4px 4px 4px; }
+.meyra-quad .card2 { border-radius: 4px 42px 4px 4px; }
+.meyra-quad .card3 { border-radius: 4px 4px 4px 42px; }
+.meyra-quad .card4 { border-radius: 4px 4px 42px 4px; }
 .meyra-quad .instagram svg { fill: #000; color: #000; }
 .meyra-quad .twitter svg { fill: #FF0000; color: #FF0000; }
 .meyra-quad .github svg { fill: #37A7FF; color: #37A7FF; }
 .meyra-quad .discord svg { fill: currentColor; color: var(--text); }
-.meyra-quad .card1:hover {
-  cursor: pointer;
-  scale: 1.1;
-  background-color: #000;
-}
+.meyra-quad .card1:hover { scale: 1.08; background-color: #000; }
 .meyra-quad .card1:hover svg { fill: #fff; color: #fff; }
-.meyra-quad .card2:hover {
-  cursor: pointer;
-  scale: 1.1;
-  background-color: #FF0000;
-}
+.meyra-quad .card2:hover { scale: 1.08; background-color: #FF0000; }
 .meyra-quad .card2:hover svg { fill: #fff; color: #fff; }
-.meyra-quad .card3:hover {
-  cursor: pointer;
-  scale: 1.1;
-  background-color: #37A7FF;
-}
+.meyra-quad .card3:hover { scale: 1.08; background-color: #37A7FF; }
 .meyra-quad .card3:hover svg { fill: #fff; color: #fff; }
-.meyra-quad .card4:hover {
-  cursor: pointer;
-  scale: 1.1;
-  background-color: #000;
-}
+.meyra-quad .card4:hover { scale: 1.08; background-color: #000; }
 .meyra-quad .card4:hover svg { fill: #fff; color: #fff; }
 html[data-theme="dark"] .meyra-quad .card1,
 html[data-theme="dark"] .meyra-quad .card2,
 html[data-theme="dark"] .meyra-quad .card3,
 html[data-theme="dark"] .meyra-quad .card4 {
-  background: var(--bg-elev);
+  background: var(--bg-hover);
 }
-html[data-theme="dark"] .meyra-quad .card4 svg { fill: #f4f4f5; color: #f4f4f5; }
+html[data-theme="dark"] .meyra-quad .card4 svg,
 html[data-theme="dark"] .meyra-quad .card1 svg { fill: #f4f4f5; color: #f4f4f5; }

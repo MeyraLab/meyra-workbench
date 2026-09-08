@@ -41,7 +41,7 @@ function QuadCard({ item }: { item: (typeof ITEMS)[number] }) {
       title={item.name}
     >
       <span className={item.mark}>
-        <BrandIcon id={item.icon} className="h-7 w-7" />
+        <BrandIcon id={item.icon} className="h-3.5 w-3.5" />
       </span>
     </a>
   );
