@@ -80,27 +80,10 @@ html[data-theme="dark"] img.icon-ink {
   display: block;
   width: 72px;
   height: 66px;
-  overflow: visible;
 }
 .meyra-quad .pai-eyes {
   transform-origin: 80px 58px;
   animation: pai-blink 4.2s ease-in-out infinite;
-}
-.meyra-quad .pai-arm-l {
-  transform-origin: 46px 88px;
-  animation: pai-arm-l 1.6s ease-in-out infinite;
-}
-.meyra-quad .pai-arm-r {
-  transform-origin: 114px 88px;
-  animation: pai-arm-r 1.6s ease-in-out infinite;
-}
-.meyra-quad .pai-foot-l {
-  transform-origin: 48px 110px;
-  animation: pai-foot-l 1.8s ease-in-out infinite;
-}
-.meyra-quad .pai-foot-r {
-  transform-origin: 112px 110px;
-  animation: pai-foot-r 1.8s ease-in-out infinite;
 }
 @keyframes pai-bob {
   0%, 100% { transform: translateY(0) rotate(-1.6deg); }
@@ -109,22 +92,6 @@ html[data-theme="dark"] img.icon-ink {
 @keyframes pai-blink {
   0%, 88%, 100% { transform: scaleY(1); }
   92% { transform: scaleY(0.12); }
-}
-@keyframes pai-arm-l {
-  0%, 100% { transform: rotate(12deg) translateY(0); }
-  50% { transform: rotate(-18deg) translateY(-3px); }
-}
-@keyframes pai-arm-r {
-  0%, 100% { transform: rotate(-10deg) translateY(1px); }
-  50% { transform: rotate(16deg) translateY(-4px); }
-}
-@keyframes pai-foot-l {
-  0%, 100% { transform: rotate(-8deg) translateY(0); }
-  50% { transform: rotate(6deg) translateY(-2px); }
-}
-@keyframes pai-foot-r {
-  0%, 100% { transform: rotate(8deg) translateY(1px); }
-  50% { transform: rotate(-6deg) translateY(-2px); }
 }
 .meyra-quad.is-open {
   padding: 10px;

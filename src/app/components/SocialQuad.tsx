@@ -140,19 +140,11 @@ function PaiPet() {
       </defs>
       <ellipse cx="80" cy="138" rx="36" ry="6" fill="#000" opacity=".07" />
       <g filter="url(#soft)">
-        <g className="pai-arm-l">
-          <ellipse cx="28" cy="92" rx="18" ry="14" fill="url(#arm)" stroke="#c75d76" strokeWidth="2.4" />
-        </g>
-        <g className="pai-arm-r">
-          <ellipse cx="132" cy="92" rx="18" ry="14" fill="url(#arm)" stroke="#c75d76" strokeWidth="2.4" />
-        </g>
+        <ellipse cx="28" cy="92" rx="18" ry="14" fill="url(#arm)" stroke="#c75d76" strokeWidth="2.4" />
+        <ellipse cx="132" cy="92" rx="18" ry="14" fill="url(#arm)" stroke="#c75d76" strokeWidth="2.4" />
         <ellipse cx="80" cy="68" rx="54" ry="48" fill="url(#body)" stroke="#c75d76" strokeWidth="2.6" />
-        <g className="pai-foot-l">
-          <ellipse cx="48" cy="118" rx="22" ry="16" fill="url(#foot)" stroke="#b24763" strokeWidth="2.4" />
-        </g>
-        <g className="pai-foot-r">
-          <ellipse cx="112" cy="118" rx="22" ry="16" fill="url(#foot)" stroke="#b24763" strokeWidth="2.4" />
-        </g>
+        <ellipse cx="48" cy="118" rx="22" ry="16" fill="url(#foot)" stroke="#b24763" strokeWidth="2.4" />
+        <ellipse cx="112" cy="118" rx="22" ry="16" fill="url(#foot)" stroke="#b24763" strokeWidth="2.4" />
         <ellipse cx="46" cy="62" rx="16" ry="11" fill="url(#cheek)" />
         <ellipse cx="114" cy="62" rx="16" ry="11" fill="url(#cheek)" />
         <g className="pai-eyes">
