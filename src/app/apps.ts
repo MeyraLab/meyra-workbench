@@ -58,6 +58,7 @@ export const APPS: AppEntry[] = [
   { name: 'Fotor', icon: 'figma', role: 'picPrompt', url: 'https://www.fotor.com/features/image-to-prompt/' },
 
   { name: 'Design Engineer Tools', icon: 'figma', role: 'design', url: 'https://designengineer.tools' },
+  { name: 'Skills.sh Hot', icon: 'figma', role: 'design', url: 'https://www.skills.sh/hot' },
   { name: 'Open Source UI', icon: 'figma', role: 'design', url: 'https://opensourceui.in/components' },
   { name: 'Dit.ai', icon: 'figma', role: 'design', url: 'https://dit.ai/' },
   { name: 'Cheaper Inference', icon: 'figma', role: 'design', url: 'https://www.cheaperinference.com' },
