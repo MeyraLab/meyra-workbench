@@ -16,11 +16,11 @@ export function applyTheme(pref: ThemePref) {
   root.dataset.themePref = pref;
   localStorage.setItem("meyra-theme", pref);
   const meta = document.querySelector('meta[name="theme-color"]');
-  if (meta) meta.setAttribute("content", resolved === "dark" ? "#0b0d12" : "#f4efe6");
+  if (meta) meta.setAttribute("content", resolved === "dark" ? "#100e22" : "#7ec4ee");
 }
 
 export function readThemePref(): ThemePref {
   const saved = localStorage.getItem("meyra-theme");
   if (saved === "light" || saved === "dark" || saved === "system") return saved;
-  return "system";
+  return "dark";
 }

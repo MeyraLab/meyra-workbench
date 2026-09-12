@@ -31,7 +31,7 @@ export function MenuLayer({ open, onClose, onArchive }: Props) {
     const t = window.setTimeout(() => {
       setShown(false);
       setLeaving(false);
-    }, 180);
+    }, 220);
     return () => window.clearTimeout(t);
   }, [open, shown]);
 
@@ -61,39 +61,28 @@ export function MenuLayer({ open, onClose, onArchive }: Props) {
   };
 
   return (
-    <div
-      className={`os-menu${leaving ? " is-leave" : ""}`}
-      role="dialog"
-      aria-modal="true"
-      aria-labelledby="menu-title"
-    >
+    <div className={`os-menu${leaving ? " is-leave" : ""}`} role="dialog" aria-modal="true" aria-labelledby="menu-title">
       <button type="button" className="os-overlay-scrim" aria-label="Close menu" onClick={onClose} />
       <aside className="os-menu-panel">
-        <div className="flex items-center justify-between px-5 py-5 sm:px-6">
-          <p id="menu-title" className="os-label">
-            Menu
-          </p>
-          <button
-            type="button"
-            aria-label="Close"
-            onClick={onClose}
-            className="os-hud-icon"
-          >
+        <div className="os-menu-top">
+          <button type="button" onClick={onClose} className="os-hud-pill" aria-label="Close">
             <X className="h-4 w-4" />
+            Close
           </button>
+          <p id="menu-title" className="os-brand-mark">MEYRA</p>
         </div>
-        <nav className="flex flex-1 flex-col justify-center gap-2 px-5 pb-16 sm:px-6" aria-label="Workspace">
+        <nav className="os-menu-nav" aria-label="Workspace">
           {ITEMS.map((item, i) => (
             <button
               key={item.id}
               ref={i === 0 ? first : undefined}
               type="button"
               onClick={() => go(item.id)}
-              className="os-menu-item"
-              style={{ animationDelay: leaving ? "0ms" : `${60 + i * 45}ms` }}
+              className={`os-menu-chip${i === 0 ? " is-now" : ""}`}
+              style={{ animationDelay: leaving ? "0ms" : `${50 + i * 40}ms` }}
             >
-              <span className="os-label">{String(i + 1).padStart(2, "0")}</span>
-              <span className="os-display">{item.label}</span>
+              <span>•</span>
+              {item.label}
             </button>
           ))}
         </nav>

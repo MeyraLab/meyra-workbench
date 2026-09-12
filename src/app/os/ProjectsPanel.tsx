@@ -3,49 +3,42 @@ import { useInView } from "./useInView";
 
 export function ProjectsPanel() {
   return (
-    <section id="projects">
-      <div className="mb-10 flex items-baseline justify-between gap-3 sm:mb-14">
-        <p className="os-label">02 — Projects</p>
-        <span className="os-status">{String(PROJECTS.length).padStart(2, "0")}</span>
+    <section id="projects" className="os-rooms-section">
+      <div className="os-rooms-head">
+        <h2 className="os-world-title">My projects</h2>
+        <span className="os-kicker">{String(PROJECTS.length).padStart(2, "0")}</span>
       </div>
-      <div className="os-projects">
+      <div className="os-rooms">
         {PROJECTS.map((project, index) => (
-          <ProjectObject key={project.id} project={project} index={index} />
+          <ProjectRoom key={project.id} project={project} index={index} />
         ))}
       </div>
     </section>
   );
 }
 
-function ProjectObject({ project, index }: { project: ProjectEntry; index: number }) {
-  const block = useInView<HTMLElement>();
+function ProjectRoom({ project, index }: { project: ProjectEntry; index: number }) {
+  const block = useInView<HTMLAnchorElement>();
   const pending = block.armed && !block.shown;
 
   return (
-    <article
+    <a
       ref={block.ref}
-      className={`os-project os-project-${index + 1} os-reveal${pending ? " is-pending" : ""}${block.shown ? " is-in" : ""}`}
-      style={{ transitionDelay: block.shown ? `${index * 70}ms` : "0ms" }}
+      href={project.href}
+      target={project.external ? "_blank" : undefined}
+      rel={project.external ? "noopener noreferrer" : undefined}
+      className={`os-room os-room-${index + 1} os-reveal${pending ? " is-pending" : ""}${block.shown ? " is-in" : ""}`}
+      style={{ transitionDelay: block.shown ? `${index * 80}ms` : "0ms" }}
     >
-      <a
-        href={project.href}
-        target={project.external ? "_blank" : undefined}
-        rel={project.external ? "noopener noreferrer" : undefined}
-        className="os-project-surface"
-      >
-        <img src={project.image} alt="" />
-      </a>
-      <div className="os-project-kicker">
-        <p className="os-label">{String(index + 1).padStart(2, "0")}</p>
-        <p
-          className="os-status"
-          style={{ color: project.status === "BUILDING" ? "var(--pink)" : "var(--dim)" }}
-        >
-          {project.status}
+      <img src={project.image} alt="" />
+      <span className="os-room-orb" aria-hidden="true" />
+      <div className="os-room-caption">
+        <p className="os-kicker">
+          {String(index + 1).padStart(2, "0")} · {project.status}
         </p>
+        <h3>{project.name}</h3>
+        <p>{project.blurb}</p>
       </div>
-      <p className="p-name">{project.name}</p>
-      <p className="os-body mt-2 max-w-xs">{project.blurb}</p>
-    </article>
+    </a>
   );
 }

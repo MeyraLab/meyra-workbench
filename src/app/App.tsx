@@ -20,6 +20,7 @@ import { SettingsPanel } from "./os/SettingsPanel";
 import { SystemHeader } from "./os/SystemHeader";
 import { ToolsPanel } from "./os/ToolsPanel";
 import { WorkflowBar } from "./os/WorkflowBar";
+import { WorldLayer } from "./os/WorldLayer";
 
 export default function App() {
   const [resolved, setResolved] = useState<"light" | "dark">("light");
@@ -103,7 +104,8 @@ export default function App() {
         : "System ready";
 
   return (
-    <div className="os-world min-h-dvh w-full overflow-x-hidden bg-canvas text-ink">
+    <div className="os-world min-h-dvh w-full overflow-x-hidden">
+      <WorldLayer />
       {!ready ? <OsIntro onEnter={enter} /> : null}
 
       <SystemHeader
