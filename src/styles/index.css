@@ -1469,13 +1469,13 @@ html[data-theme="dark"] .os-menu-chip {
 }
 
 .meyra-quad .pai {
-  width: 72px;
-  height: 66px;
+  width: 76px;
+  height: 76px;
   padding: 0;
   border: none;
   background: transparent;
   cursor: grab;
-  filter: drop-shadow(0 10px 12px rgba(210, 70, 110, 0.22));
+  filter: drop-shadow(0 10px 12px rgba(40, 80, 180, 0.28));
 }
 
 .meyra-quad .pai:active {
@@ -1484,18 +1484,16 @@ html[data-theme="dark"] .os-menu-chip {
 
 .meyra-quad .pai-svg {
   display: block;
-  width: 72px;
-  height: 66px;
+  width: 76px;
+  height: 76px;
+  object-fit: contain;
+  pointer-events: none;
+  animation: bird-bob 2.8s ease-in-out infinite;
 }
 
-.meyra-quad .pai-eyes {
-  transform-origin: 80px 58px;
-  animation: pai-blink 4.2s ease-in-out infinite;
-}
-
-@keyframes pai-blink {
-  0%, 88%, 100% { transform: scaleY(1); }
-  92% { transform: scaleY(0.12); }
+@keyframes bird-bob {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-5px); }
 }
 
 .meyra-quad.is-open {

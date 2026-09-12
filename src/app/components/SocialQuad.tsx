@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { BrandIcon, type BrandId } from "../BrandIcon";
-import { PaiMark } from "../os/PaiMark";
+import { BirdMark } from "../os/BirdMark";
 
 const POS_KEY = "meyra-quad-pos";
 
@@ -163,7 +163,7 @@ export function SocialQuad() {
         </div>
       ) : (
         <button type="button" className="pai" aria-label="打开快捷入口" tabIndex={-1}>
-          <PaiMark className="pai-svg" />
+          <BirdMark className="pai-svg" />
         </button>
       )}
     </div>
