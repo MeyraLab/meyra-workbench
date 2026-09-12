@@ -61,6 +61,10 @@ export function SocialQuad() {
     if (el && pos.x >= 0) {
       el.style.left = `${pos.x}px`;
       el.style.top = `${pos.y}px`;
+      el.style.right = "auto";
+      el.style.bottom = "auto";
+      el.style.width = "max-content";
+      el.style.height = "max-content";
     }
   }, [pos]);
 
@@ -89,6 +93,8 @@ export function SocialQuad() {
         posRef.current = next;
         el.style.left = `${next.x}px`;
         el.style.top = `${next.y}px`;
+        el.style.right = "auto";
+        el.style.bottom = "auto";
       }
       raf = requestAnimationFrame(tick);
     };
@@ -124,6 +130,8 @@ export function SocialQuad() {
     if (el) {
       el.style.left = `${next.x}px`;
       el.style.top = `${next.y}px`;
+      el.style.right = "auto";
+      el.style.bottom = "auto";
     }
   };
 
@@ -141,7 +149,11 @@ export function SocialQuad() {
     <div
       ref={root}
       className={`meyra-quad${open ? " is-open" : ""}`}
-      style={pos.x >= 0 ? { left: pos.x, top: pos.y } : undefined}
+      style={
+        pos.x >= 0
+          ? { left: pos.x, top: pos.y, right: "auto", bottom: "auto", width: "max-content", height: "max-content" }
+          : { right: "auto", width: "max-content", height: "max-content" }
+      }
       aria-label="快捷入口"
       onPointerDown={onPointerDown}
       onPointerMove={onPointerMove}

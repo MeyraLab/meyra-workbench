@@ -1466,6 +1466,9 @@ html[data-theme="dark"] .os-menu-chip {
   z-index: 90;
   left: 1rem;
   bottom: 1.25rem;
+  right: auto;
+  width: max-content;
+  height: max-content;
   touch-action: none;
   user-select: none;
 }
@@ -1488,7 +1491,7 @@ html[data-theme="dark"] .os-menu-chip {
   display: block;
   width: 108px;
   height: 108px;
-  object-fit: contain;
+  overflow: visible;
   pointer-events: none;
   animation: bird-bob 2.8s ease-in-out infinite;
 }
@@ -1499,12 +1502,15 @@ html[data-theme="dark"] .os-menu-chip {
 }
 
 .meyra-quad.is-open {
-  padding: 10px;
-  border-radius: 8px;
-  background: color-mix(in srgb, var(--bg-elev) 92%, transparent);
-  border: 1px solid var(--line);
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+  padding: 8px;
+  border-radius: 12px;
+  background: var(--hud);
+  color: var(--hud-ink);
+  border: 1px solid color-mix(in srgb, var(--hud-ink) 10%, transparent);
+  box-shadow: 0 10px 24px rgba(16, 14, 40, 0.18);
   cursor: grab;
+  width: max-content;
+  height: max-content;
 }
 
 .meyra-quad .main { display: flex; flex-direction: column; gap: 4px; }
