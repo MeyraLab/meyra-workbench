@@ -1,10 +1,5 @@
-# Meyra's 工作台
+# MEYRA OS
 
-信息流 → 灵感 → 产出。
+Personal workbench. Now, projects, tools, log, archive.
 
-## 本地运行
-
-```bash
-npm i
-npm run dev
-```
+Live: https://meyra-workbench.vercel.app/

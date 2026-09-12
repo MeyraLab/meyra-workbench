@@ -1,4 +1,5 @@
-import { ReactNode } from 'react';
+import type { ReactNode } from "react";
+
 interface SectionCardProps {
   title: string;
   index?: string;
@@ -7,22 +8,27 @@ interface SectionCardProps {
   instructions?: string[];
   color?: string;
 }
-export function SectionCard({ title, index, width = 'w-[22rem]', children, instructions }: SectionCardProps) {
+
+export function SectionCard({ title, index, children, instructions }: SectionCardProps) {
   return (
-    <section className={`${width} max-w-[92vw] flex-shrink-0`}>
-      <div className="h-full flex flex-col rounded-[28px] border border-white/8 bg-[#141416] transition-colors duration-200 hover:border-white/16">
-        <header className="px-6 pt-6 pb-4 border-b border-white/8">
-          {index && <p className="text-[11px] tracking-[0.18em] uppercase text-[#71717a] mb-2">{index}</p>}
-          <h2 className="text-[22px] leading-tight text-[#f4f4f5]" style={{ fontFamily: 'Instrument Serif, serif' }}>{title}</h2>
-        </header>
-        <div className="flex-1 p-6 overflow-y-auto">{children}</div>
-        {instructions && (
-          <footer className="px-6 py-4 border-t border-white/8">
-            <p className="text-[11px] tracking-[0.14em] uppercase text-[#71717a] mb-2">How to use</p>
-            <ul className="space-y-1.5">{instructions.map((instruction, i) => (<li key={i} className="text-xs text-[#a1a1aa] leading-relaxed">{instruction}</li>))}</ul>
-          </footer>
-        )}
-      </div>
+    <section className="w-full border border-line bg-elev">
+      <header className="border-b border-line px-5 py-4">
+        {index ? <p className="os-label mb-1">{index}</p> : null}
+        <h2 className="text-sm font-medium">{title}</h2>
+      </header>
+      <div className="px-5 py-5">{children}</div>
+      {instructions ? (
+        <footer className="border-t border-line px-5 py-4">
+          <p className="os-label mb-2">How to use</p>
+          <ul className="space-y-1.5">
+            {instructions.map((instruction) => (
+              <li key={instruction} className="text-xs leading-relaxed text-mute">
+                {instruction}
+              </li>
+            ))}
+          </ul>
+        </footer>
+      ) : null}
     </section>
   );
 }
