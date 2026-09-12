@@ -26,6 +26,7 @@ export const APPS: AppEntry[] = [
   { name: 'InkPai', icon: 'wechat', role: 'now', url: 'https://inkpai.hongmeichen1219.workers.dev' },
   { name: 'InkPai (Admin)', icon: 'wechat', role: 'now', url: 'https://inkpai.hongmeichen1219.workers.dev/admin' },
   { name: '公众号', icon: 'wechat', role: 'now', url: 'https://mp.weixin.qq.com' },
+  { name: 'Vibe Coding Store', icon: 'vercel', role: 'now', url: 'https://vibe-coding-store.vercel.app/' },
 
   { name: 'ChatGPT', icon: 'chatgpt', role: 'backup', url: 'https://chatgpt.com' },
   { name: 'Cloudflare', icon: 'cloudflare', role: 'backup', url: 'https://dash.cloudflare.com' },
