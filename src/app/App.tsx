@@ -104,7 +104,7 @@ export default function App() {
         : "System ready";
 
   return (
-    <div className="os-world min-h-dvh w-full overflow-x-hidden">
+    <div className="os-world min-h-dvh w-full">
       <WorldLayer />
       {!ready ? <OsIntro onEnter={enter} /> : null}
 

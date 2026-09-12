@@ -125,6 +125,8 @@ html[data-theme="dark"] {
     color: var(--text);
     scroll-behavior: smooth;
     scroll-padding-top: 4.75rem;
+    overflow-x: clip;
+    overflow-y: auto;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     transition:
@@ -149,6 +151,7 @@ html[data-theme="dark"] {
 
   body.os-locked {
     overflow: hidden;
+    touch-action: none;
   }
 
   button:not(:disabled),
@@ -510,6 +513,7 @@ html[data-entered="1"] .os-intro {
   min-height: 100dvh;
   color: var(--text);
   background: var(--bg);
+  overflow: visible;
   transition: color var(--motion-theme) var(--ease-os);
 }
 
