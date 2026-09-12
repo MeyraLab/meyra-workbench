@@ -6,5 +6,5 @@ export const NOW = {
   href: "https://inkpai.hongmeichen1219.workers.dev",
 } as const;
 
-export const WORKFLOW = ["THINK", "BUILD", "DEPLOY", "TEST", "VALIDATE"] as const;
+export const WORKFLOW = ["Think", "Build", "Deploy", "Test", "Validate"] as const;
 export const WORKFLOW_ACTIVE = 1;

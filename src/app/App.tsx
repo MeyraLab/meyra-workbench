@@ -118,7 +118,7 @@ export default function App() {
       <main className="mx-auto w-full max-w-6xl px-5 pb-40 pt-4 sm:px-10 sm:pt-8 lg:px-12">
         <NowPanel />
 
-        <div className="mt-16 sm:mt-24">
+        <div className="mt-10 sm:mt-16">
           <hr className="os-rule os-rule-draw" />
           <div className="py-5 sm:py-6">
             <WorkflowBar />
@@ -126,7 +126,7 @@ export default function App() {
           <hr className="os-rule os-rule-draw" />
         </div>
 
-        <div className="mt-20 sm:mt-32">
+        <div className="mt-14 sm:mt-20">
           <ProjectsPanel />
         </div>
 

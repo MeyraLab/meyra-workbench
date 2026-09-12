@@ -503,6 +503,10 @@ html[data-entered="1"] .os-intro {
   max-width: 22rem;
 }
 
+.os-projects article:nth-child(4) {
+  margin-top: 1.5rem;
+}
+
 .os-project {
   padding-top: 0.25rem;
   transition: transform var(--motion-slow) var(--ease-os);
@@ -538,6 +542,10 @@ html[data-entered="1"] .os-intro {
 
 .os-projects article:nth-child(3) .p-name {
   font-size: clamp(1.2rem, 2.2vw, 1.65rem);
+}
+
+.os-projects article:nth-child(4) .p-name {
+  font-size: clamp(1.35rem, 2.6vw, 1.9rem);
 }
 
 .os-now-name {
@@ -588,6 +596,12 @@ html[data-entered="1"] .os-intro {
   min-width: 0;
   align-items: baseline;
   gap: 0.5rem;
+}
+
+.os-flow-dash {
+  color: var(--dim);
+  font-size: var(--text-label);
+  letter-spacing: 0;
 }
 
 @media (min-width: 720px) {
@@ -832,7 +846,8 @@ html[data-theme="dark"] .meyra-quad .card1 svg {
   }
 
   .os-projects article:nth-child(2),
-  .os-projects article:nth-child(3) {
+  .os-projects article:nth-child(3),
+  .os-projects article:nth-child(4) {
     margin-top: 0;
     margin-left: 0;
     grid-column: auto;

@@ -42,7 +42,7 @@ export function SystemHeader({
             <img src={MEYRA_AVATAR} alt="" className="h-5 w-5 shrink-0" />
             <p className="os-label truncate" style={{ color: "var(--text)" }}>
               <span className="sm:hidden">MEYRA</span>
-              <span className="hidden sm:inline">MEYRA / OS</span>
+              <span className="hidden sm:inline">MEYRA OS</span>
             </p>
           </div>
         </div>

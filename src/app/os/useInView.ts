@@ -11,17 +11,24 @@ export function useInView<T extends HTMLElement = HTMLDivElement>(once = true) {
       setShown(true);
       return;
     }
+
+    const reveal = () => setShown(true);
     const io = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
-          setShown(true);
+          reveal();
           if (once) io.disconnect();
         }
       },
-      { threshold: 0.16, rootMargin: "0px 0px -6% 0px" },
+      { threshold: 0.05, rootMargin: "120px 0px 25% 0px" },
     );
     io.observe(el);
-    return () => io.disconnect();
+
+    const fallback = window.setTimeout(reveal, 480);
+    return () => {
+      io.disconnect();
+      window.clearTimeout(fallback);
+    };
   }, [once]);
 
   return { ref, shown };

@@ -6,7 +6,7 @@ export function ProjectsPanel() {
   return (
     <section id="projects">
       <div className="mb-12 flex items-baseline justify-between gap-3 sm:mb-16">
-        <p className="os-label">02 — My projects</p>
+        <p className="os-label">02 — Projects</p>
         <span className="os-status">{String(PROJECTS.length).padStart(2, "0")}</span>
       </div>
       <div className="os-projects">

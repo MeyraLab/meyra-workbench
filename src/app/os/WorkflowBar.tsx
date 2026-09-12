@@ -8,9 +8,11 @@ export function WorkflowBar() {
           const on = index === WORKFLOW_ACTIVE;
           return (
             <div key={step} className="os-flow-step">
-              <span className="os-label" style={{ color: on ? "var(--system)" : "var(--dim)" }}>
-                {String(index + 1).padStart(2, "0")}
-              </span>
+              {index > 0 ? (
+                <span className="os-flow-dash" aria-hidden="true">
+                  —
+                </span>
+              ) : null}
               <span
                 className="os-flow-name"
                 style={{ color: on ? "var(--text)" : "var(--mute)" }}
