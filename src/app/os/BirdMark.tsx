@@ -14,71 +14,59 @@ export function BirdMark({ className }: { className?: string }) {
 
     let lookX = 0;
     let lookY = 0;
-    let tx = 0.2;
-    let ty = -0.1;
+    let tx = 0;
+    let ty = 0;
     let lastPointer = 0;
-    let nextLook = 800;
+    let nextGlance = 5000;
     let hop = 0;
     let hopping = false;
     let hopStart = 0;
-    let nextHop = 2800;
-    let facing = 1;
-    let lastLeft = wrap.getBoundingClientRect().left;
+    let nextHop = 9000;
     let raf = 0;
 
     const onMove = (e: PointerEvent) => {
       lastPointer = e.timeStamp || performance.now();
       const r = wrap.getBoundingClientRect();
       const dx = e.clientX - (r.left + r.width * 0.5);
-      const dy = e.clientY - (r.top + r.height * 0.4);
+      const dy = e.clientY - (r.top + r.height * 0.42);
       const dist = Math.hypot(dx, dy) || 1;
-      const reach = Math.min(1, dist / 160);
+      const reach = Math.min(1, dist / 240);
       tx = (dx / dist) * reach;
       ty = (dy / dist) * reach;
     };
 
     const tick = (now: number) => {
-      if (now - lastPointer > 900 && now > nextLook) {
-        tx = Math.random() * 1.8 - 0.9;
-        ty = Math.random() * 1.1 - 0.55;
-        nextLook = now + 900 + Math.random() * 1600;
+      if (now - lastPointer > 1600 && now > nextGlance) {
+        tx = (Math.random() - 0.5) * 0.45;
+        ty = (Math.random() - 0.5) * 0.2;
+        nextGlance = now + 4000 + Math.random() * 5000;
       }
 
       if (!hopping && now > nextHop) {
         hopping = true;
         hopStart = now;
-        nextHop = now + 2400 + Math.random() * 2800;
+        nextHop = now + 8000 + Math.random() * 7000;
       }
       if (hopping) {
-        const u = (now - hopStart) / 420;
+        const u = (now - hopStart) / 520;
         if (u >= 1) {
           hopping = false;
           hop = 0;
         } else {
-          hop = Math.sin(u * Math.PI) * 26;
+          hop = Math.sin(u * Math.PI) * 10;
         }
       }
 
-      lookX += (tx - lookX) * 0.1;
-      lookY += (ty - lookY) * 0.1;
-
-      const left = wrap.getBoundingClientRect().left;
-      if (Math.abs(left - lastLeft) > 0.35) {
-        facing = left > lastLeft ? 1 : -1;
-        lastLeft = left;
-      }
+      lookX += (tx - lookX) * 0.06;
+      lookY += (ty - lookY) * 0.06;
 
       const t = now / 1000;
-      const breathe = Math.sin(t * 2.6) * 0.045;
-      const sway = Math.sin(t * 1.7) * 3.2;
-      const bob = Math.sin(t * 2.6) * 3.4;
-      const squash = hopping ? 1 + Math.sin(((now - hopStart) / 420) * Math.PI) * 0.08 : 1;
-      const rot = lookX * 10 * facing + sway * 0.35;
+      const bob = Math.sin(t * 1.5) * 1.8;
+      const rot = lookX * 5.5 + Math.sin(t * 1.15) * 1.1;
 
       body.style.transform =
-        `translateY(${(bob - hop).toFixed(2)}px) rotate(${rot.toFixed(2)}deg) scale(${facing * (1 + breathe * 0.15)}, ${squash + breathe})`;
-      ground.style.transform = `scale(${(1.05 - hop / 70).toFixed(3)}, 1)`;
-      ground.style.opacity = String(0.18 + hop / 140);
+        `translate(${(lookX * 2).toFixed(2)}px, ${(bob - hop).toFixed(2)}px) rotate(${rot.toFixed(2)}deg)`;
+      ground.style.transform = `scale(${(1 - hop / 80).toFixed(3)}, 1)`;
 
       raf = requestAnimationFrame(tick);
     };
