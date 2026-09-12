@@ -29,6 +29,8 @@ export default function App() {
   const [ready, setReady] = useState(false);
   const [overrides, setOverrides] = useState<IconOverrides>({});
   const [hidden, setHidden] = useState<string[]>([]);
+  const [beat, setBeat] = useState(1);
+  const SECTIONS = ["now", "projects", "tools", "log"] as const;
 
   useEffect(() => {
     const initial = readThemePref();
@@ -51,6 +53,24 @@ export default function App() {
     mq.addEventListener("change", onChange);
     return () => mq.removeEventListener("change", onChange);
   }, []);
+
+  useEffect(() => {
+    const els = SECTIONS.map((id) => document.getElementById(id)).filter(Boolean) as HTMLElement[];
+    if (!els.length) return;
+    const obs = new IntersectionObserver(
+      (entries) => {
+        const top = entries
+          .filter((e) => e.isIntersecting)
+          .sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
+        if (!top?.target.id) return;
+        const i = SECTIONS.indexOf(top.target.id as (typeof SECTIONS)[number]);
+        if (i >= 0) setBeat(i + 1);
+      },
+      { threshold: [0.25, 0.5, 0.75] },
+    );
+    els.forEach((el) => obs.observe(el));
+    return () => obs.disconnect();
+  }, [ready]);
 
   const locked = !ready || menuOpen || settingsOpen;
 
@@ -93,12 +113,6 @@ export default function App() {
     });
   };
 
-  const status = menuOpen
-    ? "Menu"
-    : settingsOpen
-      ? "Working"
-      : "System ready";
-
   return (
     <div className="os-world min-h-dvh w-full">
       <WorldLayer />
@@ -106,7 +120,8 @@ export default function App() {
 
       <SystemHeader
         resolved={resolved}
-        status={status}
+        beat={beat}
+        total={4}
         menuOpen={menuOpen}
         onMenu={() => setMenuOpen((v) => !v)}
         onTheme={setTheme}

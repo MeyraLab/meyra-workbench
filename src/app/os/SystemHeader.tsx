@@ -1,9 +1,11 @@
-import { Menu, Moon, Settings2, Sun, X } from "lucide-react";
+import { Menu, Settings2, X } from "lucide-react";
 import type { ThemePref } from "../theme";
+import { ThemeSwitch } from "./ThemeSwitch";
 
 type Props = {
   resolved: "light" | "dark";
-  status: string;
+  beat: number;
+  total: number;
   menuOpen: boolean;
   onMenu: () => void;
   onTheme: (pref: ThemePref) => void;
@@ -12,7 +14,8 @@ type Props = {
 
 export function SystemHeader({
   resolved,
-  status,
+  beat,
+  total,
   menuOpen,
   onMenu,
   onTheme,
@@ -36,16 +39,12 @@ export function SystemHeader({
       </button>
 
       <div className="os-hud-right">
-        <span className="os-hud-status">{status}</span>
-        <button
-          type="button"
-          className="os-hud-round"
-          aria-label={resolved === "light" ? "Switch to night" : "Switch to day"}
-          aria-pressed={resolved === "dark"}
-          onClick={() => onTheme(resolved === "light" ? "dark" : "light")}
-        >
-          {resolved === "light" ? <Sun className="h-5 w-5" /> : <Moon className="h-5 w-5" />}
-        </button>
+        <ThemeSwitch
+          resolved={resolved}
+          beat={beat}
+          total={total}
+          onTheme={() => onTheme(resolved === "light" ? "dark" : "light")}
+        />
         <button type="button" aria-label="Settings" onClick={onSettings} className="os-hud-round">
           <Settings2 className="h-5 w-5" />
         </button>
