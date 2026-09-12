@@ -21,15 +21,13 @@ export function ThemeSwitch({ resolved, beat, total, onTheme }: Props) {
           {night ? (
             <>
               <span className="os-moon" />
-              <span className="os-spark s1" />
-              <span className="os-spark s2" />
-              <span className="os-spark s3" />
+              <span className="os-theme-star" />
             </>
           ) : (
             <>
-              <span className="os-sun" />
               <span className="os-puff p1" />
               <span className="os-puff p2" />
+              <span className="os-sun" />
             </>
           )}
         </span>

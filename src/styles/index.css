@@ -560,22 +560,36 @@ html[data-theme="light"] .os-sky-img.is-day { opacity: 1; }
 
 html[data-theme="dark"] .os-stars { opacity: 1; }
 
+.os-sky-glow {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: min(46vw, 28rem);
+  height: min(46vw, 28rem);
+  border-radius: 50%;
+  pointer-events: none;
+  opacity: 0;
+  background: radial-gradient(circle, rgba(255, 248, 220, 0.22), transparent 68%);
+  mix-blend-mode: screen;
+  will-change: transform;
+}
+
+html[data-theme="light"] .os-sky-glow {
+  background: radial-gradient(circle, rgba(255, 255, 255, 0.38), transparent 68%);
+  mix-blend-mode: soft-light;
+}
+
 .os-cloud {
   position: absolute;
   width: min(34vw, 22rem);
   height: auto;
+  will-change: transform;
   filter: drop-shadow(0 12px 18px rgba(0, 0, 0, 0.18));
-  animation: os-drift 38s ease-in-out infinite;
 }
 
-.os-cloud.c1 { top: 18%; left: -6%; width: min(42vw, 28rem); }
-.os-cloud.c2 { top: 42%; right: -8%; width: min(36vw, 24rem); animation-duration: 46s; animation-delay: -12s; }
-.os-cloud.c3 { bottom: 8%; left: 18%; width: min(28vw, 18rem); animation-duration: 52s; animation-delay: -22s; }
-
-@keyframes os-drift {
-  0%, 100% { transform: translate3d(0, 0, 0); }
-  50% { transform: translate3d(18px, -12px, 0); }
-}
+.os-cloud.c1 { top: 16%; left: 4%; width: min(42vw, 28rem); }
+.os-cloud.c2 { top: 38%; right: 2%; left: auto; width: min(36vw, 24rem); }
+.os-cloud.c3 { bottom: 10%; left: 22%; width: min(28vw, 18rem); }
 
 .os-world > *:not(.os-sky):not(.os-header):not(.os-menu):not(.os-overlay):not(.os-intro) {
   position: relative;
@@ -689,19 +703,19 @@ html[data-theme="dark"] .os-stars { opacity: 1; }
 
 .os-theme-switch {
   position: relative;
-  width: 4.75rem;
+  width: 5.35rem;
   height: 2.5rem;
-  min-width: 4.75rem;
+  min-width: 5.35rem;
   min-height: 2.5rem;
   padding: 0;
   border: 0;
   border-radius: 999px;
   overflow: hidden;
-  box-shadow: var(--shadow);
+  box-shadow: 0 8px 18px rgba(16, 14, 40, 0.18);
 }
 
-.os-theme-switch.is-night { background: #2b2764; }
-.os-theme-switch.is-day { background: #edf6ff; }
+.os-theme-switch.is-night { background: #2a2872; }
+.os-theme-switch.is-day { background: #e7f3ff; }
 
 .os-theme-track {
   display: block;
@@ -712,35 +726,37 @@ html[data-theme="dark"] .os-stars { opacity: 1; }
 
 .os-moon {
   position: absolute;
-  left: 0.55rem;
-  top: 0.45rem;
-  width: 1.15rem;
-  height: 1.15rem;
+  left: 0.42rem;
+  top: 50%;
+  width: 1.35rem;
+  height: 1.35rem;
   border-radius: 50%;
-  background: #f3f0e4;
-  box-shadow: 0 0 0 2px #f3f0e433;
+  background: #f6f1dc;
+  transform: translateY(-50%);
+  box-shadow: 0 0 0 3px #f6f1dc22;
 }
 
-.os-spark {
+.os-theme-star {
   position: absolute;
-  width: 3px;
-  height: 3px;
-  border-radius: 50%;
-  background: #fff8dc;
+  right: 0.7rem;
+  top: 50%;
+  width: 0.7rem;
+  height: 0.7rem;
+  background: #f6f1dc;
+  transform: translateY(-50%);
+  clip-path: polygon(50% 0, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);
 }
-.os-spark.s1 { right: 0.85rem; top: 0.5rem; }
-.os-spark.s2 { right: 1.35rem; top: 1.05rem; width: 2px; height: 2px; }
-.os-spark.s3 { right: 0.7rem; bottom: 0.55rem; width: 2px; height: 2px; }
 
 .os-sun {
   position: absolute;
-  left: 0.5rem;
-  top: 0.4rem;
-  width: 1.3rem;
-  height: 1.3rem;
+  right: 0.45rem;
+  top: 50%;
+  width: 1.35rem;
+  height: 1.35rem;
   border-radius: 50%;
-  background: #ffcc3a;
-  box-shadow: 0 0 0 4px #ffcc3a33;
+  background: #ffc93a;
+  transform: translateY(-50%);
+  box-shadow: 0 0 0 5px #ffc93a2e;
 }
 
 .os-puff {
@@ -748,8 +764,8 @@ html[data-theme="dark"] .os-stars { opacity: 1; }
   background: #fff;
   border-radius: 999px;
 }
-.os-puff.p1 { right: 0.55rem; top: 0.55rem; width: 1.15rem; height: 0.7rem; }
-.os-puff.p2 { right: 1.05rem; top: 0.95rem; width: 0.9rem; height: 0.55rem; }
+.os-puff.p1 { left: 0.45rem; top: 0.55rem; width: 1.2rem; height: 0.72rem; }
+.os-puff.p2 { left: 0.9rem; top: 0.95rem; width: 0.95rem; height: 0.58rem; }
 
 .os-beat {
   display: inline-flex;
@@ -762,12 +778,17 @@ html[data-theme="dark"] .os-stars { opacity: 1; }
   color: var(--hud-ink);
   font-size: 0.82rem;
   font-weight: 800;
-  box-shadow: var(--shadow);
+  box-shadow: 0 8px 18px rgba(16, 14, 40, 0.18);
 }
 
 html[data-theme="dark"] .os-beat {
-  background: #2b2764;
-  color: #ece8ff;
+  background: #2a2872;
+  color: #f6f1dc;
+}
+
+html[data-theme="light"] .os-beat {
+  background: #e7f3ff;
+  color: #2a2554;
 }
 
 .os-beat-star {
