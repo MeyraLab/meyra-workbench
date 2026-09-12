@@ -6,6 +6,7 @@ import { useInView } from "./useInView";
 export function ProjectsPanel() {
   return (
     <section id="projects" className="os-rooms-section">
+      <h2 className="os-world-title os-canvas-title">Projects</h2>
       <div className="os-rooms">
         {PROJECTS.map((project, index) => (
           <ProjectRoom key={project.id} project={project} index={index} />

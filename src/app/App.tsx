@@ -128,33 +128,41 @@ export default function App() {
         onSettings={() => setSettingsOpen(true)}
       />
 
-      <main className="os-stage">
-        <NowPanel />
+      <main>
+        <div className="os-stage">
+          <NowPanel />
 
-        <div className="os-band-flow">
-          <hr className="os-rule os-rule-draw" />
-          <div className="py-5 sm:py-6">
-            <WorkflowBar />
+          <div className="os-band-flow">
+            <hr className="os-rule os-rule-draw" />
+            <div className="py-5 sm:py-6">
+              <WorkflowBar />
+            </div>
+            <hr className="os-rule os-rule-draw" />
           </div>
-          <hr className="os-rule os-rule-draw" />
         </div>
 
-        <div className="os-band-projects">
-          <ProjectsPanel />
-        </div>
+        <section className="os-canvas" aria-label="Workspace">
+          <div className="os-stage">
+            <div className="os-band-projects">
+              <ProjectsPanel />
+            </div>
 
-        <div className="os-band-tools">
-          <ToolsPanel
-            apps={visibleApps}
-            overrides={overrides}
-            open={toolsOpen}
-            onToggle={() => setToolsOpen((v) => !v)}
-          />
-        </div>
+            <div className="os-band-tools">
+              <ToolsPanel
+                apps={visibleApps}
+                overrides={overrides}
+                open={toolsOpen}
+                onToggle={() => setToolsOpen((v) => !v)}
+              />
+            </div>
 
-        <div className="os-band-log">
-          <LogPanel />
-        </div>
+            <div className="os-band-log">
+              <LogPanel />
+            </div>
+          </div>
+        </section>
+
+        <div className="os-sky-end" aria-hidden="true" />
       </main>
 
       <SocialQuad />

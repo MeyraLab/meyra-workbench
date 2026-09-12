@@ -952,16 +952,52 @@ html[data-theme="light"] .os-beat {
   padding:
     0
     max(1.25rem, env(safe-area-inset-right))
-    10rem
+    0
     max(1.25rem, env(safe-area-inset-left));
 }
 
 .os-band-flow {
   margin-top: clamp(1.75rem, 4.5vw, 3.25rem);
+  padding-bottom: clamp(2rem, 5vw, 3.5rem);
+}
+
+.os-canvas {
+  --grid-cell: clamp(28px, 2.2vw, 64px);
+  --grid-line: rgba(255, 255, 255, 0.06);
+  position: relative;
+  z-index: 1;
+  margin: 0 max(0.7rem, env(safe-area-inset-left)) 0 max(0.7rem, env(safe-area-inset-right));
+  padding: clamp(2.75rem, 5.5vw, 5rem) 0 clamp(4rem, 8vw, 6.5rem);
+  border-radius: clamp(1.5rem, 3vw, 2.75rem);
+  background-color: #14121f;
+  background-image:
+    linear-gradient(to right, var(--grid-line) 1px, transparent 1px),
+    linear-gradient(to bottom, var(--grid-line) 1px, transparent 1px);
+  background-size: var(--grid-cell) var(--grid-cell);
+  background-position: center top;
+}
+
+html[data-theme="light"] .os-canvas {
+  background-color: #e7f4fd;
+  --grid-line: rgba(28, 39, 68, 0.09);
+}
+
+.os-canvas-title {
+  margin-bottom: clamp(1.5rem, 3vw, 2.4rem);
+  font-size: clamp(2.6rem, 7vw, 5.2rem);
+  color: #ece8ff;
+}
+
+html[data-theme="light"] .os-canvas-title {
+  color: #1c2744;
+}
+
+.os-sky-end {
+  min-height: clamp(22rem, 48dvh, 36rem);
 }
 
 .os-band-projects {
-  margin-top: clamp(4rem, 10vw, 8rem);
+  margin-top: 0;
 }
 
 .os-band-tools {
@@ -1004,8 +1040,18 @@ html[data-theme="light"] .os-beat {
 /* ——— Rooms ——— */
 
 .os-rooms-section {
-  min-height: 100dvh;
-  padding-top: 4rem;
+  min-height: 0;
+  padding-top: 0;
+  display: flex;
+  flex-direction: column;
+  gap: clamp(1.4rem, 3vw, 2.2rem);
+}
+
+.os-canvas-title {
+  position: relative;
+  z-index: 2;
+  margin: 0;
+  padding: 0 0.1rem;
 }
 
 .os-rooms-head {
@@ -1512,8 +1558,14 @@ html[data-theme="dark"] .meyra-quad .card1 svg {
 /* ——— Responsive ——— */
 
 @media (max-width: 720px) {
-  .os-stage {
-    padding-bottom: 8rem;
+  .os-canvas {
+    margin-inline: 0.45rem;
+    border-radius: 1.4rem;
+    padding-top: 2rem;
+  }
+
+  .os-sky-end {
+    min-height: 32dvh;
   }
 
   .os-header {
