@@ -10,7 +10,6 @@ export function WorldLayer() {
     if (reduced) return;
 
     const clouds = Array.from(el.querySelectorAll<HTMLElement>(".os-cloud"));
-    const glow = el.querySelector<HTMLElement>(".os-sky-glow");
     let mx = 0;
     let my = 0;
     let tx = 0;
@@ -33,10 +32,6 @@ export function WorldLayer() {
         const y = Math.cos(t / (speed + 4) + i * 0.7) * (12 + i * 6) + my * (10 + i * 8);
         cloud.style.transform = `translate3d(${x}px, ${y}px, 0)`;
       });
-      if (glow) {
-        glow.style.transform = `translate3d(${(mx * 0.5 + 0.5) * 100}vw, ${(my * 0.5 + 0.5) * 100}vh, 0) translate(-50%, -50%)`;
-        glow.style.opacity = "1";
-      }
       raf = requestAnimationFrame(tick);
     };
 
@@ -53,7 +48,6 @@ export function WorldLayer() {
       <img className="os-sky-img is-night" src="/world/sky-night-2.jpg" alt="" />
       <img className="os-sky-img is-day" src="/world/sky-day-2.jpg" alt="" />
       <div className="os-stars" />
-      <div className="os-sky-glow" />
       <img className="os-cloud c1" src="/world/cloud-a.png" alt="" />
       <img className="os-cloud c2" src="/world/cloud-b.png" alt="" />
       <img className="os-cloud c3" src="/world/cloud-a.png" alt="" />

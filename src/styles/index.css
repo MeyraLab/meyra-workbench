@@ -560,25 +560,6 @@ html[data-theme="light"] .os-sky-img.is-day { opacity: 1; }
 
 html[data-theme="dark"] .os-stars { opacity: 1; }
 
-.os-sky-glow {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: min(46vw, 28rem);
-  height: min(46vw, 28rem);
-  border-radius: 50%;
-  pointer-events: none;
-  opacity: 0;
-  background: radial-gradient(circle, rgba(255, 248, 220, 0.22), transparent 68%);
-  mix-blend-mode: screen;
-  will-change: transform;
-}
-
-html[data-theme="light"] .os-sky-glow {
-  background: radial-gradient(circle, rgba(255, 255, 255, 0.38), transparent 68%);
-  mix-blend-mode: soft-light;
-}
-
 .os-cloud {
   position: absolute;
   width: min(34vw, 22rem);
@@ -703,19 +684,19 @@ html[data-theme="light"] .os-sky-glow {
 
 .os-theme-switch {
   position: relative;
-  width: 5.35rem;
+  width: 5.6rem;
   height: 2.5rem;
-  min-width: 5.35rem;
+  min-width: 5.6rem;
   min-height: 2.5rem;
-  padding: 0;
+  padding: 0.22rem;
   border: 0;
   border-radius: 999px;
   overflow: hidden;
   box-shadow: 0 8px 18px rgba(16, 14, 40, 0.18);
 }
 
-.os-theme-switch.is-night { background: #2a2872; }
-.os-theme-switch.is-day { background: #e7f3ff; }
+.os-theme-switch.is-night { background: #2a2878; }
+.os-theme-switch.is-day { background: #d9ecff; }
 
 .os-theme-track {
   display: block;
@@ -724,39 +705,51 @@ html[data-theme="light"] .os-sky-glow {
   position: relative;
 }
 
-.os-moon {
+.os-theme-knob {
   position: absolute;
-  left: 0.42rem;
   top: 50%;
-  width: 1.35rem;
-  height: 1.35rem;
+  width: 2.05rem;
+  height: 2.05rem;
   border-radius: 50%;
-  background: #f6f1dc;
   transform: translateY(-50%);
-  box-shadow: 0 0 0 3px #f6f1dc22;
 }
 
-.os-theme-star {
-  position: absolute;
-  right: 0.7rem;
-  top: 50%;
-  width: 0.7rem;
-  height: 0.7rem;
-  background: #f6f1dc;
-  transform: translateY(-50%);
-  clip-path: polygon(50% 0, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);
+.os-theme-knob.is-left {
+  left: 0.12rem;
+  background: #1d1a58;
 }
+
+.os-theme-knob.is-right {
+  right: 0.12rem;
+  background: #fff7e0;
+}
+
+.os-crescent {
+  position: absolute;
+  left: 0.28rem;
+  top: 0.32rem;
+  width: 1.15rem;
+  height: 1.15rem;
+}
+
+.twinkle {
+  position: absolute;
+  width: 3px;
+  height: 3px;
+  border-radius: 50%;
+  background: #f4e9c8;
+  box-shadow: 0 0 4px #f4e9c8;
+}
+.twinkle.t1 { right: 0.32rem; top: 0.38rem; }
+.twinkle.t2 { right: 0.55rem; top: 0.78rem; width: 2px; height: 2px; }
+.twinkle.t3 { left: 0.28rem; bottom: 0.32rem; width: 2px; height: 2px; }
 
 .os-sun {
   position: absolute;
-  right: 0.45rem;
-  top: 50%;
-  width: 1.35rem;
-  height: 1.35rem;
+  inset: 0.32rem;
   border-radius: 50%;
   background: #ffc93a;
-  transform: translateY(-50%);
-  box-shadow: 0 0 0 5px #ffc93a2e;
+  box-shadow: 0 0 0 4px #ffc93a33;
 }
 
 .os-puff {
@@ -764,15 +757,15 @@ html[data-theme="light"] .os-sky-glow {
   background: #fff;
   border-radius: 999px;
 }
-.os-puff.p1 { left: 0.45rem; top: 0.55rem; width: 1.2rem; height: 0.72rem; }
-.os-puff.p2 { left: 0.9rem; top: 0.95rem; width: 0.95rem; height: 0.58rem; }
+.os-puff.p1 { left: 0.4rem; top: 0.45rem; width: 1.15rem; height: 0.68rem; }
+.os-puff.p2 { left: 0.75rem; top: 0.85rem; width: 0.9rem; height: 0.52rem; }
 
 .os-beat {
   display: inline-flex;
   align-items: center;
   gap: 0.35rem;
   min-height: 2.5rem;
-  padding: 0 0.8rem;
+  padding: 0 0.7rem 0 0.75rem;
   border-radius: 999px;
   background: var(--hud);
   color: var(--hud-ink);
@@ -782,21 +775,31 @@ html[data-theme="light"] .os-sky-glow {
 }
 
 html[data-theme="dark"] .os-beat {
-  background: #2a2872;
-  color: #f6f1dc;
+  background: #2a2878;
+  color: #f4e9c8;
 }
 
 html[data-theme="light"] .os-beat {
-  background: #e7f3ff;
+  background: #d9ecff;
   color: #2a2554;
 }
 
 .os-beat-star {
-  width: 0.55rem;
-  height: 0.55rem;
+  width: 0.7rem;
+  height: 0.7rem;
   background: currentColor;
   clip-path: polygon(50% 0, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);
-  opacity: 0.85;
+  opacity: 0.9;
+}
+
+.os-beat-caret {
+  width: 0;
+  height: 0;
+  border-left: 4px solid transparent;
+  border-right: 4px solid transparent;
+  border-top: 5px solid currentColor;
+  opacity: 0.7;
+  margin-left: 0.1rem;
 }
 
 .os-brand-mark {
