@@ -48,7 +48,7 @@ export function SocialQuad() {
     const saved = readPos();
     const next =
       saved.x >= 0
-        ? clampPos(saved.x, saved.y, 120, 120)
+        ? clampPos(saved.x, saved.y, 124, 124)
         : { x: 20, y: Math.max(72, window.innerHeight - 160) };
     setPos(next);
     posRef.current = next;
@@ -73,8 +73,8 @@ export function SocialQuad() {
     if (!el || pos.x < 0) return;
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
 
-    let vx = 0.28;
-    let vy = 0.16;
+    let vx = 0.42;
+    let vy = 0.22;
     let raf = 0;
     let last = performance.now();
 
@@ -83,13 +83,13 @@ export function SocialQuad() {
       last = now;
       const box = el.getBoundingClientRect();
       if (!open && !drag.current && now > rest.current) {
-        vx += (Math.random() - 0.5) * 0.05;
-        vy += (Math.random() - 0.5) * 0.04;
-        vx = Math.max(-0.62, Math.min(0.62, vx));
-        vy = Math.max(-0.42, Math.min(0.42, vy));
+        vx += (Math.random() - 0.5) * 0.09;
+        vy += (Math.random() - 0.5) * 0.07;
+        vx = Math.max(-0.95, Math.min(0.95, vx));
+        vy = Math.max(-0.58, Math.min(0.58, vy));
         const next = clampPos(posRef.current.x + vx * dt, posRef.current.y + vy * dt, box.width, box.height);
-        if (next.x <= 8 || next.x >= window.innerWidth - box.width - 8) vx *= -1;
-        if (next.y <= 8 || next.y >= window.innerHeight - box.height - 8) vy *= -1;
+        if (next.x <= 16 || next.x >= window.innerWidth - box.width - 64) vx *= -1;
+        if (next.y <= 72 || next.y >= window.innerHeight - box.height - 16) vy *= -1;
         posRef.current = next;
         el.style.left = `${next.x}px`;
         el.style.top = `${next.y}px`;
