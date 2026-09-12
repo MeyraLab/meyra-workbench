@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import { BrandIcon, type BrandId } from "../BrandIcon";
 import { BirdMark } from "../os/BirdMark";
 
-const POS_KEY = "meyra-quad-pos";
+const POS_KEY = "meyra-bird-pos";
 
 const ITEMS: Array<{
   name: string;
@@ -46,12 +46,10 @@ export function SocialQuad() {
 
   useEffect(() => {
     const saved = readPos();
-    if (saved.x >= 0) {
-      setPos(saved);
-      posRef.current = saved;
-      return;
-    }
-    const next = { x: window.innerWidth - 88, y: window.innerHeight - 96 };
+    const next =
+      saved.x >= 0
+        ? clampPos(saved.x, saved.y, 92, 92)
+        : { x: Math.max(12, window.innerWidth - 118), y: Math.max(72, window.innerHeight - 140) };
     setPos(next);
     posRef.current = next;
   }, []);

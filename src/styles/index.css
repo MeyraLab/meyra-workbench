@@ -624,7 +624,7 @@ html[data-theme="dark"] .os-cloud {
 .os-cloud.c2 { top: 48%; right: 1%; left: auto; width: clamp(11rem, 30vw, 42rem); }
 .os-cloud.c3 { bottom: 8%; left: 18%; width: clamp(8rem, 20vw, 28rem); }
 
-.os-world > *:not(.os-sky):not(.os-header):not(.os-menu):not(.os-overlay):not(.os-intro) {
+.os-world > *:not(.os-sky):not(.os-header):not(.os-menu):not(.os-overlay):not(.os-intro):not(.meyra-quad) {
   position: relative;
   z-index: 1;
 }
@@ -1463,14 +1463,16 @@ html[data-theme="dark"] .os-menu-chip {
 
 .meyra-quad {
   position: fixed;
-  z-index: 40;
+  z-index: 80;
+  right: 1.1rem;
+  bottom: 1.25rem;
   touch-action: none;
   user-select: none;
 }
 
 .meyra-quad .pai {
-  width: 76px;
-  height: 76px;
+  width: 92px;
+  height: 92px;
   padding: 0;
   border: none;
   background: transparent;
@@ -1484,8 +1486,8 @@ html[data-theme="dark"] .os-menu-chip {
 
 .meyra-quad .pai-svg {
   display: block;
-  width: 76px;
-  height: 76px;
+  width: 92px;
+  height: 92px;
   object-fit: contain;
   pointer-events: none;
   animation: bird-bob 2.8s ease-in-out infinite;
