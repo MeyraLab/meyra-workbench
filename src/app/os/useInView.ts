@@ -3,6 +3,7 @@ import { useEffect, useRef, useState } from "react";
 export function useInView<T extends HTMLElement = HTMLDivElement>(once = true) {
   const ref = useRef<T>(null);
   const [shown, setShown] = useState(false);
+  const [armed, setArmed] = useState(false);
 
   useEffect(() => {
     const el = ref.current;
@@ -12,6 +13,7 @@ export function useInView<T extends HTMLElement = HTMLDivElement>(once = true) {
       return;
     }
 
+    setArmed(true);
     const reveal = () => setShown(true);
     const io = new IntersectionObserver(
       ([entry]) => {
@@ -20,16 +22,16 @@ export function useInView<T extends HTMLElement = HTMLDivElement>(once = true) {
           if (once) io.disconnect();
         }
       },
-      { threshold: 0.05, rootMargin: "120px 0px 25% 0px" },
+      { threshold: 0.04, rootMargin: "180px 0px 40% 0px" },
     );
     io.observe(el);
 
-    const fallback = window.setTimeout(reveal, 480);
+    const fallback = window.setTimeout(reveal, 320);
     return () => {
       io.disconnect();
       window.clearTimeout(fallback);
     };
   }, [once]);
 
-  return { ref, shown };
+  return { ref, shown, armed };
 }

@@ -20,12 +20,13 @@ export function ProjectsPanel() {
 
 function ProjectObject({ project, index }: { project: ProjectEntry; index: number }) {
   const block = useInView<HTMLElement>();
+  const pending = block.armed && !block.shown;
 
   return (
     <article
       ref={block.ref}
-      className={`os-project os-reveal${block.shown ? " is-in" : ""}`}
-      style={{ transitionDelay: block.shown ? `${index * 90}ms` : "0ms" }}
+      className={`os-project os-project-${index + 1} os-reveal${pending ? " is-pending" : ""}${block.shown ? " is-in" : ""}`}
+      style={{ transitionDelay: block.shown ? `${index * 80}ms` : "0ms" }}
     >
       <p className="os-label mb-3">{String(index + 1).padStart(2, "0")}</p>
       <p className="p-name">{project.name}</p>
@@ -35,7 +36,7 @@ function ProjectObject({ project, index }: { project: ProjectEntry; index: numbe
       >
         {project.status}
       </p>
-      <p className="mt-2 max-w-xs text-sm leading-relaxed text-mute">{project.blurb}</p>
+      <p className="os-body mt-2 max-w-xs">{project.blurb}</p>
       <div className="mt-6">
         {project.here ? (
           <span className="os-label" style={{ color: "var(--system)" }}>

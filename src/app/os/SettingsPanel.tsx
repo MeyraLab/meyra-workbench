@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { X } from "lucide-react";
 import { APPS, ROLE_LABELS, ROLES, type AppRole } from "../apps";
 import {
@@ -26,17 +26,27 @@ export function SettingsPanel({
   onToggleHidden,
   onImport,
 }: Props) {
+  const [leaving, setLeaving] = useState(false);
+
+  const close = () => {
+    setLeaving((v) => {
+      if (v) return v;
+      window.setTimeout(onClose, 180);
+      return true;
+    });
+  };
+
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
-      if (e.key === "Escape") onClose();
+      if (e.key === "Escape") close();
     };
     window.addEventListener("keydown", onKey);
     return () => window.removeEventListener("keydown", onKey);
   }, [onClose]);
 
   return (
-    <div className="os-overlay" role="dialog" aria-modal="true" aria-labelledby="settings-title">
-      <button type="button" className="os-overlay-scrim" aria-label="Close settings" onClick={onClose} />
+    <div className={`os-overlay${leaving ? " is-leave" : ""}`} role="dialog" aria-modal="true" aria-labelledby="settings-title">
+      <button type="button" className="os-overlay-scrim" aria-label="Close settings" onClick={close} />
       <aside className="os-sheet">
         <div className="flex items-center justify-between border-b border-line px-5 py-4">
           <h2 id="settings-title" className="os-label" style={{ color: "var(--text)" }}>
@@ -45,7 +55,7 @@ export function SettingsPanel({
           <button
             type="button"
             aria-label="Close"
-            onClick={onClose}
+            onClick={close}
             className="flex h-11 w-11 items-center justify-center"
             style={{ background: "var(--chip)" }}
           >

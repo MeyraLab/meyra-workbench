@@ -3,6 +3,7 @@ import { useInView } from "./useInView";
 
 export function LogPanel() {
   const block = useInView<HTMLElement>();
+  const pending = block.armed && !block.shown;
 
   return (
     <section id="log" ref={block.ref}>
@@ -14,8 +15,8 @@ export function LogPanel() {
         {LOG.map((entry, index) => (
           <div
             key={`${entry.date}-${entry.title}`}
-            className={`os-log-row os-reveal${block.shown ? " is-in" : ""}`}
-            style={{ transitionDelay: block.shown ? `${index * 90}ms` : "0ms" }}
+            className={`os-log-row os-reveal${pending ? " is-pending" : ""}${block.shown ? " is-in" : ""}`}
+            style={{ transitionDelay: block.shown ? `${index * 70}ms` : "0ms" }}
           >
             <p className="os-label" style={{ color: "var(--mute)" }}>
               {entry.date}
@@ -23,7 +24,7 @@ export function LogPanel() {
             <p className="os-label" style={{ color: "var(--system)" }}>
               {entry.system}
             </p>
-            <p className="font-medium leading-snug sm:text-lg">{entry.title}</p>
+            <p className="os-log-title">{entry.title}</p>
           </div>
         ))}
       </div>

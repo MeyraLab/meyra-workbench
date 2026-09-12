@@ -13,12 +13,7 @@ export function WorkflowBar() {
                   —
                 </span>
               ) : null}
-              <span
-                className="os-flow-name"
-                style={{ color: on ? "var(--text)" : "var(--mute)" }}
-              >
-                {step}
-              </span>
+              <span className={`os-flow-name${on ? " is-on" : ""}`}>{step}</span>
             </div>
           );
         })}

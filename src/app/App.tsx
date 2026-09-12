@@ -115,10 +115,10 @@ export default function App() {
         onSettings={() => setSettingsOpen(true)}
       />
 
-      <main className="mx-auto w-full max-w-6xl px-5 pb-40 pt-4 sm:px-10 sm:pt-8 lg:px-12">
+      <main className="os-stage">
         <NowPanel />
 
-        <div className="mt-10 sm:mt-16">
+        <div className="os-band-flow">
           <hr className="os-rule os-rule-draw" />
           <div className="py-5 sm:py-6">
             <WorkflowBar />
@@ -126,11 +126,11 @@ export default function App() {
           <hr className="os-rule os-rule-draw" />
         </div>
 
-        <div className="mt-14 sm:mt-20">
+        <div className="os-band-projects">
           <ProjectsPanel />
         </div>
 
-        <div className="mt-20 sm:mt-32">
+        <div className="os-band-tools">
           <ToolsPanel
             apps={visibleApps}
             overrides={overrides}
@@ -139,16 +139,16 @@ export default function App() {
           />
         </div>
 
-        <div className="mt-20 sm:mt-32">
+        <div className="os-band-log">
           <LogPanel />
         </div>
 
-        <section id="archive" className="mt-24 border-t border-line pt-12 sm:mt-36">
+        <section id="archive" className="os-band-archive">
           <p className="os-label">05 — Archive</p>
           <div className="mt-6 flex flex-col gap-6 sm:flex-row sm:items-end sm:justify-between">
             <div>
               <p className="os-display text-3xl sm:text-4xl">Inbox / Core / Output</p>
-              <p className="mt-3 max-w-md text-sm leading-relaxed text-mute">
+              <p className="os-body mt-3 max-w-md">
                 Compost lives behind the workspace.
               </p>
             </div>

@@ -16,7 +16,7 @@ export function applyTheme(pref: ThemePref) {
   root.dataset.themePref = pref;
   localStorage.setItem("meyra-theme", pref);
   const meta = document.querySelector('meta[name="theme-color"]');
-  if (meta) meta.setAttribute("content", resolved === "dark" ? "#0c0e14" : "#f4efe6");
+  if (meta) meta.setAttribute("content", resolved === "dark" ? "#0b0d12" : "#f4efe6");
 }
 
 export function readThemePref(): ThemePref {

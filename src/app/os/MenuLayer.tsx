@@ -30,7 +30,7 @@ export function MenuLayer({ open, onClose, onArchive }: Props) {
     const t = window.setTimeout(() => {
       setShown(false);
       setLeaving(false);
-    }, 160);
+    }, 180);
     return () => window.clearTimeout(t);
   }, [open, shown]);
 
