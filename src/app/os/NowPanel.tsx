@@ -5,10 +5,7 @@ export function NowPanel() {
   return (
     <section id="now" className="os-now-scene">
       <p className="os-kicker">01 — Now</p>
-      <div className="os-now-hero">
-        <h1 className="os-now-name">{NOW.project}</h1>
-        <img className="os-now-pai" src="/world/pai-3d.png" alt="" />
-      </div>
+      <h1 className="os-now-name">{NOW.project}</h1>
       <p className="os-now-status">{NOW.status}</p>
       <p className="os-now-next">{NOW.next}</p>
       <a

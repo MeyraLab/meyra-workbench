@@ -6,16 +6,14 @@ const ITEMS = [
   { id: "projects", label: "Projects" },
   { id: "tools", label: "Tools" },
   { id: "log", label: "Log" },
-  { id: "archive", label: "Archive" },
 ] as const;
 
 type Props = {
   open: boolean;
   onClose: () => void;
-  onArchive: () => void;
 };
 
-export function MenuLayer({ open, onClose, onArchive }: Props) {
+export function MenuLayer({ open, onClose }: Props) {
   const [shown, setShown] = useState(open);
   const [leaving, setLeaving] = useState(false);
   const first = useRef<HTMLButtonElement>(null);
@@ -52,13 +50,10 @@ export function MenuLayer({ open, onClose, onArchive }: Props) {
   if (!shown) return null;
 
   const go = (id: string) => {
-    if (id === "archive") {
-      onArchive();
-      onClose();
-      return;
-    }
     onClose();
-    document.getElementById(id)?.scrollIntoView({ behavior: "smooth", block: "start" });
+    window.setTimeout(() => {
+      document.getElementById(id)?.scrollIntoView({ behavior: "smooth", block: "start" });
+    }, 40);
   };
 
   return (
@@ -86,9 +81,8 @@ export function MenuLayer({ open, onClose, onArchive }: Props) {
               type="button"
               onClick={() => go(item.id)}
               className="os-menu-chip"
-              style={{ animationDelay: leaving ? "0ms" : `${50 + i * 40}ms` }}
+              style={{ animationDelay: leaving ? "0ms" : `${40 + i * 40}ms` }}
             >
-              <span>•</span>
               {item.label}
             </button>
           ))}

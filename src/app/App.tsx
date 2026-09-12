@@ -10,7 +10,6 @@ import {
   type IconOverrides,
 } from "./iconOverrides";
 import { applyTheme, readThemePref, resolveTheme, type ThemePref } from "./theme";
-import { ArchivePanel } from "./os/ArchivePanel";
 import { LogPanel } from "./os/LogPanel";
 import { MenuLayer } from "./os/MenuLayer";
 import { NowPanel } from "./os/NowPanel";
@@ -25,7 +24,6 @@ import { WorldLayer } from "./os/WorldLayer";
 export default function App() {
   const [resolved, setResolved] = useState<"light" | "dark">("light");
   const [settingsOpen, setSettingsOpen] = useState(false);
-  const [archiveOpen, setArchiveOpen] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
   const [toolsOpen, setToolsOpen] = useState(false);
   const [ready, setReady] = useState(false);
@@ -54,7 +52,7 @@ export default function App() {
     return () => mq.removeEventListener("change", onChange);
   }, []);
 
-  const locked = !ready || menuOpen || settingsOpen || archiveOpen;
+  const locked = !ready || menuOpen || settingsOpen;
 
   useEffect(() => {
     document.body.classList.toggle("os-locked", locked);
@@ -95,13 +93,11 @@ export default function App() {
     });
   };
 
-  const status = archiveOpen
-    ? "Archive"
-    : menuOpen
-      ? "Menu"
-      : settingsOpen
-        ? "Working"
-        : "System ready";
+  const status = menuOpen
+    ? "Menu"
+    : settingsOpen
+      ? "Working"
+      : "System ready";
 
   return (
     <div className="os-world min-h-dvh w-full">
@@ -144,21 +140,6 @@ export default function App() {
         <div className="os-band-log">
           <LogPanel />
         </div>
-
-        <section id="archive" className="os-band-archive">
-          <p className="os-label">05 — Archive</p>
-          <div className="mt-6 flex flex-col gap-6 sm:flex-row sm:items-end sm:justify-between">
-            <div>
-              <p className="os-display text-3xl sm:text-4xl">Inbox / Core / Output</p>
-              <p className="os-body mt-3 max-w-md">
-                Compost lives behind the workspace.
-              </p>
-            </div>
-            <button type="button" className="os-btn os-btn-ghost w-full sm:w-auto" onClick={() => setArchiveOpen(true)}>
-              Open archive
-            </button>
-          </div>
-        </section>
       </main>
 
       <SocialQuad />
@@ -166,7 +147,6 @@ export default function App() {
       <MenuLayer
         open={menuOpen}
         onClose={() => setMenuOpen(false)}
-        onArchive={() => setArchiveOpen(true)}
       />
 
       {settingsOpen ? (
@@ -184,8 +164,6 @@ export default function App() {
           }}
         />
       ) : null}
-
-      {archiveOpen ? <ArchivePanel onClose={() => setArchiveOpen(false)} /> : null}
     </div>
   );
 }
