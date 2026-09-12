@@ -6,6 +6,7 @@ export type ProjectEntry = {
   status: ProjectStatus;
   blurb: string;
   href: string;
+  image: string;
   external: boolean;
   here?: boolean;
 };
@@ -17,6 +18,7 @@ export const PROJECTS: ProjectEntry[] = [
     status: "ACTIVE",
     blurb: "AI layout system",
     href: "https://inkpai.hongmeichen1219.workers.dev",
+    image: "/projects/inkpai.jpg",
     external: true,
   },
   {
@@ -25,6 +27,7 @@ export const PROJECTS: ProjectEntry[] = [
     status: "ACTIVE",
     blurb: "Image book excerpts",
     href: "https://imageexcerpt.lovable.app",
+    image: "/projects/excerpt.jpg",
     external: true,
   },
   {
@@ -33,6 +36,7 @@ export const PROJECTS: ProjectEntry[] = [
     status: "ACTIVE",
     blurb: "Live product store",
     href: "https://vibe-coding-store.vercel.app/",
+    image: "/projects/vibe.jpg",
     external: true,
   },
 ];

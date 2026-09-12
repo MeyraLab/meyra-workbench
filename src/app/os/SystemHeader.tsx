@@ -1,4 +1,4 @@
-import { Menu, Settings2, X } from "lucide-react";
+import { Menu, Moon, Settings2, Sun, X } from "lucide-react";
 import { MEYRA_AVATAR } from "../avatar";
 import type { ThemePref } from "../theme";
 
@@ -28,8 +28,7 @@ export function SystemHeader({
             aria-label={menuOpen ? "Close menu" : "Open menu"}
             aria-expanded={menuOpen}
             onClick={onMenu}
-            className="os-label flex h-11 items-center gap-2 px-1"
-            style={{ color: "var(--text)" }}
+            className="os-hud-chip"
           >
             <span className="os-icon-swap" aria-hidden="true">
               <Menu className={menuOpen ? "is-off" : "is-on"} />
@@ -37,8 +36,7 @@ export function SystemHeader({
             </span>
             <span className="hidden sm:inline">{menuOpen ? "Close" : "Menu"}</span>
           </button>
-          <span className="hidden h-4 w-px sm:block" style={{ background: "var(--line)" }} />
-          <div className="flex min-w-0 items-center gap-2">
+          <div className="flex min-w-0 items-center gap-2 pl-1">
             <img src={MEYRA_AVATAR} alt="" className="h-5 w-5 shrink-0" />
             <p className="os-brand truncate">
               <span className="sm:hidden">MEYRA</span>
@@ -46,35 +44,23 @@ export function SystemHeader({
             </p>
           </div>
         </div>
-        <div className="flex shrink-0 items-center gap-1 sm:gap-2">
-          <span className="os-status is-live hidden md:inline">{status}</span>
-          <div className="flex" role="radiogroup" aria-label="Day or night">
-            <button
-              type="button"
-              role="radio"
-              aria-checked={resolved === "light"}
-              onClick={() => onTheme("light")}
-              className={`os-theme-btn${resolved === "light" ? " is-on" : ""}`}
-            >
-              Day
-            </button>
-            <button
-              type="button"
-              role="radio"
-              aria-checked={resolved === "dark"}
-              onClick={() => onTheme("dark")}
-              className={`os-theme-btn${resolved === "dark" ? " is-on" : ""}`}
-            >
-              Night
-            </button>
-          </div>
+        <div className="flex shrink-0 items-center gap-2">
+          <span className="os-status is-live hidden md:inline pr-1">{status}</span>
+          <button
+            type="button"
+            className="os-hud-icon"
+            aria-label={resolved === "light" ? "Switch to night" : "Switch to day"}
+            title={resolved === "light" ? "Night" : "Day"}
+            onClick={() => onTheme(resolved === "light" ? "dark" : "light")}
+          >
+            {resolved === "light" ? <Sun className="h-4 w-4" /> : <Moon className="h-4 w-4" />}
+          </button>
           <button
             type="button"
             aria-label="Settings"
             title="Settings"
             onClick={onSettings}
-            className="flex h-11 w-11 items-center justify-center"
-            style={{ color: "var(--mute)" }}
+            className="os-hud-icon"
           >
             <Settings2 className="h-4 w-4" />
           </button>

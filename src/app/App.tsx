@@ -103,7 +103,7 @@ export default function App() {
         : "System ready";
 
   return (
-    <div className="min-h-dvh w-full overflow-x-hidden bg-canvas text-ink">
+    <div className="os-world min-h-dvh w-full overflow-x-hidden bg-canvas text-ink">
       {!ready ? <OsIntro onEnter={enter} /> : null}
 
       <SystemHeader

@@ -69,7 +69,7 @@ export function MenuLayer({ open, onClose, onArchive }: Props) {
     >
       <button type="button" className="os-overlay-scrim" aria-label="Close menu" onClick={onClose} />
       <aside className="os-menu-panel">
-        <div className="flex items-center justify-between px-6 py-5">
+        <div className="flex items-center justify-between px-5 py-5 sm:px-6">
           <p id="menu-title" className="os-label">
             Menu
           </p>
@@ -77,12 +77,12 @@ export function MenuLayer({ open, onClose, onArchive }: Props) {
             type="button"
             aria-label="Close"
             onClick={onClose}
-            className="flex h-11 w-11 items-center justify-center"
+            className="os-hud-icon"
           >
             <X className="h-4 w-4" />
           </button>
         </div>
-        <nav className="flex flex-1 flex-col justify-center gap-1 px-6 pb-16" aria-label="Workspace">
+        <nav className="flex flex-1 flex-col justify-center gap-2 px-5 pb-16 sm:px-6" aria-label="Workspace">
           {ITEMS.map((item, i) => (
             <button
               key={item.id}
