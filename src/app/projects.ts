@@ -20,14 +20,6 @@ export const PROJECTS: ProjectEntry[] = [
     external: true,
   },
   {
-    id: "charm",
-    name: "CHARM TYPE",
-    status: "BUILDING",
-    blurb: "WeChat article editor",
-    href: "https://github.com/MeyraLab/charm-type",
-    external: true,
-  },
-  {
     id: "excerpt",
     name: "IMAGE EXCERPT",
     status: "ACTIVE",
