@@ -1,35 +1,36 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500;600&display=swap');
 @import "tailwindcss";
 
 :root,
 html[data-theme="light"] {
-  --bg: #f7f7f8;
-  --bg-elev: #ffffff;
-  --bg-hover: #f0f0f2;
-  --line: rgba(0, 0, 0, 0.08);
-  --line-strong: rgba(0, 0, 0, 0.14);
-  --text: #0b0b0c;
-  --mute: #5c5c63;
-  --dim: #8b8b93;
-  --chip: #efeff1;
-  --chip-on: #0b0b0c;
-  --chip-on-text: #ffffff;
-  --shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
+  --bg: #f3f1eb;
+  --bg-elev: #faf9f5;
+  --bg-hover: #ebe8df;
+  --line: rgba(20, 20, 18, 0.14);
+  --line-strong: rgba(20, 20, 18, 0.28);
+  --text: #151513;
+  --mute: #5d5b54;
+  --dim: #88847a;
+  --chip: #e8e5dc;
+  --chip-on: #151513;
+  --chip-on-text: #faf9f5;
+  --shadow: 0 2px 0 rgba(20,20,18,.06);
+  --mono: 'IBM Plex Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
 }
 
 html[data-theme="dark"] {
-  --bg: #0b0b0c;
-  --bg-elev: #161618;
-  --bg-hover: #1e1e21;
-  --line: rgba(255, 255, 255, 0.08);
-  --line-strong: rgba(255, 255, 255, 0.16);
-  --text: #f4f4f5;
-  --mute: #a1a1aa;
-  --dim: #71717a;
-  --chip: #1c1c1f;
-  --chip-on: #f4f4f5;
-  --chip-on-text: #0b0b0c;
-  --shadow: 0 0 0 1px rgba(255, 255, 255, 0.03);
+  --bg: #11110f;
+  --bg-elev: #191916;
+  --bg-hover: #22221d;
+  --line: rgba(255, 255, 255, 0.13);
+  --line-strong: rgba(255, 255, 255, 0.25);
+  --text: #f1efe7;
+  --mute: #aaa79d;
+  --dim: #77746b;
+  --chip: #24241f;
+  --chip-on: #f1efe7;
+  --chip-on-text: #11110f;
+  --shadow: 0 2px 0 rgba(0,0,0,.25);
 }
 
 * { box-sizing: border-box; }
@@ -42,18 +43,56 @@ body {
 }
 button, a { cursor: pointer; }
 button:focus-visible,
-a:focus-visible {
-  outline: 2px solid var(--text);
-  outline-offset: 3px;
+a:focus-visible { outline: 2px solid var(--text); outline-offset: 3px; }
+html[data-theme="dark"] img.icon-ink { filter: invert(1); }
+
+/* MEYRA OS: system-console layer without copying Things Inc. assets. */
+.meyra-os {
+  position: relative;
+  overflow: hidden;
+  background: var(--bg-elev);
+  border: 1px solid var(--line-strong);
+  box-shadow: var(--shadow);
 }
-html[data-theme="dark"] img.icon-ink {
-  filter: invert(1);
+.meyra-os::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: repeating-linear-gradient(0deg, transparent 0 3px, rgba(0,0,0,.018) 4px);
+  opacity: .55;
 }
+.meyra-os .os-label { font-family: var(--mono); letter-spacing: .08em; }
+.meyra-os .os-status { font-family: var(--mono); font-size: 9px; letter-spacing: .04em; color: var(--dim); }
+.meyra-grid-bg {
+  background-image: linear-gradient(var(--line) 1px, transparent 1px), linear-gradient(90deg, var(--line) 1px, transparent 1px);
+  background-size: 28px 28px;
+  background-position: center;
+}
+
+/* App cards become small system modules rather than generic SaaS cards. */
+.meyra-app-card {
+  box-shadow: var(--shadow);
+  border-radius: 4px !important;
+  position: relative;
+  overflow: hidden;
+}
+.meyra-app-card::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 2px;
+  background: transparent;
+  transition: background .16s ease;
+}
+.meyra-app-card:hover::before { background: var(--text); }
+.meyra-app-icon { border-radius: 3px !important; }
+.meyra-section-title { font-family: var(--mono); }
+
 @media (prefers-reduced-motion: reduce) {
-  *, *::before, *::after {
-    animation: none !important;
-    transition: none !important;
-  }
+  *, *::before, *::after { animation: none !important; transition: none !important; }
 }
 
 .meyra-quad {
@@ -62,95 +101,17 @@ html[data-theme="dark"] img.icon-ink {
   touch-action: none;
   user-select: none;
 }
-.meyra-quad .pai {
-  width: 72px;
-  height: 66px;
-  padding: 0;
-  border: none;
-  background: transparent;
-  cursor: grab;
-  filter: drop-shadow(0 10px 12px rgba(210, 70, 110, 0.22));
-  animation: pai-bob 2.8s ease-in-out infinite;
-}
-.meyra-quad .pai:active {
-  cursor: grabbing;
-  animation: none;
-}
-.meyra-quad .pai-svg {
-  display: block;
-  width: 72px;
-  height: 66px;
-}
-.meyra-quad .pai-eyes {
-  transform-origin: 80px 58px;
-  animation: pai-blink 4.2s ease-in-out infinite;
-}
-@keyframes pai-bob {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-3px); }
-}
-@keyframes pai-blink {
-  0%, 88%, 100% { transform: scaleY(1); }
-  92% { transform: scaleY(0.12); }
-}
-.meyra-quad.is-open {
-  padding: 10px;
-  border-radius: 18px;
-  background: color-mix(in srgb, var(--bg-elev) 88%, transparent);
-  border: 1px solid var(--line);
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
-  backdrop-filter: blur(16px);
-  cursor: grab;
-}
-.meyra-quad .main {
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
-}
-.meyra-quad .up,
-.meyra-quad .down {
-  display: flex;
-  flex-direction: row;
-  gap: 4px;
-}
-.meyra-quad .card1,
-.meyra-quad .card2,
-.meyra-quad .card3,
-.meyra-quad .card4 {
-  width: 34px;
-  height: 34px;
-  outline: none;
-  border: none;
-  background: #fff;
-  box-shadow: rgba(50, 50, 93, 0.18) 0px 1px 3px -1px, rgba(0, 0, 0, 0.18) 0px 1px 2px -1px;
-  transition: .2s ease-in-out;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  text-decoration: none;
-  color: inherit;
-}
-.meyra-quad .card1 { border-radius: 34px 3px 3px 3px; }
-.meyra-quad .card2 { border-radius: 3px 34px 3px 3px; }
-.meyra-quad .card3 { border-radius: 3px 3px 3px 34px; }
-.meyra-quad .card4 { border-radius: 3px 3px 34px 3px; }
-.meyra-quad .instagram svg { fill: #000; color: #000; }
-.meyra-quad .twitter svg { fill: #FF0000; color: #FF0000; }
-.meyra-quad .github svg { fill: #37A7FF; color: #37A7FF; }
-.meyra-quad .discord svg { fill: currentColor; color: var(--text); }
-.meyra-quad .card1:hover { scale: 1.08; background-color: #000; }
-.meyra-quad .card1:hover svg { fill: #fff; color: #fff; }
-.meyra-quad .card2:hover { scale: 1.08; background-color: #FF0000; }
-.meyra-quad .card2:hover svg { fill: #fff; color: #fff; }
-.meyra-quad .card3:hover { scale: 1.08; background-color: #37A7FF; }
-.meyra-quad .card3:hover svg { fill: #fff; color: #fff; }
-.meyra-quad .card4:hover { scale: 1.08; background-color: #000; }
-.meyra-quad .card4:hover svg { fill: #fff; color: #fff; }
-html[data-theme="dark"] .meyra-quad .card1,
-html[data-theme="dark"] .meyra-quad .card2,
-html[data-theme="dark"] .meyra-quad .card3,
-html[data-theme="dark"] .meyra-quad .card4 {
-  background: var(--bg-hover);
-}
-html[data-theme="dark"] .meyra-quad .card4 svg,
-html[data-theme="dark"] .meyra-quad .card1 svg { fill: #f4f4f5; color: #f4f4f5; }
+.meyra-quad .pai { width: 72px; height: 66px; padding: 0; border: none; background: transparent; cursor: grab; filter: drop-shadow(0 10px 12px rgba(210,70,110,.22)); animation: pai-bob 2.8s ease-in-out infinite; }
+.meyra-quad .pai:active { cursor: grabbing; animation: none; }
+.meyra-quad .pai-svg { display: block; width: 72px; height: 66px; }
+.meyra-quad .pai-eyes { transform-origin: 80px 58px; animation: pai-blink 4.2s ease-in-out infinite; }
+@keyframes pai-bob { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-3px)} }
+@keyframes pai-blink { 0%,88%,100%{transform:scaleY(1)} 92%{transform:scaleY(.12)} }
+.meyra-quad.is-open { padding:10px; border-radius:8px; background:color-mix(in srgb,var(--bg-elev) 92%,transparent); border:1px solid var(--line); box-shadow:0 8px 24px rgba(0,0,0,.12); backdrop-filter:blur(16px); cursor:grab; }
+.meyra-quad .main{display:flex;flex-direction:column;gap:4px}.meyra-quad .up,.meyra-quad .down{display:flex;flex-direction:row;gap:4px}
+.meyra-quad .card1,.meyra-quad .card2,.meyra-quad .card3,.meyra-quad .card4{width:34px;height:34px;outline:none;border:none;background:#fff;box-shadow:rgba(50,50,93,.18) 0 1px 3px -1px,rgba(0,0,0,.18) 0 1px 2px -1px;transition:.2s ease-in-out;display:flex;align-items:center;justify-content:center;text-decoration:none;color:inherit}
+.meyra-quad .card1{border-radius:34px 3px 3px 3px}.meyra-quad .card2{border-radius:3px 34px 3px 3px}.meyra-quad .card3{border-radius:3px 3px 3px 34px}.meyra-quad .card4{border-radius:3px 3px 34px 3px}
+.meyra-quad .instagram svg{fill:#000;color:#000}.meyra-quad .twitter svg{fill:#ff0000;color:#ff0000}.meyra-quad .github svg{fill:#37a7ff;color:#37a7ff}.meyra-quad .discord svg{fill:currentColor;color:var(--text)}
+.meyra-quad .card1:hover{scale:1.08;background:#000}.meyra-quad .card1:hover svg{fill:#fff;color:#fff}.meyra-quad .card2:hover{scale:1.08;background:#ff0000}.meyra-quad .card2:hover svg{fill:#fff;color:#fff}.meyra-quad .card3:hover{scale:1.08;background:#37a7ff}.meyra-quad .card3:hover svg{fill:#fff;color:#fff}.meyra-quad .card4:hover{scale:1.08;background:#000}.meyra-quad .card4:hover svg{fill:#fff;color:#fff}
+html[data-theme="dark"] .meyra-quad .card1,html[data-theme="dark"] .meyra-quad .card2,html[data-theme="dark"] .meyra-quad .card3,html[data-theme="dark"] .meyra-quad .card4{background:var(--bg-hover)}
+html[data-theme="dark"] .meyra-quad .card4 svg,html[data-theme="dark"] .meyra-quad .card1 svg{fill:#f4f4f5;color:#f4f4f5}
