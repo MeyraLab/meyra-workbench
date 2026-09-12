@@ -1,29 +1,67 @@
+import { useEffect, useRef } from "react";
+
 export function BirdMark({ className }: { className?: string }) {
+  const root = useRef<HTMLSpanElement>(null);
+  const face = useRef<HTMLSpanElement>(null);
+  const left = useRef<HTMLSpanElement>(null);
+  const right = useRef<HTMLSpanElement>(null);
+
+  useEffect(() => {
+    const wrap = root.current;
+    const faceEl = face.current;
+    const a = left.current;
+    const b = right.current;
+    if (!wrap || !faceEl || !a || !b) return;
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+
+    let tx = 0;
+    let ty = 0;
+    let x = 0;
+    let y = 0;
+    let raf = 0;
+
+    const onMove = (e: PointerEvent) => {
+      const r = wrap.getBoundingClientRect();
+      const cx = r.left + r.width * 0.5;
+      const cy = r.top + r.height * 0.38;
+      const dx = e.clientX - cx;
+      const dy = e.clientY - cy;
+      const dist = Math.hypot(dx, dy) || 1;
+      const reach = Math.min(1, dist / 220);
+      tx = (dx / dist) * reach;
+      ty = (dy / dist) * reach;
+    };
+
+    const tick = () => {
+      x += (tx - x) * 0.14;
+      y += (ty - y) * 0.14;
+      const px = (x * 6).toFixed(2);
+      const py = (y * 5.2).toFixed(2);
+      a.style.transform = `translate(${px}px, ${py}px)`;
+      b.style.transform = `translate(${px}px, ${py}px)`;
+      faceEl.style.transform = `rotate(${(x * 8).toFixed(2)}deg) translate(${(x * 2).toFixed(2)}px, ${(y * 1.6).toFixed(2)}px)`;
+      raf = requestAnimationFrame(tick);
+    };
+
+    window.addEventListener("pointermove", onMove, { passive: true });
+    raf = requestAnimationFrame(tick);
+    return () => {
+      window.removeEventListener("pointermove", onMove);
+      cancelAnimationFrame(raf);
+    };
+  }, []);
+
   return (
-    <svg className={className} viewBox="0 0 160 168" aria-hidden="true">
-      <defs>
-        <radialGradient id="birdBody" cx="38%" cy="28%" r="78%">
-          <stop offset="0%" stopColor="#7ad0ff" />
-          <stop offset="42%" stopColor="#3d8fff" />
-          <stop offset="100%" stopColor="#2456d6" />
-        </radialGradient>
-        <radialGradient id="birdBeak" cx="50%" cy="20%" r="80%">
-          <stop offset="0%" stopColor="#5ec8ff" />
-          <stop offset="100%" stopColor="#2a6ad4" />
-        </radialGradient>
-      </defs>
-      <ellipse cx="80" cy="158" rx="28" ry="5" fill="#000" opacity=".12" />
-      <ellipse cx="80" cy="86" rx="62" ry="66" fill="url(#birdBody)" />
-      <ellipse cx="52" cy="148" rx="10" ry="5" fill="#2a4eb8" />
-      <ellipse cx="76" cy="150" rx="10" ry="5" fill="#2a4eb8" />
-      <path d="M68 104 L80 128 L92 104 Z" fill="url(#birdBeak)" />
-      <circle cx="62" cy="72" r="22" fill="#fff" />
-      <circle cx="104" cy="74" r="24" fill="#fff" />
-      <circle cx="66" cy="76" r="11" fill="#141414" />
-      <circle cx="107" cy="78" r="12" fill="#141414" />
-      <circle cx="70" cy="72" r="3.2" fill="#fff" />
-      <circle cx="111" cy="74" r="3.4" fill="#fff" />
-      <ellipse cx="48" cy="48" rx="16" ry="10" fill="#fff" opacity=".22" />
-    </svg>
+    <span className={`bird-pet${className ? ` ${className}` : ""}`} ref={root}>
+      <span className="bird-face" ref={face}>
+        <img src="/world/bird-pet.png" alt="" draggable={false} />
+        <span className="bird-eye is-left">
+          <span className="bird-pupil" ref={left} />
+        </span>
+        <span className="bird-eye is-right">
+          <span className="bird-pupil" ref={right} />
+        </span>
+      </span>
+    </span>
   );
 }

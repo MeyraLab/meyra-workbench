@@ -48,7 +48,7 @@ export function SocialQuad() {
     const saved = readPos();
     const next =
       saved.x >= 0
-        ? clampPos(saved.x, saved.y, 108, 108)
+        ? clampPos(saved.x, saved.y, 120, 120)
         : { x: 20, y: Math.max(72, window.innerHeight - 160) };
     setPos(next);
     posRef.current = next;
