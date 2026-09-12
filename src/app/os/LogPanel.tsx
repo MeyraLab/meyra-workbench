@@ -15,15 +15,11 @@ export function LogPanel() {
         {LOG.map((entry, index) => (
           <div
             key={`${entry.date}-${entry.title}`}
-            className={`os-log-row os-reveal${pending ? " is-pending" : ""}${block.shown ? " is-in" : ""}`}
-            style={{ transitionDelay: block.shown ? `${index * 70}ms` : "0ms" }}
+            className={`os-log-row os-reveal os-reveal-quiet${pending ? " is-pending" : ""}${block.shown ? " is-in" : ""}`}
+            style={{ transitionDelay: block.shown ? `${index * 50}ms` : "0ms" }}
           >
-            <p className="os-label" style={{ color: "var(--mute)" }}>
-              {entry.date}
-            </p>
-            <p className="os-label" style={{ color: "var(--system)" }}>
-              {entry.system}
-            </p>
+            <p className="os-label">{entry.date}</p>
+            <p className="os-label">{entry.system}</p>
             <p className="os-log-title">{entry.title}</p>
           </div>
         ))}

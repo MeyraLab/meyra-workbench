@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { X } from "lucide-react";
 
 const ITEMS = [
@@ -18,6 +18,7 @@ type Props = {
 export function MenuLayer({ open, onClose, onArchive }: Props) {
   const [shown, setShown] = useState(open);
   const [leaving, setLeaving] = useState(false);
+  const first = useRef<HTMLButtonElement>(null);
 
   useEffect(() => {
     if (open) {
@@ -43,6 +44,10 @@ export function MenuLayer({ open, onClose, onArchive }: Props) {
     return () => window.removeEventListener("keydown", onKey);
   }, [open, onClose]);
 
+  useEffect(() => {
+    if (open && shown && !leaving) first.current?.focus();
+  }, [open, shown, leaving]);
+
   if (!shown) return null;
 
   const go = (id: string) => {
@@ -65,7 +70,7 @@ export function MenuLayer({ open, onClose, onArchive }: Props) {
       <button type="button" className="os-overlay-scrim" aria-label="Close menu" onClick={onClose} />
       <aside className="os-menu-panel">
         <div className="flex items-center justify-between px-6 py-5">
-          <p id="menu-title" className="os-label" style={{ color: "var(--system)" }}>
+          <p id="menu-title" className="os-label">
             Menu
           </p>
           <button
@@ -81,10 +86,11 @@ export function MenuLayer({ open, onClose, onArchive }: Props) {
           {ITEMS.map((item, i) => (
             <button
               key={item.id}
+              ref={i === 0 ? first : undefined}
               type="button"
               onClick={() => go(item.id)}
               className="os-menu-item"
-              style={{ animationDelay: leaving ? "0ms" : `${80 + i * 60}ms` }}
+              style={{ animationDelay: leaving ? "0ms" : `${60 + i * 45}ms` }}
             >
               <span className="os-label">{String(i + 1).padStart(2, "0")}</span>
               <span className="os-display">{item.label}</span>

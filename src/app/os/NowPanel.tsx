@@ -3,8 +3,8 @@ import { NOW } from "../now";
 
 export function NowPanel() {
   return (
-    <section id="now" className="pt-8 sm:pt-14">
-      <p className="os-label mb-10 sm:mb-16">01 — Now</p>
+    <section id="now" className="pt-10 sm:pt-16">
+      <p className="os-label mb-8 sm:mb-12">01 — Now</p>
 
       <h1 className="os-now-name">{NOW.project}</h1>
 
@@ -12,7 +12,7 @@ export function NowPanel() {
         <div className="min-w-0">
           <p className="os-now-status">{NOW.status}</p>
           <p className="os-now-next">{NOW.next}</p>
-          <p className="os-label mt-4">User {NOW.user}</p>
+          <p className="os-label mt-3">User {NOW.user}</p>
         </div>
         <a
           href={NOW.href}

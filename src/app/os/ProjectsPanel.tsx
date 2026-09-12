@@ -26,18 +26,20 @@ function ProjectObject({ project, index }: { project: ProjectEntry; index: numbe
     <article
       ref={block.ref}
       className={`os-project os-project-${index + 1} os-reveal${pending ? " is-pending" : ""}${block.shown ? " is-in" : ""}`}
-      style={{ transitionDelay: block.shown ? `${index * 80}ms` : "0ms" }}
+      style={{ transitionDelay: block.shown ? `${index * 70}ms` : "0ms" }}
     >
-      <p className="os-label mb-3">{String(index + 1).padStart(2, "0")}</p>
+      <div className="os-project-kicker">
+        <p className="os-label">{String(index + 1).padStart(2, "0")}</p>
+        <p
+          className="os-status"
+          style={{ color: project.status === "BUILDING" ? "var(--pink)" : "var(--dim)" }}
+        >
+          {project.status}
+        </p>
+      </div>
       <p className="p-name">{project.name}</p>
-      <p
-        className="os-status mt-3"
-        style={{ color: project.status === "ACTIVE" ? "var(--system)" : "var(--pink)" }}
-      >
-        {project.status}
-      </p>
-      <p className="os-body mt-2 max-w-xs">{project.blurb}</p>
-      <div className="mt-6">
+      <p className="os-body mt-3 max-w-xs">{project.blurb}</p>
+      <div className="mt-4">
         {project.here ? (
           <span className="os-label" style={{ color: "var(--system)" }}>
             Here
@@ -47,7 +49,7 @@ function ProjectObject({ project, index }: { project: ProjectEntry; index: numbe
             href={project.href}
             target={project.external ? "_blank" : undefined}
             rel={project.external ? "noopener noreferrer" : undefined}
-            className="os-btn os-btn-ghost"
+            className="os-text-link"
           >
             Open
             <ArrowUpRight className="h-3.5 w-3.5" />
