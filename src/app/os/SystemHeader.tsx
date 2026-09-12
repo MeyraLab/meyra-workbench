@@ -24,6 +24,7 @@ export function SystemHeader({
         type="button"
         aria-label={menuOpen ? "Close menu" : "Open menu"}
         aria-expanded={menuOpen}
+        aria-controls="meyra-menu"
         onClick={onMenu}
         className="os-hud-pill"
       >
@@ -40,6 +41,7 @@ export function SystemHeader({
           type="button"
           className="os-hud-round"
           aria-label={resolved === "light" ? "Switch to night" : "Switch to day"}
+          aria-pressed={resolved === "dark"}
           onClick={() => onTheme(resolved === "light" ? "dark" : "light")}
         >
           {resolved === "light" ? <Sun className="h-5 w-5" /> : <Moon className="h-5 w-5" />}

@@ -31,6 +31,7 @@ export function MenuLayer({ open, onClose, onArchive }: Props) {
     const t = window.setTimeout(() => {
       setShown(false);
       setLeaving(false);
+      document.querySelector<HTMLButtonElement>("header .os-hud-pill")?.focus();
     }, 220);
     return () => window.clearTimeout(t);
   }, [open, shown]);
@@ -61,7 +62,13 @@ export function MenuLayer({ open, onClose, onArchive }: Props) {
   };
 
   return (
-    <div className={`os-menu${leaving ? " is-leave" : ""}`} role="dialog" aria-modal="true" aria-labelledby="menu-title">
+    <div
+      id="meyra-menu"
+      className={`os-menu${leaving ? " is-leave" : ""}`}
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="menu-title"
+    >
       <button type="button" className="os-overlay-scrim" aria-label="Close menu" onClick={onClose} />
       <aside className="os-menu-panel">
         <div className="os-menu-top">
@@ -78,7 +85,7 @@ export function MenuLayer({ open, onClose, onArchive }: Props) {
               ref={i === 0 ? first : undefined}
               type="button"
               onClick={() => go(item.id)}
-              className={`os-menu-chip${i === 0 ? " is-now" : ""}`}
+              className="os-menu-chip"
               style={{ animationDelay: leaving ? "0ms" : `${50 + i * 40}ms` }}
             >
               <span>•</span>
