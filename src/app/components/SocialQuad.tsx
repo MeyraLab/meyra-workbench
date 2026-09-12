@@ -1,8 +1,8 @@
 import { useEffect, useRef, useState } from "react";
 import { BrandIcon, type BrandId } from "../BrandIcon";
-import { BirdMark } from "../os/BirdMark";
+import { PaiMark } from "../os/PaiMark";
 
-const POS_KEY = "meyra-bird-v2";
+const POS_KEY = "meyra-quad-pos";
 
 const ITEMS: Array<{
   name: string;
@@ -48,7 +48,7 @@ export function SocialQuad() {
     const saved = readPos();
     const next =
       saved.x >= 0
-        ? clampPos(saved.x, saved.y, 124, 124)
+        ? clampPos(saved.x, saved.y, 80, 76)
         : { x: 20, y: Math.max(72, window.innerHeight - 160) };
     setPos(next);
     posRef.current = next;
@@ -172,7 +172,7 @@ export function SocialQuad() {
         </div>
       ) : (
         <button type="button" className="pai" aria-label="打开快捷入口" tabIndex={-1}>
-          <BirdMark className="pai-svg" />
+          <PaiMark className="pai-svg" />
         </button>
       )}
     </div>

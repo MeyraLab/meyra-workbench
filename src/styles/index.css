@@ -1473,57 +1473,36 @@ html[data-theme="dark"] .os-menu-chip {
   user-select: none;
 }
 
-.meyra-quad .pai-svg,
-.bird-pet {
-  display: block;
-  position: relative;
-  width: 124px;
-  height: 124px;
-  overflow: visible;
-  pointer-events: none;
-}
-
-.bird-shadow {
-  position: absolute;
-  left: 22%;
-  right: 22%;
-  bottom: 4%;
-  height: 10px;
-  border-radius: 50%;
-  background: #000;
-  opacity: 0.18;
-  filter: blur(2px);
-  pointer-events: none;
-}
-
-.bird-face {
-  display: block;
-  width: 100%;
-  height: 100%;
-  transform-origin: 50% 88%;
-  will-change: transform;
-}
-
-.bird-pet img {
-  display: block;
-  width: 100%;
-  height: 100%;
-  object-fit: contain;
-  pointer-events: none;
-}
-
 .meyra-quad .pai {
-  width: 124px;
-  height: 124px;
+  width: 80px;
+  height: 76px;
   padding: 0;
   border: none;
   background: transparent;
   cursor: grab;
-  filter: drop-shadow(0 8px 12px rgba(20, 50, 140, 0.22));
+  filter: drop-shadow(0 10px 12px rgba(210, 70, 110, 0.22));
 }
 
 .meyra-quad .pai:active {
   cursor: grabbing;
+}
+
+.meyra-quad .pai-svg {
+  display: block;
+  width: 80px;
+  height: 76px;
+  overflow: visible;
+  pointer-events: none;
+}
+
+.pai-eyes {
+  transform-origin: 80px 58px;
+  animation: pai-blink 4.2s ease-in-out infinite;
+}
+
+@keyframes pai-blink {
+  0%, 88%, 100% { transform: scaleY(1); }
+  92% { transform: scaleY(0.12); }
 }
 
 .meyra-quad.is-open {
