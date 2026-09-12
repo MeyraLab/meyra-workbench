@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import { BrandIcon, type BrandId } from "../BrandIcon";
 import { BirdMark } from "../os/BirdMark";
 
-const POS_KEY = "meyra-bird-pos";
+const POS_KEY = "meyra-bird-v2";
 
 const ITEMS: Array<{
   name: string;
@@ -31,8 +31,8 @@ function readPos(): Pos {
 
 function clampPos(x: number, y: number, w: number, h: number): Pos {
   return {
-    x: Math.min(window.innerWidth - w - 8, Math.max(8, x)),
-    y: Math.min(window.innerHeight - h - 8, Math.max(8, y)),
+    x: Math.min(window.innerWidth - w - 64, Math.max(16, x)),
+    y: Math.min(window.innerHeight - h - 16, Math.max(72, y)),
   };
 }
 
@@ -48,10 +48,11 @@ export function SocialQuad() {
     const saved = readPos();
     const next =
       saved.x >= 0
-        ? clampPos(saved.x, saved.y, 92, 92)
-        : { x: Math.max(12, window.innerWidth - 118), y: Math.max(72, window.innerHeight - 140) };
+        ? clampPos(saved.x, saved.y, 108, 108)
+        : { x: 20, y: Math.max(72, window.innerHeight - 160) };
     setPos(next);
     posRef.current = next;
+    rest.current = performance.now() + 5000;
   }, []);
 
   useEffect(() => {
@@ -136,13 +137,11 @@ export function SocialQuad() {
     if (d && !d.moved) setOpen((v) => !v);
   };
 
-  if (pos.x < 0) return null;
-
   return (
     <div
       ref={root}
       className={`meyra-quad${open ? " is-open" : ""}`}
-      style={{ left: pos.x, top: pos.y }}
+      style={pos.x >= 0 ? { left: pos.x, top: pos.y } : undefined}
       aria-label="快捷入口"
       onPointerDown={onPointerDown}
       onPointerMove={onPointerMove}
