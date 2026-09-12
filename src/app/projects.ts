@@ -18,7 +18,7 @@ export const PROJECTS: ProjectEntry[] = [
     status: "ACTIVE",
     blurb: "AI layout system",
     href: "https://inkpai.hongmeichen1219.workers.dev",
-    image: "/projects/inkpai-3.jpg",
+    image: "/projects/inkpai-4.webp",
     external: true,
   },
   {
@@ -27,7 +27,7 @@ export const PROJECTS: ProjectEntry[] = [
     status: "ACTIVE",
     blurb: "Image book excerpts",
     href: "https://imageexcerpt.lovable.app",
-    image: "/projects/excerpt-3.jpg",
+    image: "/projects/excerpt-4.webp",
     external: true,
   },
   {
@@ -36,7 +36,7 @@ export const PROJECTS: ProjectEntry[] = [
     status: "ACTIVE",
     blurb: "Live product store",
     href: "https://vibe-coding-store.vercel.app/",
-    image: "/projects/vibe-3.jpg",
+    image: "/projects/vibe-4.webp",
     external: true,
   },
 ];

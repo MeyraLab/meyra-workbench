@@ -46,7 +46,7 @@ function ProjectRoom({ project, index }: { project: ProjectEntry; index: number 
       onPointerMove={tilt}
       onPointerLeave={untilt}
     >
-      <img src={project.image} alt="" />
+      <img src={project.image} alt="" decoding="async" />
       <span className="os-room-orb" aria-hidden="true">
         <ArrowUpRight className="h-5 w-5" />
       </span>

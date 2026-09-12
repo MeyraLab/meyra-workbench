@@ -1093,6 +1093,8 @@ html[data-theme="light"] .os-canvas-title {
   height: 100%;
   min-height: 18rem;
   object-fit: cover;
+  object-position: 50% 46%;
+  image-rendering: auto;
   transform: translateZ(18px) scale(1.04);
   transition: transform 180ms var(--ease-os);
 }
