@@ -22,7 +22,6 @@ export function ToolsPanel({ apps, overrides, open, onToggle }: Props) {
         className="os-tools-toggle"
       >
         <span>
-          <span className="os-label block">03 — Tools</span>
           <span className="os-tools-word">Tools</span>
         </span>
         <span

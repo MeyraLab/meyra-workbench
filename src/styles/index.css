@@ -527,9 +527,9 @@ html[data-entered="1"] .os-intro {
 
 .os-sky-img {
   position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
+  inset: -6%;
+  width: 112%;
+  height: 112%;
   object-fit: cover;
   opacity: 0;
   transition: opacity var(--motion-theme) var(--ease-os);
@@ -860,7 +860,8 @@ html[data-theme="dark"] .os-stars { opacity: 1; }
 .os-rooms {
   display: grid;
   grid-template-columns: 1.15fr 0.85fr;
-  gap: 1.1rem;
+  gap: 1.25rem;
+  perspective: 1600px;
 }
 
 .os-room {
@@ -868,11 +869,17 @@ html[data-theme="dark"] .os-stars { opacity: 1; }
   display: block;
   overflow: hidden;
   min-height: 16rem;
-  border-radius: var(--shape-lg);
-  background: var(--card);
+  border-radius: 26px;
+  background: #120f24;
   box-shadow: var(--object);
   text-decoration: none;
   color: inherit;
+  transform: rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg)) translateZ(0);
+  transform-style: preserve-3d;
+  transition:
+    transform 180ms var(--ease-os),
+    box-shadow 180ms var(--ease-os);
+  will-change: transform;
 }
 
 .os-room img {
@@ -881,6 +888,8 @@ html[data-theme="dark"] .os-stars { opacity: 1; }
   height: 100%;
   min-height: 18rem;
   object-fit: cover;
+  transform: translateZ(18px) scale(1.04);
+  transition: transform 180ms var(--ease-os);
 }
 
 .os-room-1 { grid-column: 1; grid-row: 1 / span 2; min-height: 28rem; }
@@ -890,46 +899,46 @@ html[data-theme="dark"] .os-stars { opacity: 1; }
 
 .os-room-orb {
   position: absolute;
-  top: 1rem;
-  right: 1rem;
-  width: 3.25rem;
-  height: 3.25rem;
-  border-radius: 1.1rem;
-  background: color-mix(in srgb, var(--card-inner) 82%, transparent);
+  top: 0.9rem;
+  right: 0.9rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 3.35rem;
+  height: 3.35rem;
+  border-radius: 1.15rem;
+  background: #f4effa;
+  color: #2a2554;
   box-shadow: var(--shadow);
+  transform: translateZ(28px);
 }
 
 .os-room-caption {
   position: absolute;
-  left: 1rem;
-  bottom: 1rem;
-  right: auto;
-  max-width: 16rem;
-  padding: 1rem 1.1rem 1.1rem;
-  border-radius: 22px;
-  background: var(--card-inner);
-  color: var(--hud-ink);
+  left: 0.9rem;
+  bottom: 0.9rem;
+  max-width: 14rem;
+  padding: 0.95rem 1.05rem 1rem;
+  border-radius: 20px;
+  background: #f4effa;
+  color: #2a2554;
   box-shadow: var(--shadow);
+  transform: translateZ(28px);
 }
 
 .os-room-caption h3 {
-  margin-top: 0.2rem;
-  font-size: clamp(1.35rem, 2.4vw, 1.9rem);
+  font-size: clamp(1.2rem, 2.2vw, 1.7rem);
   font-weight: 800;
   letter-spacing: -0.03em;
   line-height: 1.05;
 }
 
-.os-room-caption p {
-  margin-top: 0.2rem;
-  font-size: 0.92rem;
-  font-weight: 700;
-  color: color-mix(in srgb, var(--hud-ink) 72%, transparent);
+.os-room:hover {
+  box-shadow: 0 28px 56px rgba(8, 6, 24, 0.42);
 }
 
-.os-room:hover {
-  transform: translateY(-3px);
-  transition: transform var(--motion-project) var(--ease-os);
+.os-room:hover img {
+  transform: translateZ(28px) scale(1.07);
 }
 
 .os-room:focus-visible {
@@ -1414,9 +1423,11 @@ html[data-theme="dark"] .meyra-quad .card1 svg {
     animation: none;
   }
 
-  .os-cloud,
-  .os-room:hover {
-    animation: none;
+  .os-room,
+  .os-room img,
+  .os-room:hover,
+  .os-room:hover img {
     transform: none;
+    box-shadow: var(--object);
   }
 }

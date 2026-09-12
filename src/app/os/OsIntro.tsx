@@ -26,7 +26,7 @@ export function OsIntro({ onEnter }: Props) {
   return (
     <div className="os-intro" role="dialog" aria-label="MEYRA OS">
       <div className="os-intro-inner">
-        <p className="line line-kicker">System entry</p>
+        <p className="line line-kicker">MEYRA</p>
         <p className="line line-title">MEYRA OS</p>
         <p className="line line-sub">Personal workbench</p>
         <p className="line diag d1">Initializing workspace...</p>
@@ -39,11 +39,6 @@ export function OsIntro({ onEnter }: Props) {
           <span>Tools</span>
           <span className="dots" aria-hidden="true" />
           <span>{count}</span>
-        </p>
-        <p className="line diag d4">
-          <span>Archive</span>
-          <span className="dots" aria-hidden="true" />
-          <span>OK</span>
         </p>
         <p className="line diag d5">
           System ready

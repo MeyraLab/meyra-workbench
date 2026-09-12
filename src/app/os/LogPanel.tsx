@@ -8,7 +8,7 @@ export function LogPanel() {
   return (
     <section id="log" ref={block.ref}>
       <div className="mb-10 flex items-baseline justify-between gap-3 sm:mb-12">
-        <p className="os-label">04 — Meyra log</p>
+        <p className="os-world-title" style={{ fontSize: "clamp(2rem, 5vw, 3.2rem)" }}>Log</p>
         <span className="os-status">{String(LOG.length).padStart(2, "0")}</span>
       </div>
       <div>
