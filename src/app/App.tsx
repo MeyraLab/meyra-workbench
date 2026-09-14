@@ -133,11 +133,9 @@ export default function App() {
           <NowPanel />
 
           <div className="os-band-flow">
-            <hr className="os-rule os-rule-draw" />
             <div className="py-5 sm:py-6">
               <WorkflowBar />
             </div>
-            <hr className="os-rule os-rule-draw" />
           </div>
         </div>
 
