@@ -193,9 +193,7 @@ function DesktopOrb() {
   return (
     <LiveOrb
       size={96}
-      variant={dark ? "white" : "custom"}
-      color="#f0a0bc"
-      eyeColor="#2a2040"
+      variant={dark ? "white" : "black"}
       blink
       interactive
     />
