@@ -1474,35 +1474,22 @@ html[data-theme="dark"] .os-menu-chip {
 }
 
 .meyra-quad .pai {
-  width: 80px;
-  height: 76px;
+  width: 96px;
+  height: 96px;
   padding: 0;
   border: none;
   background: transparent;
   cursor: grab;
-  filter: drop-shadow(0 10px 12px rgba(210, 70, 110, 0.22));
+  border-radius: 50%;
+  filter: drop-shadow(0 12px 18px rgba(16, 14, 40, 0.28));
 }
 
 .meyra-quad .pai:active {
   cursor: grabbing;
 }
 
-.meyra-quad .pai-svg {
-  display: block;
-  width: 80px;
-  height: 76px;
-  overflow: visible;
+.meyra-quad .pai canvas {
   pointer-events: none;
-}
-
-.pai-eyes {
-  transform-origin: 80px 58px;
-  animation: pai-blink 4.2s ease-in-out infinite;
-}
-
-@keyframes pai-blink {
-  0%, 88%, 100% { transform: scaleY(1); }
-  92% { transform: scaleY(0.12); }
 }
 
 .meyra-quad.is-open {

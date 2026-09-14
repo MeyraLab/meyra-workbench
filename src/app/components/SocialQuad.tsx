@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { BrandIcon, type BrandId } from "../BrandIcon";
-import { PaiMark } from "../os/PaiMark";
+import { LiveOrb } from "../os/live-orb";
 
 const POS_KEY = "meyra-quad-pos";
 
@@ -48,7 +48,7 @@ export function SocialQuad() {
     const saved = readPos();
     const next =
       saved.x >= 0
-        ? clampPos(saved.x, saved.y, 80, 76)
+        ? clampPos(saved.x, saved.y, 96, 96)
         : { x: 20, y: Math.max(72, window.innerHeight - 160) };
     setPos(next);
     posRef.current = next;
@@ -172,10 +172,33 @@ export function SocialQuad() {
         </div>
       ) : (
         <button type="button" className="pai" aria-label="打开快捷入口" tabIndex={-1}>
-          <PaiMark className="pai-svg" />
+          <DesktopOrb />
         </button>
       )}
     </div>
+  );
+}
+
+function DesktopOrb() {
+  const [dark, setDark] = useState(false);
+
+  useEffect(() => {
+    const read = () => setDark(document.documentElement.dataset.theme === "dark");
+    read();
+    const mo = new MutationObserver(read);
+    mo.observe(document.documentElement, { attributes: true, attributeFilter: ["data-theme"] });
+    return () => mo.disconnect();
+  }, []);
+
+  return (
+    <LiveOrb
+      size={96}
+      variant={dark ? "white" : "custom"}
+      color="#f0a0bc"
+      eyeColor="#2a2040"
+      blink
+      interactive
+    />
   );
 }
 
