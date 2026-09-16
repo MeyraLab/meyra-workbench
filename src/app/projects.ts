@@ -17,7 +17,7 @@ export const PROJECTS: ProjectEntry[] = [
     name: "INKPAI",
     status: "ACTIVE",
     blurb: "AI layout system",
-    href: "https://inkpai.hongmeichen1219.workers.dev",
+    href: "https://inkpai.meyracle.com/",
     image: "/projects/inkpai-4.webp",
     external: true,
   },
@@ -32,7 +32,7 @@ export const PROJECTS: ProjectEntry[] = [
   },
   {
     id: "vibe",
-    name: "VIBE CODING STORE",
+    name: "MEYRACLE WEB",
     status: "ACTIVE",
     blurb: "Live product store",
     href: "https://vibe-coding-store.vercel.app/",
