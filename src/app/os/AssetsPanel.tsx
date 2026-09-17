@@ -5,7 +5,6 @@ import {
   ConnectionMode,
   Controls,
   MarkerType,
-  Panel,
   ReactFlow,
   ReactFlowProvider,
   addEdge,
@@ -22,7 +21,6 @@ import {
   defaultNode,
   exportBoardJson,
   formatCny,
-  formatPct,
   graphStats,
   inferFlowKind,
   nid,
@@ -30,14 +28,12 @@ import {
   parseBoardJson,
   readGraph,
   resetGraph,
-  todayTip,
   upsertEdge,
   writeGraph,
   type EsbiState,
   type FlowKind,
   type FlowNodeData,
   type NodeKind,
-  type Quadrant,
   type StoredEdge,
   type StoredNode,
 } from "../assets";
@@ -92,7 +88,6 @@ function toStoredEdges(edges: FlowEdge[]): StoredEdge[] {
 export function AssetsPanel() {
   const block = useInView<HTMLElement>();
   const pending = block.armed && !block.shown;
-  const tip = todayTip();
   return (
     <section
       id="assets"
@@ -100,28 +95,9 @@ export function AssetsPanel() {
       className={`os-assets-section os-reveal${pending ? " is-pending" : ""}${block.shown ? " is-in" : ""}`}
       aria-labelledby="assets-title"
     >
-      <header className="os-assets-head">
-        <div>
-          <p className="os-kicker">Cashflow · 资产板</p>
-          <h2 id="assets-title" className="os-world-title os-canvas-title">
-            资产板
-          </h2>
-        </div>
-        <aside className="os-chance-slip" aria-label="机会卡">
-          <p className="os-label">机会卡</p>
-          <p className="os-chance-slip-title">{tip.title}</p>
-          <p>{tip.body}</p>
-        </aside>
-      </header>
-      <p className="os-assets-lede">
-        箭头是账本。资产把钱放进口袋，负债把钱拿出口袋。数字产品走 B 象限。
-      </p>
       <ReactFlowProvider>
         <FlowCanvas />
       </ReactFlowProvider>
-      <footer className="os-assets-foot">
-        <p>个人学习框架，非投资建议。</p>
-      </footer>
     </section>
   );
 }
@@ -307,56 +283,50 @@ function FlowCanvas() {
         applyBoard(next);
       })
       .catch(() => {
-        setImportError("无法读取这份 JSON。需要 assets / liabilities / income / expenses 或画布节点。");
+        setImportError("读不了这份文件。");
       });
   };
 
   return (
     <div className="os-flow-shell">
-      <div className="os-statement">
-        <div>
-          <p className="os-label">收入</p>
-          <p>{formatCny(stats.earned)}</p>
-        </div>
-        <div>
-          <p className="os-label">支出</p>
-          <p>{formatCny(-stats.expenses)}</p>
-        </div>
-        <div>
-          <p className="os-label">被动收入</p>
-          <p>{formatCny(stats.passive)}</p>
-        </div>
-        <div>
-          <p className="os-label">月净现金流</p>
-          <p className={stats.net >= 0 ? "is-plus" : "is-minus"}>{formatCny(stats.net)}</p>
-        </div>
-        <div>
-          <p className="os-label">净资产</p>
-          <p className={stats.worth >= 0 ? "is-plus" : "is-minus"}>{formatCny(stats.worth)}</p>
-        </div>
-      </div>
-      <div className="os-esbi-row" role="group" aria-label="ESBI 象限">
-        {QUADRANTS.map((q) => (
-          <div
-            key={q.id}
-            className={`os-esbi-chip${esbiPick.current === q.id ? " is-now" : ""}${esbiPick.target === q.id ? " is-aim" : ""}`}
-          >
-            <button type="button" onClick={() => setEsbiPick((current) => ({ ...current, current: q.id }))}>
-              <span>{q.id}</span>
-              <strong>{formatCny(stats.esbi[q.id as Quadrant])}</strong>
-              <em>{q.label}</em>
-            </button>
-            <button
-              type="button"
-              className="os-esbi-aim"
-              aria-label={`目标 ${q.label}`}
-              onClick={() => setEsbiPick((current) => ({ ...current, target: q.id }))}
-            >
-              目标
-            </button>
+      <header className="os-assets-head">
+        <h2 id="assets-title" className="os-world-title os-canvas-title">
+          资产板
+        </h2>
+        <div className="os-assets-meta">
+          <div className="os-esbi-row" role="group" aria-label="ESBI">
+            {QUADRANTS.map((q) => (
+              <button
+                key={q}
+                type="button"
+                className={`os-esbi${esbiPick.current === q ? " is-now" : ""}${esbiPick.target === q ? " is-aim" : ""}`}
+                aria-label={`${q} ${formatCny(stats.esbi[q])}`}
+                onClick={(event) =>
+                  setEsbiPick((current) =>
+                    event.altKey || event.metaKey
+                      ? { ...current, target: q }
+                      : { ...current, current: q },
+                  )
+                }
+              >
+                {q}
+              </button>
+            ))}
           </div>
-        ))}
-      </div>
+          <button type="button" className="os-text-link" onClick={() => setSelection({ type: "add", x: 380, y: 300 })}>
+            添加
+          </button>
+          <button type="button" className="os-text-link" onClick={downloadJson}>
+            导出
+          </button>
+          <button type="button" className="os-text-link" onClick={() => fileRef.current?.click()}>
+            导入
+          </button>
+          <button type="button" className="os-text-link" onClick={() => applyBoard(resetGraph())}>
+            重置
+          </button>
+        </div>
+      </header>
       <div className="os-flow-stage">
         <ReactFlow
           nodes={viewNodes}
@@ -398,41 +368,8 @@ function FlowCanvas() {
             markerEnd: { type: MarkerType.ArrowClosed, width: 18, height: 18 },
           }}
         >
-          <Background variant={BackgroundVariant.Dots} gap={22} size={1.4} color="color-mix(in srgb, var(--felt-ink) 22%, transparent)" />
+          <Background variant={BackgroundVariant.Dots} gap={22} size={1.4} color="var(--grid)" />
           <Controls showInteractive={false} position="bottom-left" />
-          <Panel position="top-left" className="os-flow-legend">
-            <span className="is-in">流入</span>
-            <span className="is-out">流出</span>
-            <span className="is-drain">负债抽干</span>
-          </Panel>
-          <Panel position="bottom-right" className="os-flow-race">
-            <p className="os-label">Rat Race</p>
-            <p className={`os-flow-race-flag${stats.escaped ? " is-free" : ""}`}>
-              {stats.escaped ? "被动已覆盖支出" : "尚未脱离鼠赛"}
-            </p>
-            <p>
-              被动 {formatCny(stats.passive)} / 支出 {formatCny(stats.expenses)} · 覆盖 {formatPct(stats.coverage)}
-            </p>
-          </Panel>
-          <Panel position="bottom-center" className="os-flow-tools">
-            <button type="button" onClick={() => setSelection({ type: "add", x: 380, y: 300 })}>
-              添加节点
-            </button>
-            <button type="button" onClick={downloadJson}>
-              导出 JSON
-            </button>
-            <button type="button" onClick={() => fileRef.current?.click()}>
-              导入 JSON
-            </button>
-            <button
-              type="button"
-              onClick={() => {
-                applyBoard(resetGraph());
-              }}
-            >
-              重置示例
-            </button>
-          </Panel>
         </ReactFlow>
         <FlowDrawer
           selection={selection}
