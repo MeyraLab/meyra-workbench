@@ -10,6 +10,7 @@ import {
   type IconOverrides,
 } from "./iconOverrides";
 import { applyTheme, readThemePref, resolveTheme, type ThemePref } from "./theme";
+import { AssetsPanel } from "./os/AssetsPanel";
 import { LogPanel } from "./os/LogPanel";
 import { MenuLayer } from "./os/MenuLayer";
 import { NowPanel } from "./os/NowPanel";
@@ -30,7 +31,7 @@ export default function App() {
   const [overrides, setOverrides] = useState<IconOverrides>({});
   const [hidden, setHidden] = useState<string[]>([]);
   const [beat, setBeat] = useState(1);
-  const SECTIONS = ["now", "projects", "tools", "log"] as const;
+  const SECTIONS = ["now", "projects", "assets", "tools", "log"] as const;
 
   useEffect(() => {
     const initial = readThemePref();
@@ -121,7 +122,7 @@ export default function App() {
       <SystemHeader
         resolved={resolved}
         beat={beat}
-        total={4}
+        total={SECTIONS.length}
         menuOpen={menuOpen}
         onMenu={() => setMenuOpen((v) => !v)}
         onTheme={setTheme}
@@ -143,6 +144,10 @@ export default function App() {
           <div className="os-stage">
             <div className="os-band-projects">
               <ProjectsPanel />
+            </div>
+
+            <div className="os-band-assets">
+              <AssetsPanel />
             </div>
 
             <div className="os-band-tools">
