@@ -1640,21 +1640,25 @@ html[data-theme="dark"] .os-menu-chip {
 
 .os-flow-elabel {
   position: absolute;
+  z-index: 1;
   pointer-events: all;
+  padding: 0.18rem 0.5rem;
+  border-radius: 8px;
+  background: var(--hud);
   color: var(--hud-ink);
-  font-family: var(--font-mono);
-  font-size: var(--text-micro);
-  font-weight: 500;
-  letter-spacing: var(--tracking-os);
+  font-family: var(--font-sans);
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  line-height: 1.2;
+  white-space: nowrap;
+  box-shadow: var(--shadow);
   cursor: pointer;
 }
 
-.os-flow-elabel.is-out {
-  color: var(--pink);
-}
-
 .os-flow-elabel.is-on {
-  color: var(--system);
+  outline: 2px solid var(--system);
+  outline-offset: 1px;
 }
 
 .os-flow-addbtn {
