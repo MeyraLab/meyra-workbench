@@ -1497,7 +1497,7 @@ html[data-theme="dark"] .os-menu-chip {
   padding: 0;
   border: 0;
   background: none;
-  color: var(--dim);
+  color: var(--mute);
   font-family: var(--font-mono);
   font-size: var(--text-micro);
   font-weight: 500;
