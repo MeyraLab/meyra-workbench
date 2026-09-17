@@ -4,6 +4,7 @@ import { X } from "lucide-react";
 const ITEMS = [
   { id: "now", label: "Now" },
   { id: "projects", label: "Projects" },
+  { id: "assets", label: "资产板" },
   { id: "tools", label: "Tools" },
   { id: "log", label: "Log" },
 ] as const;
