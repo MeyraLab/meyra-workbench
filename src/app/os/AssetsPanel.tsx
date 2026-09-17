@@ -34,7 +34,6 @@ import {
   type FlowKind,
   type FlowNodeData,
   type NodeKind,
-  type Quadrant,
   type StoredEdge,
   type StoredNode,
 } from "../assets";
@@ -284,7 +283,7 @@ function FlowCanvas() {
         applyBoard(next);
       })
       .catch(() => {
-        setImportError("读不了这份文件。换成含收入、支出、资产或节点的 JSON。");
+        setImportError("读不了这份文件。");
       });
   };
 
@@ -298,20 +297,19 @@ function FlowCanvas() {
           <div className="os-esbi-row" role="group" aria-label="ESBI">
             {QUADRANTS.map((q) => (
               <button
-                key={q.id}
+                key={q}
                 type="button"
-                className={`os-esbi${esbiPick.current === q.id ? " is-now" : ""}${esbiPick.target === q.id ? " is-aim" : ""}`}
-                aria-label={`${q.id} ${q.label} ${formatCny(stats.esbi[q.id as Quadrant])}`}
-                title="Alt 设为目标"
+                className={`os-esbi${esbiPick.current === q ? " is-now" : ""}${esbiPick.target === q ? " is-aim" : ""}`}
+                aria-label={`${q} ${formatCny(stats.esbi[q])}`}
                 onClick={(event) =>
                   setEsbiPick((current) =>
                     event.altKey || event.metaKey
-                      ? { ...current, target: q.id }
-                      : { ...current, current: q.id },
+                      ? { ...current, target: q }
+                      : { ...current, current: q },
                   )
                 }
               >
-                {q.id}
+                {q}
               </button>
             ))}
           </div>

@@ -1525,8 +1525,7 @@ html[data-theme="dark"] .os-menu-chip {
   min-height: 34rem;
   overflow: hidden;
   border-radius: 26px;
-  background: color-mix(in srgb, var(--bg-elev) 72%, transparent);
-  border: 1px solid var(--line);
+  background: color-mix(in srgb, var(--card) 78%, transparent);
   box-shadow: var(--object);
 }
 
@@ -1555,9 +1554,7 @@ html[data-theme="dark"] .os-menu-chip {
 }
 
 .os-flow-stage .react-flow__attribution {
-  background: transparent;
-  color: var(--dim);
-  font-size: 9px;
+  display: none;
 }
 
 .os-flow-stage .react-flow__controls {
@@ -1579,96 +1576,49 @@ html[data-theme="dark"] .os-menu-chip {
   position: relative;
   min-width: 10.5rem;
   max-width: 13.5rem;
-  padding: 0.8rem 0.9rem 0.85rem;
-  border-radius: var(--shape-md);
-  background: var(--bg-elev);
-  color: var(--text);
-  box-shadow: var(--object);
-  border: 1px solid var(--line);
+  padding: 0.95rem 1.05rem 1rem;
+  border-radius: 20px;
+  background: var(--hud);
+  color: var(--hud-ink);
+  box-shadow: var(--shadow);
 }
-
-.os-fn.is-deed {
-  padding-top: 0;
-  overflow: hidden;
-}
-
-.os-deed-band {
-  display: block;
-  height: 0.42rem;
-  margin: 0 -0.9rem 0.55rem;
-}
-
-.os-fn.band-teal .os-deed-band { background: #2a8f78; }
-.os-fn.band-gold .os-deed-band { background: #c4922a; }
-.os-fn.band-indigo .os-deed-band { background: #4d46a8; }
-.os-fn.band-copper .os-deed-band { background: #b45b32; }
-.os-fn.band-rose .os-deed-band { background: #c45b7a; }
-.os-fn.band-cream .os-deed-band { background: #d8c9a0; }
-.os-fn.band-maroon .os-deed-band { background: #7a3044; }
-.os-fn.band-slate .os-deed-band { background: #4a5368; }
-.os-fn.band-steel .os-deed-band { background: #3d5a6e; }
-.os-fn.band-plum .os-deed-band { background: #6a4578; }
-.os-fn.band-ash .os-deed-band { background: #6d675c; }
 
 .os-fn.is-on {
-  border-color: var(--system);
-  box-shadow: var(--object), 0 0 0 3px color-mix(in srgb, var(--system) 28%, transparent);
+  outline: 3px solid var(--primary-container);
+  outline-offset: 3px;
 }
-
-.os-fn.is-income { box-shadow: inset 3px 0 0 var(--system), var(--object); }
-.os-fn.is-asset { box-shadow: inset 3px 0 0 var(--system), var(--object); }
-.os-fn.is-liability { box-shadow: inset 3px 0 0 var(--pink), var(--object); }
-.os-fn.is-expense { box-shadow: inset 3px 0 0 var(--dim), var(--object); }
-.os-fn.is-summary { box-shadow: inset 3px 0 0 var(--primary-container), var(--object); }
 
 .os-fn.is-cash {
-  min-width: 14.5rem;
-  max-width: 16.5rem;
+  min-width: 13.5rem;
+  max-width: 15.5rem;
   padding: 1.05rem 1.15rem 1.1rem;
-  text-align: center;
-  background: var(--chip);
-}
-
-.os-fn.is-cash.is-deed {
-  padding-top: 0;
-}
-
-.os-fn.is-cash .os-deed-band {
-  margin-left: -1.15rem;
-  margin-right: -1.15rem;
 }
 
 .os-fn h3 {
-  margin: 0.15rem 0 0.2rem;
-  font-size: 0.98rem;
+  margin: 0;
+  font-size: 1.05rem;
   font-weight: 800;
-  letter-spacing: -0.02em;
-  line-height: 1.2;
+  letter-spacing: -0.03em;
+  line-height: 1.1;
 }
 
 .os-fn.is-cash h3 {
-  font-size: 1.15rem;
+  font-size: 1.2rem;
 }
 
 .os-fn-amt {
+  margin: 0.35rem 0 0;
   font-size: 0.95rem;
-  font-weight: 800;
+  font-weight: 700;
   letter-spacing: -0.03em;
 }
 
 .os-fn-amt.is-lg {
-  font-size: 1.65rem;
+  font-size: 1.45rem;
 }
 
 .os-fn-amt.is-plus { color: var(--system); }
 .os-fn-amt.is-minus { color: var(--pink); }
-
-.os-fn-amt small {
-  margin-left: 0.15rem;
-  font-size: 0.68rem;
-  font-weight: 700;
-  color: var(--dim);
-}
 
 .os-fn .react-flow__handle {
   width: 8px;
@@ -1676,7 +1626,7 @@ html[data-theme="dark"] .os-menu-chip {
   border: 2px solid var(--hud);
   background: var(--system);
   opacity: 0;
-  transition: opacity 120ms var(--ease-os);
+  transition: opacity var(--motion-fast) var(--ease-os);
 }
 
 .os-fn:hover .react-flow__handle,
@@ -1691,56 +1641,63 @@ html[data-theme="dark"] .os-menu-chip {
 .os-flow-elabel {
   position: absolute;
   pointer-events: all;
-  padding: 0.12rem 0.4rem;
-  border-radius: 999px;
-  background: var(--hud);
   color: var(--hud-ink);
-  font-size: 0.68rem;
-  font-weight: 800;
-  box-shadow: var(--shadow);
+  font-family: var(--font-mono);
+  font-size: var(--text-micro);
+  font-weight: 500;
+  letter-spacing: var(--tracking-os);
   cursor: pointer;
 }
 
 .os-flow-elabel.is-out {
-  background: color-mix(in srgb, var(--pink) 82%, #fff);
+  color: var(--pink);
 }
 
 .os-flow-elabel.is-on {
-  outline: 2px solid var(--system);
+  color: var(--system);
 }
 
 .os-flow-addbtn {
-  pointer-events: auto;
-  min-height: 40px;
-  padding: 0 0.9rem;
+  min-height: 48px;
+  padding: 0;
   border: 0;
-  border-radius: 999px;
-  background: var(--hud);
-  color: var(--hud-ink);
-  font-size: 0.8rem;
-  font-weight: 800;
-  box-shadow: var(--shadow);
+  border-bottom: 1px solid var(--line);
+  background: none;
+  color: inherit;
+  font-size: 0.875rem;
+  font-weight: 500;
+  text-align: start;
+  transition:
+    color var(--motion-btn) var(--ease-os),
+    border-color var(--motion-btn) var(--ease-os);
 }
 
 .os-flow-addbtn:hover {
-  background: var(--chip-on);
-  color: var(--chip-on-text);
+  color: var(--system);
+  border-bottom-color: var(--system);
 }
 
 .os-flow-drawer {
   position: absolute;
-  top: 0.7rem;
-  right: 0.7rem;
-  bottom: 0.7rem;
+  top: 0.9rem;
+  right: 0.9rem;
+  bottom: 0.9rem;
   z-index: 8;
-  width: min(18.5rem, calc(100% - 1.4rem));
+  width: min(18rem, calc(100% - 1.8rem));
   overflow: auto;
-  padding: 0.9rem 1rem 1rem;
-  border-radius: var(--shape-md);
+  padding: 0.95rem 1.05rem 1rem;
+  border-radius: 20px;
   background: var(--hud);
   color: var(--hud-ink);
-  border: 1px solid color-mix(in srgb, var(--hud-ink) 10%, transparent);
-  box-shadow: var(--object);
+  box-shadow: var(--shadow);
+}
+
+.os-flow-drawer-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  margin-bottom: 0.85rem;
 }
 
 .os-flow-drawer .os-label {
@@ -1748,6 +1705,7 @@ html[data-theme="dark"] .os-menu-chip {
 }
 
 .os-flow-drawer .os-text-link {
+  min-height: 2.25rem;
   color: var(--hud-ink);
 }
 
@@ -1755,18 +1713,22 @@ html[data-theme="dark"] .os-menu-chip {
 .os-flow-fields {
   display: flex;
   flex-direction: column;
-  gap: 0.55rem;
+}
+
+.os-flow-fields {
+  gap: 0.85rem;
 }
 
 .os-flow-fields label {
   display: flex;
   flex-direction: column;
   gap: 0.3rem;
-  font-size: 0.68rem;
-  font-weight: 800;
-  letter-spacing: 0.08em;
+  font-family: var(--font-mono);
+  font-size: var(--text-micro);
+  font-weight: 500;
+  letter-spacing: var(--tracking-os);
   text-transform: uppercase;
-  color: var(--dim);
+  color: color-mix(in srgb, var(--hud-ink) 55%, transparent);
 }
 
 .os-flow-fields input,
@@ -1774,12 +1736,12 @@ html[data-theme="dark"] .os-menu-chip {
   min-height: 2.5rem;
   padding: 0 0.7rem;
   border: 1px solid color-mix(in srgb, var(--hud-ink) 14%, transparent);
-  border-radius: 0.55rem;
+  border-radius: 12px;
   background: color-mix(in srgb, #fff 35%, transparent);
   color: var(--hud-ink);
   font-family: var(--font-sans);
-  font-size: 0.92rem;
-  font-weight: 600;
+  font-size: 0.9375rem;
+  font-weight: 500;
   text-transform: none;
   letter-spacing: 0;
 }
@@ -1794,10 +1756,9 @@ html[data-theme="dark"] .os-menu-chip {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 2rem;
-  height: 2rem;
+  width: 2.75rem;
+  height: 2.75rem;
   border: 0;
-  border-radius: 999px;
   background: var(--chip);
   color: var(--text);
 }

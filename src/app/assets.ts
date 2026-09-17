@@ -7,18 +7,6 @@ export type SummaryKey = "worth" | "net" | "coverage";
 export type AssetSubtype = "digital" | "dividend" | "rent" | "other";
 export type ExpenseSubtype = "living" | "tools";
 export type LiabilitySubtype = "mortgage" | "loan" | "subscription" | "other";
-export type DeedBand =
-  | "teal"
-  | "gold"
-  | "indigo"
-  | "copper"
-  | "rose"
-  | "cream"
-  | "maroon"
-  | "slate"
-  | "steel"
-  | "plum"
-  | "ash";
 
 export type FlowNodeData = {
   kind: NodeKind;
@@ -87,12 +75,7 @@ export type GraphState = {
   edges: StoredEdge[];
 };
 
-export const QUADRANTS: { id: Quadrant; label: string; en: string; hint: string }[] = [
-  { id: "E", label: "雇员", en: "Employee", hint: "工资 / 课酬" },
-  { id: "S", label: "自雇", en: "Self-employed", hint: "接案 / 自由职业" },
-  { id: "B", label: "企业主", en: "Business owner", hint: "数字产品与系统" },
-  { id: "I", label: "投资人", en: "Investor", hint: "分红 / 租金" },
-];
+export const QUADRANTS: Quadrant[] = ["E", "S", "B", "I"];
 
 export function nid(prefix = "n") {
   const core =
@@ -257,13 +240,13 @@ function layoutFromStatement(
       id: "sum-net",
       type: "summary",
       position: HUB.net,
-      data: { kind: "summary", name: "月净现金流", monthly: 0, worth: 0, summary: "net" },
+      data: { kind: "summary", name: "月净", monthly: 0, worth: 0, summary: "net" },
     },
     {
       id: "sum-cover",
       type: "summary",
       position: HUB.cover,
-      data: { kind: "summary", name: "被动覆盖率", monthly: 0, worth: 0, summary: "coverage" },
+      data: { kind: "summary", name: "覆盖率", monthly: 0, worth: 0, summary: "coverage" },
     },
     { id: "cash", type: "cash", position: HUB.cash, data: { kind: "cash", name: "现金池", monthly: 0, worth: 0 } },
     ...assets.map((line, i) => nodeFromLine(line, "asset", { x: 24, y: 420 + i * 128 })),
@@ -318,8 +301,8 @@ const SEED_NODES: StoredNode[] = [
   { id: "inc-b", type: "income", position: { x: 440, y: 24 }, data: { kind: "income", name: "数字产品", monthly: 0, worth: 0, quadrant: "B", example: true } },
   { id: "inc-i", type: "income", position: { x: 644, y: 24 }, data: { kind: "income", name: "分红 / 租金", monthly: 0, worth: 0, quadrant: "I", example: true } },
   { id: "sum-worth", type: "summary", position: { x: 900, y: 24 }, data: { kind: "summary", name: "净资产", monthly: 0, worth: 0, summary: "worth" } },
-  { id: "sum-net", type: "summary", position: { x: 900, y: 136 }, data: { kind: "summary", name: "月净现金流", monthly: 0, worth: 0, summary: "net" } },
-  { id: "sum-cover", type: "summary", position: { x: 900, y: 248 }, data: { kind: "summary", name: "被动覆盖率", monthly: 0, worth: 0, summary: "coverage" } },
+  { id: "sum-net", type: "summary", position: { x: 900, y: 136 }, data: { kind: "summary", name: "月净", monthly: 0, worth: 0, summary: "net" } },
+  { id: "sum-cover", type: "summary", position: { x: 900, y: 248 }, data: { kind: "summary", name: "覆盖率", monthly: 0, worth: 0, summary: "coverage" } },
   { id: "cash", type: "cash", position: { x: 390, y: 196 }, data: { kind: "cash", name: "现金池", monthly: 0, worth: 0 } },
   { id: "asset-kit", type: "asset", position: { x: 24, y: 420 }, data: { kind: "asset", name: "Prompt Kit", monthly: 1860, worth: 8000, subtype: "digital", listings: 3, example: true } },
   { id: "asset-tpl", type: "asset", position: { x: 24, y: 548 }, data: { kind: "asset", name: "版式模板包", monthly: 640, worth: 2400, subtype: "digital", listings: 2, example: true } },
@@ -582,58 +565,10 @@ export function formatCny(value: number) {
 }
 
 export function formatPct(value: number) {
-  if (!Number.isFinite(value)) return "—";
+  if (!Number.isFinite(value)) return "-";
   return `${Math.round(value * 100)}%`;
 }
 
 export function flowStroke(monthly: number) {
   return Math.min(6.5, Math.max(1.6, Math.abs(monthly) / 900 + 1.4));
-}
-
-export function quadrantMeta(id?: Quadrant) {
-  return QUADRANTS.find((item) => item.id === id);
-}
-
-export function subtypeLabel(kind: NodeKind, subtype?: string) {
-  if (kind === "asset") {
-    if (subtype === "digital") return "数字产品";
-    if (subtype === "dividend") return "分红";
-    if (subtype === "rent") return "租金";
-    return "资产";
-  }
-  if (kind === "liability") {
-    if (subtype === "mortgage") return "房贷";
-    if (subtype === "loan") return "分期 / 贷款";
-    if (subtype === "subscription") return "订阅债";
-    return "负债";
-  }
-  if (kind === "expense") {
-    if (subtype === "tools") return "工具订阅";
-    return "固定生活";
-  }
-  return "";
-}
-
-export function deedBand(data: FlowNodeData): DeedBand {
-  if (data.kind === "income") {
-    if (data.quadrant === "E") return "cream";
-    if (data.quadrant === "S") return "gold";
-    if (data.quadrant === "B") return "teal";
-    return "indigo";
-  }
-  if (data.kind === "asset") {
-    if (data.subtype === "digital") return "rose";
-    if (data.subtype === "dividend") return "indigo";
-    if (data.subtype === "rent") return "teal";
-    return "copper";
-  }
-  if (data.kind === "liability") {
-    if (data.subtype === "mortgage") return "maroon";
-    if (data.subtype === "subscription") return "plum";
-    if (data.subtype === "loan") return "slate";
-    return "ash";
-  }
-  if (data.kind === "expense") return data.subtype === "tools" ? "steel" : "ash";
-  if (data.kind === "cash") return "gold";
-  return "cream";
 }

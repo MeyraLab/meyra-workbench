@@ -67,7 +67,7 @@ export function FlowDrawer({
       {edge ? (
         <div className="os-flow-fields">
           <label>
-            月现金流
+            金额
             <input
               inputMode="decimal"
               defaultValue={String(edge.data.monthly)}
@@ -114,14 +114,14 @@ function NodeFields({
       </label>
       {node.type === "income" ? (
         <label>
-          象限
+          ESBI
           <select
             value={data.quadrant ?? "S"}
             onChange={(e) => onNode(node.id, { quadrant: e.target.value as Quadrant })}
           >
             {QUADRANTS.map((q) => (
-              <option key={q.id} value={q.id}>
-                {q.id} {q.label}
+              <option key={q} value={q}>
+                {q}
               </option>
             ))}
           </select>
@@ -140,7 +140,7 @@ function NodeFields({
           </label>
           {data.subtype === "digital" ? (
             <label>
-              上架数
+              上架
               <input
                 key={node.id + "-list"}
                 inputMode="numeric"
@@ -155,9 +155,9 @@ function NodeFields({
         <label>
           类型
           <select value={data.subtype ?? "loan"} onChange={(e) => onNode(node.id, { subtype: e.target.value })}>
-            <option value="loan">分期 / 贷款</option>
+            <option value="loan">贷款</option>
             <option value="mortgage">房贷</option>
-            <option value="subscription">订阅债</option>
+            <option value="subscription">订阅</option>
             <option value="other">其他</option>
           </select>
         </label>
@@ -166,14 +166,14 @@ function NodeFields({
         <label>
           类型
           <select value={data.subtype ?? "living"} onChange={(e) => onNode(node.id, { subtype: e.target.value })}>
-            <option value="living">固定生活</option>
-            <option value="tools">工具订阅</option>
+            <option value="living">生活</option>
+            <option value="tools">工具</option>
           </select>
         </label>
       ) : null}
       {node.type !== "cash" ? (
         <label>
-          {node.type === "income" ? "月流入" : node.type === "asset" ? "月回流" : node.type === "liability" ? "月抽干" : "月支出"}
+          金额
           <input
             key={node.id + "-m"}
             inputMode="decimal"
@@ -184,7 +184,7 @@ function NodeFields({
       ) : null}
       {node.type === "asset" || node.type === "liability" ? (
         <label>
-          {node.type === "asset" ? "资产净值" : "剩余本金"}
+          净值
           <input
             key={node.id + "-w"}
             inputMode="decimal"
