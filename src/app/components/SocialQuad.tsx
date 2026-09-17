@@ -171,7 +171,7 @@ export function SocialQuad() {
           </div>
         </div>
       ) : (
-        <button type="button" className="pai" aria-label="打开快捷入口" tabIndex={-1}>
+        <button type="button" className="pai" aria-label="快捷入口" tabIndex={-1}>
           <DesktopOrb />
         </button>
       )}

@@ -13,7 +13,7 @@ export function ThemeSwitch({ resolved, beat, total, onTheme }: Props) {
       <button
         type="button"
         className={`os-theme-switch${night ? " is-night" : " is-day"}`}
-        aria-label={night ? "Switch to day" : "Switch to night"}
+        aria-label={night ? "Day" : "Night"}
         aria-pressed={night}
         onClick={onTheme}
       >
@@ -41,7 +41,7 @@ export function ThemeSwitch({ resolved, beat, total, onTheme }: Props) {
           )}
         </span>
       </button>
-      <span className="os-beat" aria-label={`Scene ${beat} of ${total}`}>
+      <span className="os-beat" aria-label={`${beat} of ${total}`}>
         <span className="os-beat-star" aria-hidden="true" />
         {beat}/{total}
         <span className="os-beat-caret" aria-hidden="true" />
