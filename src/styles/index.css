@@ -1463,12 +1463,25 @@ html[data-theme="dark"] .os-menu-chip {
   opacity: 1;
 }
 
-/* ——— Asset board (cashflow ER canvas) ——— */
+/* ——— Asset board (OS shell + original tabletop chrome, not Monopoly IP) ——— */
 
 .os-assets-section {
+  --felt: #16382f;
+  --felt-deep: #102820;
+  --felt-ink: #f6f0de;
+  --rail: #c9a24a;
+  --paper: #f4ecd6;
+  --paper-ink: #2a2554;
   display: flex;
   flex-direction: column;
   gap: clamp(1.1rem, 2.4vw, 1.6rem);
+}
+
+html[data-theme="light"] .os-assets-section {
+  --felt: #2b7a54;
+  --felt-deep: #1f5c3e;
+  --felt-ink: #f7f1df;
+  --rail: #d4b15c;
 }
 
 .os-assets-head {
@@ -1488,6 +1501,32 @@ html[data-theme="dark"] .os-menu-chip {
   color: var(--mute);
 }
 
+.os-chance-slip {
+  max-width: 22rem;
+  padding: 0.7rem 0.85rem 0.8rem;
+  border-radius: 0.2rem 0.85rem 0.85rem 0.2rem;
+  background: var(--paper);
+  color: var(--paper-ink);
+  box-shadow: var(--object), inset 6px 0 0 var(--rail);
+}
+
+.os-chance-slip .os-label {
+  color: color-mix(in srgb, var(--paper-ink) 48%, transparent);
+}
+
+.os-chance-slip-title {
+  margin: 0.12rem 0 0.2rem;
+  font-size: 0.95rem;
+  font-weight: 800;
+}
+
+.os-chance-slip p:last-child {
+  margin: 0;
+  font-size: 0.78rem;
+  font-weight: 600;
+  line-height: 1.4;
+}
+
 .os-assets-foot {
   display: flex;
   flex-wrap: wrap;
@@ -1498,14 +1537,123 @@ html[data-theme="dark"] .os-menu-chip {
   color: var(--dim);
 }
 
+.os-flow-shell {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.os-statement {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 0.55rem;
+}
+
+.os-statement > div {
+  min-width: 0;
+  padding: 0.65rem 0.75rem 0.7rem;
+  border-radius: var(--shape-md);
+  background: var(--bg-elev);
+  box-shadow: var(--object);
+}
+
+.os-statement p:last-child {
+  margin: 0.15rem 0 0;
+  font-size: 0.98rem;
+  font-weight: 800;
+  letter-spacing: -0.03em;
+}
+
+.os-statement .is-plus { color: var(--system); }
+.os-statement .is-minus { color: var(--pink); }
+
+.os-esbi-row {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 0.5rem;
+}
+
+.os-esbi-chip {
+  display: flex;
+  min-width: 0;
+  overflow: hidden;
+  border-radius: var(--shape-md);
+  background: var(--bg-elev);
+  box-shadow: var(--object);
+}
+
+.os-esbi-chip > button:first-child {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.08rem;
+  padding: 0.55rem 0.7rem 0.6rem;
+  border: 0;
+  background: transparent;
+  color: var(--text);
+  text-align: left;
+}
+
+.os-esbi-chip span {
+  font-size: 0.68rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  color: var(--dim);
+}
+
+.os-esbi-chip strong {
+  font-size: 0.92rem;
+  font-weight: 800;
+  letter-spacing: -0.03em;
+}
+
+.os-esbi-chip em {
+  font-size: 0.72rem;
+  font-style: normal;
+  font-weight: 700;
+  color: var(--mute);
+}
+
+.os-esbi-aim {
+  flex: 0 0 auto;
+  border: 0;
+  border-left: 1px solid var(--line);
+  background: transparent;
+  color: var(--dim);
+  font-size: 0.62rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  padding: 0 0.55rem;
+}
+
+.os-esbi-chip.is-now {
+  box-shadow: inset 3px 0 0 var(--system), var(--object);
+}
+
+.os-esbi-chip.is-aim .os-esbi-aim {
+  background: color-mix(in srgb, var(--rail) 35%, var(--bg-elev));
+  color: var(--text);
+}
+
 .os-flow-stage {
   position: relative;
   height: min(72vh, 46rem);
   min-height: 34rem;
   overflow: hidden;
   border-radius: var(--shape-lg);
-  background: color-mix(in srgb, var(--card) 72%, transparent);
-  box-shadow: var(--object);
+  color: var(--felt-ink);
+  background-color: color-mix(in srgb, var(--felt) 72%, var(--card));
+  background-image:
+    radial-gradient(circle at 18% 22%, color-mix(in srgb, #fff 9%, transparent) 0 1.2px, transparent 2px),
+    radial-gradient(circle at 72% 64%, color-mix(in srgb, #000 18%, transparent) 0 1px, transparent 2px),
+    linear-gradient(160deg, color-mix(in srgb, #2a6b4e 40%, transparent), transparent 42%);
+  background-size: 16px 16px, 22px 22px, auto;
+  box-shadow:
+    inset 0 0 0 2px color-mix(in srgb, var(--rail) 78%, transparent),
+    inset 0 0 0 9px color-mix(in srgb, var(--felt-deep) 70%, transparent),
+    var(--object);
 }
 
 .os-flow-stage .react-flow {
@@ -1565,6 +1713,29 @@ html[data-theme="dark"] .os-menu-chip {
   border: 1px solid var(--line);
 }
 
+.os-fn.is-deed {
+  padding-top: 0;
+  overflow: hidden;
+}
+
+.os-deed-band {
+  display: block;
+  height: 0.42rem;
+  margin: 0 -0.9rem 0.55rem;
+}
+
+.os-fn.band-teal .os-deed-band { background: #2a8f78; }
+.os-fn.band-gold .os-deed-band { background: #c4922a; }
+.os-fn.band-indigo .os-deed-band { background: #4d46a8; }
+.os-fn.band-copper .os-deed-band { background: #b45b32; }
+.os-fn.band-rose .os-deed-band { background: #c45b7a; }
+.os-fn.band-cream .os-deed-band { background: #d8c9a0; }
+.os-fn.band-maroon .os-deed-band { background: #7a3044; }
+.os-fn.band-slate .os-deed-band { background: #4a5368; }
+.os-fn.band-steel .os-deed-band { background: #3d5a6e; }
+.os-fn.band-plum .os-deed-band { background: #6a4578; }
+.os-fn.band-ash .os-deed-band { background: #6d675c; }
+
 .os-fn.is-on {
   border-color: var(--system);
   box-shadow: var(--object), 0 0 0 3px color-mix(in srgb, var(--system) 28%, transparent);
@@ -1582,6 +1753,15 @@ html[data-theme="dark"] .os-menu-chip {
   padding: 1.05rem 1.15rem 1.1rem;
   text-align: center;
   background: var(--chip);
+}
+
+.os-fn.is-cash.is-deed {
+  padding-top: 0;
+}
+
+.os-fn.is-cash .os-deed-band {
+  margin-left: -1.15rem;
+  margin-right: -1.15rem;
 }
 
 .os-fn h3 {
@@ -1995,6 +2175,15 @@ html[data-theme="dark"] .meyra-quad .card1 svg {
   .os-flow-stage {
     height: 70vh;
     min-height: 28rem;
+  }
+
+  .os-statement,
+  .os-esbi-row {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .os-chance-slip {
+    max-width: none;
   }
 
   .os-flow-drawer {

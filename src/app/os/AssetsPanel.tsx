@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import {
   Background,
   BackgroundVariant,
@@ -18,19 +18,26 @@ import {
 } from "@xyflow/react";
 import "@xyflow/react/dist/style.css";
 import {
+  QUADRANTS,
   defaultNode,
+  exportBoardJson,
   formatCny,
   formatPct,
   graphStats,
   inferFlowKind,
   nid,
+  packBoard,
+  parseBoardJson,
   readGraph,
   resetGraph,
+  todayTip,
   upsertEdge,
   writeGraph,
+  type EsbiState,
   type FlowKind,
   type FlowNodeData,
   type NodeKind,
+  type Quadrant,
   type StoredEdge,
   type StoredNode,
 } from "../assets";
@@ -85,6 +92,7 @@ function toStoredEdges(edges: FlowEdge[]): StoredEdge[] {
 export function AssetsPanel() {
   const block = useInView<HTMLElement>();
   const pending = block.armed && !block.shown;
+  const tip = todayTip();
   return (
     <section
       id="assets"
@@ -94,11 +102,16 @@ export function AssetsPanel() {
     >
       <header className="os-assets-head">
         <div>
-          <p className="os-kicker">Cashflow · ER canvas</p>
+          <p className="os-kicker">Cashflow · 资产板</p>
           <h2 id="assets-title" className="os-world-title os-canvas-title">
             资产板
           </h2>
         </div>
+        <aside className="os-chance-slip" aria-label="机会卡">
+          <p className="os-label">机会卡</p>
+          <p className="os-chance-slip-title">{tip.title}</p>
+          <p>{tip.body}</p>
+        </aside>
       </header>
       <p className="os-assets-lede">
         箭头是账本。资产把钱放进口袋，负债把钱拿出口袋。数字产品走 B 象限。
@@ -115,9 +128,16 @@ export function AssetsPanel() {
 
 function FlowCanvas() {
   const { screenToFlowPosition, fitView } = useReactFlow();
-  const [nodes, setNodes] = useState<FlowNode[]>(() => toFlowNodes(readGraph().nodes));
-  const [edges, setEdges] = useState<FlowEdge[]>(() => toFlowEdges(readGraph().edges));
+  const fileRef = useRef<HTMLInputElement>(null);
+  const [boot] = useState(() => readGraph());
+  const [nodes, setNodes] = useState<FlowNode[]>(() => toFlowNodes(boot.nodes));
+  const [edges, setEdges] = useState<FlowEdge[]>(() => toFlowEdges(boot.edges));
+  const [esbiPick, setEsbiPick] = useState<Pick<EsbiState, "current" | "target">>(() => ({
+    current: boot.esbi.current,
+    target: boot.esbi.target,
+  }));
   const [selection, setSelection] = useState<Selection>(null);
+  const [importError, setImportError] = useState<string | null>(null);
   const [theme, setTheme] = useState<"light" | "dark">(() =>
     document.documentElement.dataset.theme === "light" ? "light" : "dark",
   );
@@ -131,13 +151,22 @@ function FlowCanvas() {
   }, []);
 
   useEffect(() => {
-    writeGraph({ version: 3, nodes: toStoredNodes(nodes), edges: toStoredEdges(edges) });
-  }, [nodes, edges]);
+    writeGraph(packBoard(toStoredNodes(nodes), toStoredEdges(edges), esbiPick));
+  }, [nodes, edges, esbiPick]);
 
   const storedNodes = useMemo(() => toStoredNodes(nodes), [nodes]);
   const storedEdges = useMemo(() => toStoredEdges(edges), [edges]);
   const stats = useMemo(() => graphStats(storedNodes, storedEdges), [storedNodes, storedEdges]);
   const viewNodes = useMemo(() => applyStatsToNodes(nodes, stats), [nodes, stats]);
+
+  const applyBoard = (next: ReturnType<typeof readGraph>) => {
+    setNodes(toFlowNodes(next.nodes));
+    setEdges(toFlowEdges(next.edges));
+    setEsbiPick({ current: next.esbi.current, target: next.esbi.target });
+    setSelection(null);
+    setImportError(null);
+    window.requestAnimationFrame(() => fitView({ padding: 0.14 }));
+  };
 
   const onNodesChange = useCallback(
     (changes: NodeChange<FlowNode>[]) => {
@@ -257,93 +286,177 @@ function FlowCanvas() {
     setSelection({ type: "node", id: node.id });
   };
 
+  const downloadJson = () => {
+    const packed = packBoard(storedNodes, storedEdges, esbiPick);
+    const blob = new Blob([exportBoardJson(packed)], { type: "application/json" });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement("a");
+    link.href = url;
+    link.download = "meyra-assets.json";
+    link.click();
+    URL.revokeObjectURL(url);
+  };
+
+  const onImportFile = (file: File | undefined) => {
+    if (!file) return;
+    file
+      .text()
+      .then((text) => {
+        const next = parseBoardJson(text);
+        writeGraph(next);
+        applyBoard(next);
+      })
+      .catch(() => {
+        setImportError("无法读取这份 JSON。需要 assets / liabilities / income / expenses 或画布节点。");
+      });
+  };
+
   return (
-    <div className="os-flow-stage">
-      <ReactFlow
-        nodes={viewNodes}
-        edges={edges}
-        nodeTypes={FLOW_NODE_TYPES}
-        edgeTypes={FLOW_EDGE_TYPES}
-        onNodesChange={onNodesChange}
-        onEdgesChange={onEdgesChange}
-        onConnect={onConnect}
-        onNodeClick={(_, node) => setSelection({ type: "node", id: node.id })}
-        onEdgeClick={(_, edge) => setSelection({ type: "edge", id: edge.id })}
-        onPaneClick={(event) => {
-          const point = screenToFlowPosition({ x: event.clientX, y: event.clientY });
-          setSelection({ type: "add", x: point.x, y: point.y });
-        }}
-        connectionMode={ConnectionMode.Loose}
-        colorMode={theme}
-        fitView
-        fitViewOptions={{ padding: 0.14 }}
-        minZoom={0.45}
-        maxZoom={1.6}
-        snapToGrid
-        snapGrid={[8, 8]}
-        zoomOnScroll={false}
-        panOnScroll={false}
-        preventScrolling={false}
-        panOnDrag
-        selectionOnDrag={false}
-        deleteKeyCode={["Backspace", "Delete"]}
-        onInit={() => fitView({ padding: 0.14 })}
-        isValidConnection={(conn) => {
-          if (!conn.source || !conn.target || conn.source === conn.target) return false;
-          const source = nodes.find((node) => node.id === conn.source);
-          const target = nodes.find((node) => node.id === conn.target);
-          return source?.type !== "summary" && target?.type !== "summary";
-        }}
-        defaultEdgeOptions={{
-          type: "cashflow",
-          markerEnd: { type: MarkerType.ArrowClosed, width: 18, height: 18 },
-        }}
-      >
-        <Background variant={BackgroundVariant.Dots} gap={22} size={1.4} color="var(--grid)" />
-        <Controls showInteractive={false} position="bottom-left" />
-        <Panel position="top-left" className="os-flow-legend">
-          <span className="is-in">流入</span>
-          <span className="is-out">流出</span>
-          <span className="is-drain">负债抽干</span>
-        </Panel>
-        <Panel position="bottom-right" className="os-flow-race">
-          <p className="os-label">Rat Race</p>
-          <p className={`os-flow-race-flag${stats.escaped ? " is-free" : ""}`}>
-            {stats.escaped ? "被动已覆盖支出" : "尚未脱离鼠赛"}
-          </p>
-          <p>
-            被动 {formatCny(stats.passive)} / 支出 {formatCny(stats.expenses)} · 覆盖 {formatPct(stats.coverage)}
-          </p>
-        </Panel>
-        <Panel position="bottom-center" className="os-flow-tools">
-          <button type="button" onClick={() => setSelection({ type: "add", x: 380, y: 300 })}>
-            添加节点
-          </button>
-          <button
-            type="button"
-            onClick={() => {
-              const next = resetGraph();
-              setNodes(toFlowNodes(next.nodes));
-              setEdges(toFlowEdges(next.edges));
-              setSelection(null);
-              window.requestAnimationFrame(() => fitView({ padding: 0.14 }));
-            }}
+    <div className="os-flow-shell">
+      <div className="os-statement">
+        <div>
+          <p className="os-label">收入</p>
+          <p>{formatCny(stats.earned)}</p>
+        </div>
+        <div>
+          <p className="os-label">支出</p>
+          <p>{formatCny(-stats.expenses)}</p>
+        </div>
+        <div>
+          <p className="os-label">被动收入</p>
+          <p>{formatCny(stats.passive)}</p>
+        </div>
+        <div>
+          <p className="os-label">月净现金流</p>
+          <p className={stats.net >= 0 ? "is-plus" : "is-minus"}>{formatCny(stats.net)}</p>
+        </div>
+        <div>
+          <p className="os-label">净资产</p>
+          <p className={stats.worth >= 0 ? "is-plus" : "is-minus"}>{formatCny(stats.worth)}</p>
+        </div>
+      </div>
+      <div className="os-esbi-row" role="group" aria-label="ESBI 象限">
+        {QUADRANTS.map((q) => (
+          <div
+            key={q.id}
+            className={`os-esbi-chip${esbiPick.current === q.id ? " is-now" : ""}${esbiPick.target === q.id ? " is-aim" : ""}`}
           >
-            重置示例
-          </button>
-        </Panel>
-      </ReactFlow>
-      <FlowDrawer
-        selection={selection}
-        nodes={storedNodes}
-        edges={storedEdges}
-        onClose={() => setSelection(null)}
-        onNode={patchNode}
-        onEdge={patchEdge}
-        onDeleteNode={deleteNode}
-        onDeleteEdge={deleteEdge}
-        onAdd={addNode}
+            <button type="button" onClick={() => setEsbiPick((current) => ({ ...current, current: q.id }))}>
+              <span>{q.id}</span>
+              <strong>{formatCny(stats.esbi[q.id as Quadrant])}</strong>
+              <em>{q.label}</em>
+            </button>
+            <button
+              type="button"
+              className="os-esbi-aim"
+              aria-label={`目标 ${q.label}`}
+              onClick={() => setEsbiPick((current) => ({ ...current, target: q.id }))}
+            >
+              目标
+            </button>
+          </div>
+        ))}
+      </div>
+      <div className="os-flow-stage">
+        <ReactFlow
+          nodes={viewNodes}
+          edges={edges}
+          nodeTypes={FLOW_NODE_TYPES}
+          edgeTypes={FLOW_EDGE_TYPES}
+          onNodesChange={onNodesChange}
+          onEdgesChange={onEdgesChange}
+          onConnect={onConnect}
+          onNodeClick={(_, node) => setSelection({ type: "node", id: node.id })}
+          onEdgeClick={(_, edge) => setSelection({ type: "edge", id: edge.id })}
+          onPaneClick={(event) => {
+            const point = screenToFlowPosition({ x: event.clientX, y: event.clientY });
+            setSelection({ type: "add", x: point.x, y: point.y });
+          }}
+          connectionMode={ConnectionMode.Loose}
+          colorMode={theme}
+          fitView
+          fitViewOptions={{ padding: 0.14 }}
+          minZoom={0.45}
+          maxZoom={1.6}
+          snapToGrid
+          snapGrid={[8, 8]}
+          zoomOnScroll={false}
+          panOnScroll={false}
+          preventScrolling={false}
+          panOnDrag
+          selectionOnDrag={false}
+          deleteKeyCode={["Backspace", "Delete"]}
+          onInit={() => fitView({ padding: 0.14 })}
+          isValidConnection={(conn) => {
+            if (!conn.source || !conn.target || conn.source === conn.target) return false;
+            const source = nodes.find((node) => node.id === conn.source);
+            const target = nodes.find((node) => node.id === conn.target);
+            return source?.type !== "summary" && target?.type !== "summary";
+          }}
+          defaultEdgeOptions={{
+            type: "cashflow",
+            markerEnd: { type: MarkerType.ArrowClosed, width: 18, height: 18 },
+          }}
+        >
+          <Background variant={BackgroundVariant.Dots} gap={22} size={1.4} color="color-mix(in srgb, var(--felt-ink) 22%, transparent)" />
+          <Controls showInteractive={false} position="bottom-left" />
+          <Panel position="top-left" className="os-flow-legend">
+            <span className="is-in">流入</span>
+            <span className="is-out">流出</span>
+            <span className="is-drain">负债抽干</span>
+          </Panel>
+          <Panel position="bottom-right" className="os-flow-race">
+            <p className="os-label">Rat Race</p>
+            <p className={`os-flow-race-flag${stats.escaped ? " is-free" : ""}`}>
+              {stats.escaped ? "被动已覆盖支出" : "尚未脱离鼠赛"}
+            </p>
+            <p>
+              被动 {formatCny(stats.passive)} / 支出 {formatCny(stats.expenses)} · 覆盖 {formatPct(stats.coverage)}
+            </p>
+          </Panel>
+          <Panel position="bottom-center" className="os-flow-tools">
+            <button type="button" onClick={() => setSelection({ type: "add", x: 380, y: 300 })}>
+              添加节点
+            </button>
+            <button type="button" onClick={downloadJson}>
+              导出 JSON
+            </button>
+            <button type="button" onClick={() => fileRef.current?.click()}>
+              导入 JSON
+            </button>
+            <button
+              type="button"
+              onClick={() => {
+                applyBoard(resetGraph());
+              }}
+            >
+              重置示例
+            </button>
+          </Panel>
+        </ReactFlow>
+        <FlowDrawer
+          selection={selection}
+          nodes={storedNodes}
+          edges={storedEdges}
+          onClose={() => setSelection(null)}
+          onNode={patchNode}
+          onEdge={patchEdge}
+          onDeleteNode={deleteNode}
+          onDeleteEdge={deleteEdge}
+          onAdd={addNode}
+        />
+      </div>
+      <input
+        ref={fileRef}
+        type="file"
+        accept="application/json,.json"
+        hidden
+        onChange={(event) => {
+          onImportFile(event.target.files?.[0]);
+          event.target.value = "";
+        }}
       />
+      {importError ? <p className="os-asset-hint">{importError}</p> : null}
     </div>
   );
 }
