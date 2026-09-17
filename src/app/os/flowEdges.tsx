@@ -45,7 +45,7 @@ export function CashflowEdge({
           className={`os-flow-elabel${outgoing ? " is-out" : ""}${selected ? " is-on" : ""}`}
           style={{ transform: `translate(-50%, -50%) translate(${labelX}px, ${labelY}px)` }}
         >
-          {formatCny(outgoing ? -Math.abs(monthly) : monthly)}/月
+          {formatCny(outgoing ? -Math.abs(monthly) : monthly)}
         </div>
       </EdgeLabelRenderer>
     </>

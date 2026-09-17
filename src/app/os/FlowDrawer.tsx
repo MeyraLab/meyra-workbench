@@ -1,8 +1,6 @@
 import { X } from "lucide-react";
 import {
   QUADRANTS,
-  subtypeLabel,
-  type FlowKind,
   type FlowNodeData,
   type NodeKind,
   type Quadrant,
@@ -54,9 +52,6 @@ export function FlowDrawer({
 
       {selection.type === "add" ? (
         <div className="os-flow-addlist">
-          <p className="os-body" style={{ color: "var(--mute)", marginBottom: "0.75rem" }}>
-            在空白处添加节点。收入进现金池，资产回流，负债抽干。
-          </p>
           {(["income", "asset", "liability", "expense"] as const).map((kind) => (
             <button key={kind} type="button" className="os-flow-addbtn" onClick={() => onAdd(kind)}>
               {kind === "income" ? "收入" : kind === "asset" ? "资产" : kind === "liability" ? "负债" : "支出"}
@@ -67,12 +62,6 @@ export function FlowDrawer({
 
       {node && node.type !== "summary" ? (
         <NodeFields node={node} onNode={onNode} onDelete={node.type === "cash" ? undefined : () => onDeleteNode(node.id)} />
-      ) : null}
-
-      {node?.type === "summary" ? (
-        <p className="os-body" style={{ color: "var(--mute)" }}>
-          只读汇总，由箭头上的月现金流和节点上的净值推算。
-        </p>
       ) : null}
 
       {edge ? (
@@ -86,9 +75,8 @@ export function FlowDrawer({
               onBlur={(e) => onEdge(edge.id, Number(e.target.value))}
             />
           </label>
-          <p className="os-asset-hint">{kindHint(edge.data.kind)}</p>
           <button type="button" className="os-text-link" onClick={() => onDeleteEdge(edge.id)}>
-            删除箭头
+            删除
           </button>
         </div>
       ) : null}
@@ -97,26 +85,10 @@ export function FlowDrawer({
 }
 
 function titleFor(selection: Selection, node?: StoredNode, edge?: StoredEdge) {
-  if (selection?.type === "add") return "添加节点";
-  if (node) {
-    if (node.type === "income") return "收入";
-    if (node.type === "cash") return "现金池";
-    if (node.type === "asset") return "资产";
-    if (node.type === "liability") return "负债";
-    if (node.type === "expense") return "支出";
-    return "汇总";
-  }
-  if (edge) return "现金流箭头";
+  if (selection?.type === "add") return "添加";
+  if (node) return node.data.name;
+  if (edge) return "箭头";
   return "编辑";
-}
-
-function kindHint(kind: FlowKind) {
-  if (kind === "in") return "收入 → 现金池";
-  if (kind === "out") return "现金池 → 支出";
-  if (kind === "reinvest") return "现金池 → 资产（再投入）";
-  if (kind === "return") return "资产 → 现金池（回流）";
-  if (kind === "drain") return "负债 → 现金池（抽干）";
-  return "资产 ↔ 负债";
 }
 
 function NodeFields({
@@ -209,11 +181,7 @@ function NodeFields({
             onBlur={(e) => onNode(node.id, { monthly: Number(e.target.value) })}
           />
         </label>
-      ) : (
-        <p className="os-body" style={{ color: "var(--mute)" }}>
-          枢纽。月净额来自所有箭头，不在这里手填。
-        </p>
-      )}
+      ) : null}
       {node.type === "asset" || node.type === "liability" ? (
         <label>
           {node.type === "asset" ? "资产净值" : "剩余本金"}
@@ -227,11 +195,8 @@ function NodeFields({
       ) : null}
       {onDelete ? (
         <button type="button" className="os-text-link" onClick={onDelete}>
-          删除节点
+          删除
         </button>
-      ) : null}
-      {node.type === "asset" ? (
-        <p className="os-asset-hint">{subtypeLabel("asset", data.subtype)} · 会付钱才算资产</p>
       ) : null}
     </div>
   );

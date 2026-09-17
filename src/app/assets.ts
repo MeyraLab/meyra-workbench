@@ -94,14 +94,6 @@ export const QUADRANTS: { id: Quadrant; label: string; en: string; hint: string 
   { id: "I", label: "投资人", en: "Investor", hint: "分红 / 租金" },
 ];
 
-export const CHANCE_TIPS = [
-  { title: "分清口袋", body: "资产把钱放进口袋，负债把钱拿出口袋。先分类，再决定买不买。" },
-  { title: "先看现金流", body: "价格是故事，月净流入才是规则。问：它每个月给我钱，还是向我要钱？" },
-  { title: "象限右移", body: "E / S 用时间换钱；B / I 用系统与资产换钱。目标不是更忙，而是换引擎。" },
-  { title: "买会付钱的", body: "先积累会流出利息、租金、分红、特许权的东西，再考虑生活方式升级。" },
-  { title: "左边养右边", body: "工作收入可以是种子。关键是把左边赚来的钱，种进右边的资产栏。" },
-];
-
 export function nid(prefix = "n") {
   const core =
     globalThis.crypto?.randomUUID?.() ?? `${Date.now().toString(36)}-${Math.random().toString(36).slice(2, 8)}`;
@@ -644,9 +636,4 @@ export function deedBand(data: FlowNodeData): DeedBand {
   if (data.kind === "expense") return data.subtype === "tools" ? "steel" : "ash";
   if (data.kind === "cash") return "gold";
   return "cream";
-}
-
-export function todayTip() {
-  const i = Math.floor(Date.now() / 86_400_000) % CHANCE_TIPS.length;
-  return CHANCE_TIPS[i];
 }
