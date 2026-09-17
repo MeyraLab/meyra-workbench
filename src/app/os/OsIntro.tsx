@@ -28,8 +28,8 @@ export function OsIntro({ onEnter }: Props) {
       <div className="os-intro-inner">
         <p className="line line-kicker">MEYRA</p>
         <p className="line line-title">MEYRA OS</p>
-        <p className="line line-sub">Personal workbench</p>
-        <p className="line diag d1">Initializing workspace...</p>
+        <p className="line line-sub">Workbench</p>
+        <p className="line diag d1">Booting...</p>
         <p className="line diag d2">
           <span>Projects</span>
           <span className="dots" aria-hidden="true" />
@@ -41,14 +41,14 @@ export function OsIntro({ onEnter }: Props) {
           <span>{count}</span>
         </p>
         <p className="line diag d5">
-          System ready
+          Ready
           <span className="os-cursor" aria-hidden="true" />
         </p>
         <div className="progress" aria-hidden="true">
           <span />
         </div>
         <button type="button" className="os-btn enter" onClick={onEnter}>
-          Enter workspace
+          Enter
         </button>
       </div>
     </div>
