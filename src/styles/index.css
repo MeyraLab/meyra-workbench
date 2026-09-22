@@ -1068,8 +1068,8 @@ html[data-theme="light"] .os-canvas-title {
 
 .os-rooms {
   display: grid;
-  grid-template-columns: 1.15fr 0.85fr;
-  grid-template-rows: auto auto auto;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr 1fr;
   gap: 1.25rem;
   perspective: 1600px;
 }
@@ -1104,11 +1104,18 @@ html[data-theme="light"] .os-canvas-title {
   transition: transform 180ms var(--ease-os);
 }
 
-.os-room-1 { grid-column: 1; grid-row: 1 / span 3; min-height: 32rem; }
-.os-room-1 img { min-height: 36rem; }
+.os-room-1,
 .os-room-2,
 .os-room-3,
-.os-room-4 { grid-column: 2; }
+.os-room-4 {
+  grid-column: auto;
+  grid-row: auto;
+  min-height: 18rem;
+}
+.os-room-1 img,
+.os-room-2 img,
+.os-room-3 img,
+.os-room-4 img { min-height: 18rem; }
 
 .os-room-orb {
   position: absolute;
@@ -2135,6 +2142,7 @@ html[data-theme="dark"] .meyra-quad .card1 svg {
 
   .os-rooms {
     grid-template-columns: 1fr;
+    grid-template-rows: none;
   }
 
   .os-room-1,
