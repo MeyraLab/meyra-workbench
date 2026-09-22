@@ -26,7 +26,7 @@ export const APPS: AppEntry[] = [
   { name: 'InkPai', icon: 'wechat', role: 'now', url: 'https://inkpai.hongmeichen1219.workers.dev' },
   { name: 'InkPai (Admin)', icon: 'wechat', role: 'now', url: 'https://inkpai.hongmeichen1219.workers.dev/admin' },
   { name: '公众号', icon: 'wechat', role: 'now', url: 'https://mp.weixin.qq.com' },
-  { name: 'meyracle.com', icon: 'vercel', role: 'now', url: 'https://vibe-coding-store.vercel.app/' },
+  { name: 'Vibe Coding Store', icon: 'vercel', role: 'now', url: 'https://vibe-coding-store.vercel.app/' },
 
   { name: 'ChatGPT', icon: 'chatgpt', role: 'backup', url: 'https://chatgpt.com' },
   { name: 'Cloudflare', icon: 'cloudflare', role: 'backup', url: 'https://dash.cloudflare.com' },
@@ -65,6 +65,7 @@ export const APPS: AppEntry[] = [
   { name: 'Cheaper Inference', icon: 'figma', role: 'design', url: 'https://www.cheaperinference.com' },
   { name: 'AI UX Playground', icon: 'figma', role: 'design', url: 'https://aiuxplayground.com/patterns' },
   { name: 'Best Designs on X', icon: 'figma', role: 'design', url: 'https://bestdesignsonx.com/' },
+  { name: 'design-kit', icon: 'figma', role: 'design', url: 'https://design-kit-production.up.railway.app/vs/design-extractor' },
 
   { name: 'Spotify', icon: 'spotify', role: 'rest', url: 'https://open.spotify.com' },
   { name: 'Hozana', icon: 'hozana', role: 'rest', url: 'https://hozana.org' },
