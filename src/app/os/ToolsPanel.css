@@ -1,0 +1,24 @@
+/* Inspired by https://uiverse.io/ashif_6672/nice-warthog-84 */
+.os-tools-tree { margin-top:20px; padding:24px; width:100%; max-width:480px; border:1px solid var(--line); border-radius:8px; background:var(--bg-elev); color:var(--text); box-shadow:0 1px 2px rgb(0 0 0 / 5%); }
+.os-tools-tree ul { list-style:none; margin:0; padding:0; }
+.os-tools-tree .os-tree-children { margin-left:15px; padding-left:11px; }
+.os-tree-item { position:relative; margin-top:4px; }
+.os-tree-children > .os-tree-item::before { content:""; position:absolute; left:-11px; top:-4px; bottom:-4px; border-left:1px solid var(--line); }
+.os-tree-children > .os-tree-item:last-child::before { bottom:calc(100% - 16px); }
+.os-tree-children > .os-tree-item::after { content:""; position:absolute; left:-11px; top:16px; width:11px; border-top:1px solid var(--line); }
+.os-tree-row { display:flex; align-items:center; gap:8px; min-height:32px; padding:5px 8px; border-radius:4px; font-size:14px; line-height:22px; color:var(--text); text-decoration:none; cursor:pointer; transition:background-color 160ms ease; }
+.os-tree-label { list-style:none; user-select:none; }
+.os-tree-label::-webkit-details-marker { display:none; }
+.os-tree-row:hover, .os-tree-file.is-selected { background:var(--bg-hover); }
+.os-tree-row:focus-visible { outline:2px solid var(--system); outline-offset:2px; }
+.os-tree-name { min-width:0; overflow-wrap:anywhere; }
+.os-tree-icon { width:16px; height:16px; flex-shrink:0; color:var(--dim); stroke-width:1.6; }
+.os-tree-label .os-tree-icon { color:var(--text); }
+.os-tree-open { display:none; }
+.os-tree-folder[open] > .os-tree-label .os-tree-open { display:block; }
+.os-tree-folder[open] > .os-tree-label .os-tree-closed { display:none; }
+.os-tree-count { margin-left:auto; color:var(--dim); font-size:11px; font-variant-numeric:tabular-nums; }
+.os-tree-external { margin-left:auto; width:12px; height:12px; flex-shrink:0; color:var(--dim); opacity:0; }
+.os-tree-file:hover .os-tree-external, .os-tree-file:focus-visible .os-tree-external { opacity:1; }
+@media(max-width:480px) { .os-tools-tree { padding:16px; } }
+@media(prefers-reduced-motion:reduce) { .os-tree-row { transition:none; } }
