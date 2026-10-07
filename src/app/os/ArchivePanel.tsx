@@ -52,9 +52,7 @@ export function ArchivePanel({ onClose }: Props) {
           </button>
         </div>
         <div className="flex-1 space-y-4 overflow-y-auto px-4 py-4 sm:px-5">
-          <p className="os-body">
-            Capture, sort, reuse, then compost. Hidden from the workspace so the home screen stays a system, not a board.
-          </p>
+          <p className="os-body">Capture. Sort. Reuse. Compost.</p>
           <InboxSection />
           <ChannelsMap />
           <TriageSection />

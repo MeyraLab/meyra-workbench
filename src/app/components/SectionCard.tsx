@@ -19,7 +19,7 @@ export function SectionCard({ title, index, children, instructions }: SectionCar
       <div className="px-5 py-5">{children}</div>
       {instructions ? (
         <footer className="border-t border-line px-5 py-4">
-          <p className="os-label mb-2">How to use</p>
+          <p className="os-label mb-2">How</p>
           <ul className="space-y-1.5">
             {instructions.map((instruction) => (
               <li key={instruction} className="text-xs leading-relaxed text-mute">

@@ -500,7 +500,7 @@ export function LiveOrb({
     <div
       data-slot="live-orb"
       role="img"
-      aria-label="Orb character"
+      aria-label="Orb"
       className={cn("relative shrink-0", className)}
       style={{ width: size, height: size }}
     >

@@ -19,7 +19,7 @@ export function SurfingOS() {
               Meyra's 工作台
             </h1>
           </div>
-          <p className="hidden sm:block text-sm text-[#a1a1aa] pb-1">信息流 → 灵感 → 产出</p>
+          <p className="hidden sm:block text-sm text-[#a1a1aa] pb-1">信息 → 灵感 → 产出</p>
         </div>
         <nav className="px-5 md:px-8 pb-3 flex gap-2 overflow-x-auto" aria-label="工作流分区">
           {stages.map((stage) => (

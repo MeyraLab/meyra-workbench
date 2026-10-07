@@ -25,7 +25,7 @@ export function SystemHeader({
     <header className="os-header">
       <button
         type="button"
-        aria-label={menuOpen ? "Close menu" : "Open menu"}
+        aria-label={menuOpen ? "Close" : "Menu"}
         aria-expanded={menuOpen}
         aria-controls="meyra-menu"
         onClick={onMenu}

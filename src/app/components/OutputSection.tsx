@@ -3,25 +3,25 @@ import { SectionCard } from "./SectionCard";
 
 export function OutputSection() {
   const pipelines = [
-    { type: "视觉", icon: Image, steps: ["Pinterest/Telegram", "Gemini(Nano Banana Pro)", "选片", "存入 Drive", "Obsidian Core（可复制 Prompt）"], blockages: ["输入太多", "只收不做"] },
-    { type: "内容", icon: FileText, steps: ["Substack/YouTube/X", "Perplexity/Grok", "ChatGPT 结构化", "NotebookLM 讲义化", "Obsidian Core（提炼要点）"], blockages: ["信息过载", "做了不沉淀"] },
-    { type: "音乐", icon: Music, steps: ["灵感文字/氛围", "ChatGPT 结构", "Spotify 参考", "生成与迭代", "Core（结构模板 + 情绪词库）"], blockages: ["输入太多", "只收不做"] },
+    { type: "视觉", icon: Image, steps: ["Pinterest / Telegram", "Gemini · Nano Banana Pro", "选片", "存 Drive", "Core · 可复制 Prompt"], blockages: ["输入太多", "只收不做"] },
+    { type: "内容", icon: FileText, steps: ["Substack / YouTube / X", "Perplexity / Grok", "ChatGPT 结构化", "NotebookLM 讲义化", "Core · 要点"], blockages: ["信息过载", "做了不沉淀"] },
+    { type: "音乐", icon: Music, steps: ["灵感文字 / 氛围", "ChatGPT 结构", "Spotify 参考", "生成 · 迭代", "Core · 模板 + 情绪词"], blockages: ["输入太多", "只收不做"] },
   ];
 
   return (
     <SectionCard
       title="E. Output"
-      instructions={["每条流水线都要走到最后一步（沉淀进 Core）", "注意卡点，避免只收集不产出", "产出后立刻提炼可复用部分"]}
+      instructions={["走到 Core", "别只收不做", "做完就提炼"]}
     >
       <div className="space-y-5">
-        <p className="os-label">Turn information into work</p>
+        <p className="os-label">Make something</p>
         {pipelines.map((pipeline) => {
           const Icon = pipeline.icon;
           return (
             <div key={pipeline.type} className="border border-line">
               <div className="flex items-center gap-2 border-b border-line px-4 py-2">
                 <Icon className="h-4 w-4" />
-                <span className="text-sm font-medium">{pipeline.type}流水线</span>
+                <span className="text-sm font-medium">{pipeline.type}</span>
               </div>
               <div className="p-4">
                 <ol className="space-y-2">
