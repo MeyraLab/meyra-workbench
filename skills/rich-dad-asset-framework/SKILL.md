@@ -1,6 +1,6 @@
 ---
 name: rich-dad-asset-framework
-description: 用清崎（Kiyosaki）现金流定义设计节点-箭头资产板，并把账本存成个人财务报表字段。适用于 Meyra OS 里的 Canva 式 ER 画布：收入 / 现金池 / 支出 / 资产 / 负债，箭头为月现金流来源；JSON 里同时写出 assets / liabilities / income / expenses / monthlyCashflow / passiveIncome / esbi。Use when building a cashflow graph, personal financial statement fields, ESBI income lanes, digital-product assets, or a Rat Race coverage check — not bank sync, not Monopoly skins, not a fork of other Cashflow apps.
+description: 用清崎（Kiyosaki）现金流定义设计节点-箭头资产板，并把账本存成个人财务报表字段。适用于 Meyra OS 里的现金流画布：收入 / 现金池 / 支出 / 资产 / 负债，箭头为月现金流；JSON 同时写出 assets / liabilities / income / expenses / monthlyCashflow / passiveIncome / esbi。Use when building a cashflow graph, personal financial statement fields, ESBI income lanes, or digital-product assets — not bank sync, not a fork of other Cashflow apps.
 ---
 
 # 富爸爸资产框架（现金流画布 + 报表字段）
@@ -9,7 +9,7 @@ description: 用清崎（Kiyosaki）现金流定义设计节点-箭头资产板�
 
 > 资产把钱放进口袋；负债把钱拿出口袋。
 
-宿主已有 OS（如 Meyra）时，用它的 `os-*` 色票、标题、抽屉。节点可带原创地契色条和轻微毡面（大富翁气质，不是 Monopoly IP）。不要整页桌游皮肤，也不要复制其他 GitHub 项目的 UI。
+宿主已有 OS（如 Meyra）时，用它的 `os-*` 色票、标题行、对象材质（`--hud` / `--object` / `--shadow`）。节点只写名称和金额。不要另做一套仪表盘卡片、地契色条或教学旁注。
 
 ## 何时用
 
@@ -18,9 +18,7 @@ description: 用清崎（Kiyosaki）现金流定义设计节点-箭头资产板�
 - 用户是 B 象限数字产品卖家（Prompt Kit / 模板），资产栏优先数字产品
 - 要同时看见 E / S / B / I 收入通道，以及被动是否覆盖支出（鼠赛 / Rat Race）
 
-不要：银行同步、长期预测、投资建议、Monopoly 商标或骰子棋盘。页脚：「个人学习框架，非投资建议。」
-
-不要 fork / 粘贴下列仓库的界面或 GPL 代码；只借用**字段形状与算法概念**：
+不要：银行同步、长期预测、投资建议。不要 fork / 粘贴下列仓库的界面或 GPL 代码；只借用**字段形状与算法概念**：
 
 | 仓库 | 许可 | 借用什么 |
 | --- | --- | --- |
@@ -62,7 +60,7 @@ description: 用清崎（Kiyosaki）现金流定义设计节点-箭头资产板�
 | Expense | 固定生活 / 工具订阅 | 名称、月流出 |
 | Asset | 每月回流的东西（优先数字产品） | 名称、类型、上架、净值、月回流 |
 | Liability | 每月抽干的东西 | 名称、本金、月抽干 |
-| Summary | 净资产、月净现金流、被动覆盖率 | 只读，由箭头推算 |
+| Summary | 净资产、月净、覆盖率 | 只读，由箭头推算 |
 
 **箭头（¥/月，粗细随金额）**
 
@@ -75,23 +73,23 @@ description: 用清崎（Kiyosaki）现金流定义设计节点-箭头资产板�
 | 负债 → 现金池 | 红虚线 | 抽干 |
 | 资产 ↔ 负债 | 虚线 | 例如出租 + 房贷 |
 
-再投入不计入月净现金流（那是盈余的用法）。  
+再投入不计入月净（那是盈余的用法）。  
 月净 = 收入流入 + 资产回流 − 支出 − 负债抽干。  
-被动覆盖率 = 资产回流 / (支出 + 负债抽干)。覆盖 ≥ 1 即脱离鼠赛。  
-ESBI.I = I 象限收入 + 资产回流（投资人引擎）。
+覆盖率 = 资产回流 / (支出 + 负债抽干)。覆盖 ≥ 1 即被动覆盖支出。  
+ESBI.I = I 象限收入 + 资产回流。
 
-默认模板分区：上收入 E→S→B→I，中现金池，左下资产，右下负债，下支出，角上汇总与鼠赛灯。
+默认模板分区：上收入 E→S→B→I，中现金池，左下资产，右下负债，下支出，角上汇总。
 
 ## UX
 
-- 平移 / 缩放 / 拖节点 / 连线
-- 点节点或箭头打开侧栏改金额；点空白添加节点
-- 顶栏：收入 / 支出 / 被动 / 月净 / 净资产；ESBI 芯片（当前 + 目标）
-- 导出 / 导入 JSON；数字产品卖家示例数据，避免空图
-- 动效克制；页面滚动时不要抢 wheel 缩放
-- 节点顶色条是原创地契带，不是官方卡面复制
+- 平移 / 拖节点 / 连线；点节点或箭头打开侧栏；点空白添加
+- 顶栏：标题、E S B I（点选当前，Alt 设目标）、添加 / 导出 / 导入 / 重置
+- 节点面：名称 + 金额。类型、象限、净值只在侧栏
+- 材质跟 OS：舞台用 `--card` 对象，节点和侧栏用 `--hud` 芯片
+- 页面滚动时不要抢 wheel 缩放
 
-## 文案边界
+## 文案
 
-可用：教学摘要、象限缩写、Rat Race、机会卡式短句（自写）。  
-不可用：书中故事、商标口号、假称官方现金流游戏、GPL 游戏表代码。
+短标签，不教。不要 kicker、机会卡、指标条、图例、页脚免责、节点上的类型小字。
+中文界面用中文。按钮用动词：添加、导出、导入、重置、删除。
+错误一句说完，例如「读不了这份文件。」
