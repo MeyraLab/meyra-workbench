@@ -1,5 +1,5 @@
 import { Fragment, useEffect, useId, useRef, useState, type CSSProperties, type PointerEvent as ReactPointerEvent } from "react";
-import { DockGlyph, DocIcon, FolderIcon, PatternDefs } from "./icons";
+import { DockGlyph, DocIcon, PatternDefs } from "./icons";
 import {
   AssetsPanel,
   Launchpad,
@@ -15,6 +15,7 @@ import {
 import { PROJECTS } from "../projects";
 import { NOW, WORKFLOW, WORKFLOW_ACTIVE } from "../now";
 import type { FolderStyle } from "./data";
+import GlassFolder, { type FolderFile, type FolderArt } from "../components/ui/glass-folder-cards";
 
 type Kind = SectionId;
 type Phase = "in" | "open" | "out" | "min" | "hidden";
@@ -109,19 +110,36 @@ const ICONS: IconModel[] = [
   { id: "now", label: "now", kind: "doc", tone: "ink", open: "now", x: 12, y: 22 },
   { id: "assets", label: "资产板", kind: "doc", tone: "accent", open: "assets", x: 14, y: 48 },
   { id: "log", label: "log", kind: "doc", tone: "ink", open: "log", x: 12, y: 72 },
-  { id: "tools", label: "tools", kind: "folder", style: "blush", open: "tools", x: 84, y: 18 },
-  { id: "inkpai", label: "INKPAI", kind: "folder", style: "noir", open: "projects", href: PROJECTS.find((item) => item.id === "inkpai")?.href, x: 68, y: 30 },
-  { id: "excerpt", label: "IMAGE EXCERPT", kind: "folder", style: "ribbon", open: "projects", href: PROJECTS.find((item) => item.id === "excerpt")?.href, x: 84, y: 46 },
-  { id: "vibe", label: "VIBE STORE", kind: "folder", style: "bows", open: "projects", href: PROJECTS.find((item) => item.id === "vibe")?.href, x: 70, y: 68 },
-  { id: "kit", label: "DESIGN-KIT", kind: "folder", style: "plain", open: "projects", href: PROJECTS.find((item) => item.id === "design-kit")?.href, x: 28, y: 82 },
+  { id: "tools", label: "tools", kind: "folder", style: "blush", open: "tools", x: 90, y: 20 },
+  { id: "inkpai", label: "INKPAI", kind: "folder", style: "noir", open: "projects", href: PROJECTS.find((item) => item.id === "inkpai")?.href, x: 72, y: 20 },
+  { id: "excerpt", label: "IMAGE EXCERPT", kind: "folder", style: "ribbon", open: "projects", href: PROJECTS.find((item) => item.id === "excerpt")?.href, x: 90, y: 52 },
+  { id: "vibe", label: "VIBE STORE", kind: "folder", style: "bows", open: "projects", href: PROJECTS.find((item) => item.id === "vibe")?.href, x: 72, y: 52 },
+  { id: "kit", label: "DESIGN-KIT", kind: "folder", style: "plain", open: "projects", href: PROJECTS.find((item) => item.id === "design-kit")?.href, x: 72, y: 80 },
 ];
 
 const MOBILE_POSITIONS: Record<string, { x: number; y: number }> = {
-  now: { x: 20, y: 14 }, tools: { x: 80, y: 14 },
-  assets: { x: 20, y: 28 }, inkpai: { x: 80, y: 28 },
-  log: { x: 20, y: 70 }, excerpt: { x: 80, y: 70 },
-  kit: { x: 20, y: 82 }, vibe: { x: 80, y: 82 },
+  now: { x: 23, y: 14 }, tools: { x: 77, y: 14 },
+  assets: { x: 23, y: 32 }, inkpai: { x: 77, y: 32 },
+  log: { x: 23, y: 65 }, excerpt: { x: 77, y: 65 },
+  kit: { x: 23, y: 84 }, vibe: { x: 77, y: 84 },
 };
+
+const FOLDER_ART: Record<string, FolderArt> = {
+  tools: "aurora", inkpai: "ember", excerpt: "dusk", vibe: "verdant", kit: "glacier",
+};
+
+function folderFiles(icon: IconModel): FolderFile[] {
+  if (icon.id === "tools") return [
+    { name: "工具目录", meta: "Tools", art: "aurora" },
+    { name: "工具启动台", meta: "Launchpad", art: "glacier" },
+    { name: "搜索工具", meta: "Spotlight" },
+  ];
+  const project = PROJECTS.find(item => item.href === icon.href);
+  return [
+    { name: "项目总览", meta: "Projects" },
+    { name: project?.name ?? icon.label, meta: "打开网站 ↗", image: project?.image, href: icon.href },
+  ];
+}
 
 export function Desktop({ onSettings, onTheme, dark }: { onSettings: () => void; onTheme: () => void; dark: boolean }) {
   const uid = useId().replace(/[^a-zA-Z0-9_-]/g, "");
@@ -140,6 +158,7 @@ export function Desktop({ onSettings, onTheme, dark }: { onSettings: () => void;
   const [reduced, setReduced] = useState(false);
   const [now, setNow] = useState(() => new Date());
   const [moved, setMoved] = useState<Record<string, { x: number; y: number }>>({});
+  const [activeFolder, setActiveFolder] = useState<string | null>(null);
   const [selected, setSelected] = useState<Set<string>>(new Set());
   const [band, setBand] = useState<{ x0: number; y0: number; x1: number; y1: number } | null>(null);
   const [wins, setWins] = useState<Win[]>([]);
@@ -453,6 +472,44 @@ export function Desktop({ onSettings, onTheme, dark }: { onSettings: () => void;
       </h1>
       {ICONS.map((icon, index) => {
         const pos = moved[icon.id] ?? (compact ? MOBILE_POSITIONS[icon.id] : { x: icon.x, y: icon.y });
+        if (icon.kind === "folder") {
+          const width = compact ? (box.w < 360 ? 112 : 146) : box.w < 1000 ? 132 : 180;
+          return (
+            <div key={icon.id} className="wb-glass-folder"
+              style={{ left: `${pos.x}%`, top: `${pos.y}%`, zIndex: activeFolder === icon.id ? 6 : 2 }}>
+              <GlassFolder
+                label={icon.label === "tools" ? "Tools" : icon.label}
+                meta={icon.id === "tools" ? "工具与快捷入口" : "项目与工作空间"}
+                tone={dark ? "dark" : "light"}
+                art={FOLDER_ART[icon.id]}
+                seed={index + 3}
+                width={width}
+                files={folderFiles(icon)}
+                action="more"
+                appear={!reduced}
+                appearDelay={index * 80}
+                open={activeFolder === icon.id}
+                onOpenChange={open => setActiveFolder(open ? icon.id : null)}
+                onFileSelect={file => {
+                  if (file.href) return;
+                  setActiveFolder(null);
+                  if (file.meta === "Launchpad") { setSpot(false); setLaunch(true); }
+                  else if (file.meta === "Spotlight") { setLaunch(false); setSpot(true); }
+                  else openKind(icon.open);
+                }}
+                menu={icon.id === "tools" ? [
+                  { label: "打开工具目录", onSelect: () => { setActiveFolder(null); openKind("tools"); } },
+                  { label: "搜索工具", onSelect: () => { setActiveFolder(null); setSpot(true); } },
+                ] : [
+                  { label: "打开项目网站 ↗", onSelect: () => { if (icon.href) openOut(icon.href); } },
+                  { label: "项目总览", onSelect: () => { setActiveFolder(null); openKind("projects"); } },
+                ]}
+              />
+              <button type="button" className="wb-folder-move" aria-label={`移动 ${icon.label} 文件夹`}
+                onPointerDown={event => dragIcon(event, icon, index, true)} title="拖动移动文件夹">⠿</button>
+            </div>
+          );
+        }
         return (
           <button
             key={icon.id}
@@ -469,11 +526,7 @@ export function Desktop({ onSettings, onTheme, dark }: { onSettings: () => void;
             }}
           >
             <span className="cdp-icon-art">
-              {icon.kind === "doc" ? (
-                <DocIcon tone={icon.tone ?? "ink"} size={compact ? 34 : 40} />
-              ) : (
-                <FolderIcon style={icon.style ?? "plain"} uid={uid} size={compact ? 56 : 72} />
-              )}
+              <DocIcon tone={icon.tone ?? "ink"} size={compact ? 34 : 40} />
             </span>
             <span className="cdp-icon-label">{icon.label}</span>
           </button>
@@ -653,7 +706,7 @@ export function Desktop({ onSettings, onTheme, dark }: { onSettings: () => void;
     node.addEventListener("pointerup", up);
   }
 
-  function dragIcon(event: ReactPointerEvent<HTMLButtonElement>, icon: IconModel, index: number) {
+  function dragIcon(event: ReactPointerEvent<HTMLButtonElement>, icon: IconModel, index: number, moveOnly = false) {
     if (event.button !== 0) return;
     event.stopPropagation();
     setMenu(null);
@@ -681,7 +734,7 @@ export function Desktop({ onSettings, onTheme, dark }: { onSettings: () => void;
       node.removeEventListener("pointermove", move);
       node.removeEventListener("pointerup", up);
       delete node.dataset.drag;
-      if (dragged || ev.shiftKey || ev.metaKey) return;
+      if (moveOnly || dragged || ev.shiftKey || ev.metaKey) return;
       setSelected(new Set([icon.id]));
       openIcon(icon);
     };
