@@ -85,11 +85,11 @@ export function DockGlyph({ app, uid, now }: { app: string; uid: string; now: Da
   if (app === "finder") {
     body = (
       <>
-        <rect x="1" y="1" width="46" height="46" rx="11" fill="#8e6f7c" />
-        <path d="M24 1h12a11 11 0 0 1 11 11v24a11 11 0 0 1-11 11H24Z" fill="#c9a6b5" />
-        <path d="M22 1c-3 9-4 17-1 25h3c-1 7 0 14 2 21" fill="none" stroke="#3a2630" strokeWidth="1.8" />
-        <path d="M14 15v6M33 15v6" stroke="#3a2630" strokeWidth="2.6" strokeLinecap="round" />
-        <path d="M12 32c7 5 17 5 24 0" fill="none" stroke="#3a2630" strokeWidth="2" strokeLinecap="round" />
+        <rect x="1" y="1" width="46" height="46" rx="11" fill="var(--primary)" />
+        <path d="M24 1h12a11 11 0 0 1 11 11v24a11 11 0 0 1-11 11H24Z" fill="color-mix(in srgb, var(--primary) 45%, #fff)" />
+        <path d="M22 1c-3 9-4 17-1 25h3c-1 7 0 14 2 21" fill="none" stroke="var(--primary-foreground)" strokeWidth="1.8" />
+        <path d="M14 15v6M33 15v6" stroke="var(--primary-foreground)" strokeWidth="2.6" strokeLinecap="round" />
+        <path d="M12 32c7 5 17 5 24 0" fill="none" stroke="var(--primary-foreground)" strokeWidth="2" strokeLinecap="round" />
       </>
     );
   } else if (app === "launchpad") {
@@ -129,7 +129,7 @@ export function DockGlyph({ app, uid, now }: { app: string; uid: string; now: Da
     body = (
       <>
         {tile("#fff")}
-        <text x="24" y="15" textAnchor="middle" fontSize="7.5" fontWeight="700" fill="#e0457b" fontFamily="system-ui, sans-serif">
+        <text x="24" y="15" textAnchor="middle" fontSize="7.5" fontWeight="700" fill="var(--accent-foreground)" fontFamily="system-ui, sans-serif">
           {month}
         </text>
         <text x="24" y="36" textAnchor="middle" fontSize="19" fontWeight="500" fill="#222" fontFamily="system-ui, sans-serif">
@@ -155,7 +155,7 @@ export function DockGlyph({ app, uid, now }: { app: string; uid: string; now: Da
     body = (
       <>
         {tile("#fff")}
-        <text x="24" y="28" textAnchor="middle" fontSize="11" fontWeight="600" fill="#e0457b" fontFamily="system-ui, sans-serif">
+        <text x="24" y="28" textAnchor="middle" fontSize="11" fontWeight="600" fill="var(--accent-foreground)" fontFamily="system-ui, sans-serif">
           {now.getFullYear()}
         </text>
       </>
@@ -278,8 +278,8 @@ export function PatternDefs({ uid }: { uid: string }) {
           <circle cx="3" cy="3" r=".95" fill="#fff" opacity=".85" />
         </pattern>
         <linearGradient id={`${uid}-grad`} x1="0" y1="0" x2="1" y2="1">
-          <stop offset="0" stopColor="#ff5c9a" />
-          <stop offset="1" stopColor="#f9c6d8" />
+          <stop offset="0" stopColor="var(--primary)" />
+          <stop offset="1" stopColor="color-mix(in srgb, var(--primary) 35%, #fff)" />
         </linearGradient>
       </defs>
     </svg>
