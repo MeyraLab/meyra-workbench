@@ -1,40 +1,32 @@
-:root, html[data-theme="light"] {
-  --bg: #eceaeb;
-  --bg-elev: #ffffff;
-  --bg-hover: #f8e9ef;
-  --text: #241c21;
-  --mute: #655a61;
-  --dim: #81737b;
-  --system: #7d1d45;
-  --system-ink: #ffffff;
-  --card: #faf7f8;
-  --card-inner: #ffffff;
-  --hud: #f6edf1;
-  --hud-ink: #402531;
-  --chip: #f4e6ec;
-  --line: #e8dfe3;
-  --line-strong: #d8c4cd;
-  --shadow: 0 8px 24px rgb(50 20 35 / 8%);
-  --object: 0 2px 8px rgb(50 20 35 / 6%);
-}
-html[data-theme="dark"] {
-  --bg: #241e23;
-  --bg-elev: #30262d;
-  --bg-hover: #49323e;
-  --text: #f7eef2;
-  --mute: #d0bec7;
-  --dim: #ad94a1;
-  --system: #f4b6cb;
-  --system-ink: #2c1722;
-  --card: #372a32;
-  --card-inner: #30262d;
-  --hud: #48343f;
-  --hud-ink: #f7eef2;
-  --chip: #48343f;
-  --line: #58434f;
-  --line-strong: #765868;
-  --shadow: 0 8px 24px rgb(0 0 0 / 20%);
-  --object: 0 2px 8px rgb(0 0 0 / 15%);
+:root, html[data-theme="light"], html[data-theme="dark"] {
+  --bg: var(--background);
+  --bg-elev: var(--card);
+  --bg-hover: var(--accent);
+  --text: var(--foreground);
+  --mute: var(--muted-foreground);
+  --dim: var(--muted-foreground);
+  --system: var(--accent-foreground);
+  --system-ink: var(--primary-foreground);
+  --card-inner: var(--card);
+  --hud: var(--muted);
+  --hud-ink: var(--foreground);
+  --chip: var(--muted);
+  --chip-on: var(--primary);
+  --chip-on-text: var(--primary-foreground);
+  --line: var(--border);
+  --line-strong: color-mix(in srgb, var(--border) 70%, var(--foreground));
+  --object: var(--shadow-md);
+  --pink: var(--primary);
+  --selection: var(--accent);
+  --font-display: var(--font-serif);
+  --font-label: var(--font-mono);
+  --on-primary: var(--primary-foreground);
+  --primary-container: var(--accent);
+  --on-primary-container: var(--accent-foreground);
+  --surface: var(--card);
+  --on-surface: var(--foreground);
+  --on-surface-variant: var(--muted-foreground);
+  --outline: var(--border);
 }
 html, body { overflow: hidden; }
 body { background: var(--bg); color: var(--text); }
@@ -44,8 +36,8 @@ body { background: var(--bg); color: var(--text); }
   --cdp-mute: var(--dim);
   --cdp-line: var(--line);
 }
-html[data-theme="dark"] .desk { --cdp-deep: #f4b6cb !important; --cdp-accent: #9b4b6c !important; }
-html[data-theme="dark"] .wb-open, html[data-theme="dark"] .cdp-spot-list button.is-on { color: #241c21; }
+
+
 .desk .wb-bar { height: 36px; }
 .desk .cdp-win { min-width: 0; }
 .desk .cdp-content { min-height: 0; }
@@ -55,7 +47,7 @@ html[data-theme="dark"] .wb-open, html[data-theme="dark"] .cdp-spot-list button.
 .desk .os-tools-tree { max-width: none; margin-top: 0; box-shadow: none; border: 0; padding: 8px 0; }
 .desk .os-assets-section { padding: 0; }
 .desk .os-assets-head { padding: 0; gap: 12px; }
-.desk .os-world-title { font: italic 36px/.95 "Times New Roman", serif; color: var(--text); }
+.desk .os-world-title { font: italic 36px/.95 var(--font-serif); color: var(--text); }
 .desk .os-chance-slip { border-radius: 8px; background: var(--hud); color: var(--text); padding: 12px; }
 .desk .os-assets-lede { font-size: 13px; margin: 12px 0; }
 .desk .os-flow-stage { height: 420px; min-height: 360px; border-radius: 10px; background: var(--bg-elev); box-shadow: none; border: 1px solid var(--line); }
@@ -95,3 +87,27 @@ html[data-theme="dark"] .wb-open, html[data-theme="dark"] .cdp-spot-list button.
   .desk .os-chance-slip { margin-top: 12px; max-width: none; }
   .desk .os-flow-stage { min-height: 400px; }
 }
+
+/* Apply the registry's tokens to the existing desktop and glass surfaces. */
+.desk { --cdp-deep: var(--accent-foreground) !important; --cdp-accent: var(--primary) !important; --cdp-desk: var(--background); font-family: var(--font-sans); letter-spacing: var(--tracking-normal); }
+.desk .cdp-headline, .desk .wb-name, .desk .wb-bar b, .desk .wb-social a, .desk .wb-launch span { font-family: var(--font-serif); }
+.desk .wb-clock, .desk .wb-kicker, .desk .os-label, .desk .os-tree-count, .desk .gf-meta, .desk .gf-sheet-meta { font-family: var(--font-mono); }
+.desk .cdp-win { border-radius: var(--radius); box-shadow: var(--shadow-xl); border: 1px solid var(--border); }
+.desk .cdp-dock, .desk .cdp-menu, .desk .cdp-spot { border-radius: var(--radius); box-shadow: var(--shadow-lg); }
+.desk .wb-card, .desk .wb-social a, .desk .os-chance-slip { border-radius: var(--radius); box-shadow: var(--shadow-sm); }
+.desk .wb-open, .desk .cdp-spot-list button.is-on, .desk .cdp-menu button:hover, .desk .cdp-menu button:focus-visible { background: var(--primary); color: var(--primary-foreground); }
+.desk .cdp-spot-list button.is-on .cdp-muted { color: color-mix(in srgb, var(--primary-foreground) 70%, transparent); }
+.desk button:focus-visible, .desk .os-tree-row:focus-visible { outline-color: var(--ring); }
+.desk .gf-root { font-family: var(--font-sans); --gf-ink: var(--foreground); --gf-ink-soft: var(--muted-foreground); }
+.desk .gf-root .gf-back { background: linear-gradient(var(--card), var(--muted)); }
+.desk .gf-root .gf-sheet { background: linear-gradient(var(--card), var(--muted)); }
+.desk .gf-root .gf-sheet-name { color: var(--foreground); }
+.desk .gf-root .gf-sheet-meta { color: var(--muted-foreground); }
+.desk .gf-root .gf-sheet--art .gf-sheet-name { color: #fff; }
+.desk .gf-root .gf-sheet--art .gf-sheet-meta { color: rgb(255 255 255 / 75%); }
+.desk .gf-root .gf-tint { background: linear-gradient(180deg, color-mix(in srgb, var(--card) 16%, transparent), color-mix(in srgb, var(--card) 50%, transparent) 42%, color-mix(in srgb, var(--card) 93%, transparent)); }
+.desk .gf-root .gf-key--more, .desk .gf-root .gf-menu { background: color-mix(in srgb, var(--popover) 85%, transparent); color: var(--popover-foreground); }
+.desk .gf-root .gf-menu-item { color: var(--popover-foreground); }
+.desk .gf-root .gf-menu-item:hover, .desk .gf-root .gf-menu-item:focus-visible { background: var(--accent); color: var(--accent-foreground); }
+.desk .gf-root .gf-key:focus-visible, .desk .gf-root .gf-sheet:focus-visible { outline-color: var(--ring); }
+.os-sheet { border-color: var(--border); border-radius: var(--radius); box-shadow: var(--shadow-xl); font-family: var(--font-sans); }

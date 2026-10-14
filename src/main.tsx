@@ -3,6 +3,7 @@ import App from "./app/App.tsx";
 import "./styles/index.css";
 import "./styles/globals.css";
 import "./styles/desktop.css";
+import "./styles/tweakcn.css";
 import "./styles/workbench-theme.css";
 
 const root = document.getElementById("root");

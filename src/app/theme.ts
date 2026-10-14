@@ -13,10 +13,11 @@ export function applyTheme(pref: ThemePref) {
   if (!root) return;
   const resolved = resolveTheme(pref);
   root.dataset.theme = resolved;
+  root.classList.toggle("dark", resolved === "dark");
   root.dataset.themePref = pref;
   localStorage.setItem("meyra-theme", pref);
   const meta = document.querySelector('meta[name="theme-color"]');
-  if (meta) meta.setAttribute("content", resolved === "dark" ? "#100e22" : "#7ec4ee");
+  if (meta) meta.setAttribute("content", resolved === "dark" ? "#020817" : "#fbfcf8");
 }
 
 export function readThemePref(): ThemePref {
@@ -24,3 +25,4 @@ export function readThemePref(): ThemePref {
   if (saved === "light" || saved === "dark" || saved === "system") return saved;
   return "dark";
 }
+
