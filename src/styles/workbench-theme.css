@@ -64,6 +64,18 @@ html[data-theme="dark"] .wb-open, html[data-theme="dark"] .cdp-spot-list button.
 .os-overlay { z-index: 12000; }
 .os-sheet { background: var(--bg-elev); color: var(--text); }
 .desk button:focus-visible { outline: 2px solid var(--system); outline-offset: 3px; }
+.wb-glass-folder { position: absolute; transform: translate(-50%, -50%); touch-action: manipulation; }
+.wb-folder-move { position: absolute; top: 2px; right: -16px; width: 28px; height: 28px; border-radius: 8px; color: var(--dim); cursor: grab !important; touch-action: none; }
+.wb-folder-move:hover, .wb-folder-move:focus-visible { background: var(--bg-hover); }
+.wb-folder-move:active { cursor: grabbing !important; }
+.desk .gf-title { font-size: 23px; }
+.desk .gf-meta { font-size: 15px; }
+.desk .gf-label { max-width: 248px; }
+.desk .gf-sheet-name { font-size: 18px; }
+.desk .gf-sheet-meta { font-size: 13px; }
+.desk .gf-key { min-width: 58px; min-height: 58px; }
+.desk .gf-hit, .desk .gf-sheet, .desk .gf-key { cursor: pointer; }
+@media (min-width: 640px) { .desk .cdp-hello { left: 38%; } }
 @media (max-width: 639px) {
   .desk .wb-bar { height: 36px; gap: 1px; padding: 0 6px; font-size: 11px; }
   .desk .wb-bar button { padding: 3px 5px; flex-shrink: 0; }
@@ -73,7 +85,8 @@ html[data-theme="dark"] .wb-open, html[data-theme="dark"] .cdp-spot-list button.
   .desk[data-compact="on"] .cdp-dock-btn { width: 40px; height: 40px; }
   .desk .wb-clock { display: none; }
   .desk .wb-steps { max-width: 220px; font-size: 10px; line-height: 1.8; }
-  .desk[data-compact="on"] .cdp-hello { top: 50%; }
+  .desk[data-compact="on"] .cdp-hello { top: 48%; }
+  .wb-folder-move { right: -8px; top: -12px; }
   .desk .cdp-headline { font-size: 60px; }
   .desk .cdp-icon { width: 78px; }
   .desk .cdp-icon-label { font-size: 10px; max-width: 78px; }
