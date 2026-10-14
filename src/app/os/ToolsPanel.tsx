@@ -39,7 +39,7 @@ export function ToolsPanel({ apps, open, onToggle }: Props) {
         </span>
       </button>
       <div className={`os-tools-body${open ? " is-open" : ""}`}>
-        <div className="os-tools-inner" inert={!open}>
+        <div className="os-tools-inner" {...(!open ? { inert: "" } : {})} aria-hidden={!open}>
           <nav className="os-tools-tree" aria-label="工具目录">
             <ul className="os-tree-root">
               {ROLES.map((role) => {
@@ -89,3 +89,4 @@ function AppRow({ app, selected, onSelect }: { app: AppEntry; selected: boolean;
     </a>
   );
 }
+
