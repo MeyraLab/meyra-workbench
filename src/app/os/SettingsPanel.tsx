@@ -50,7 +50,7 @@ export function SettingsPanel({
       <aside className="os-sheet">
         <div className="flex items-center justify-between border-b border-line px-5 py-4">
           <h2 id="settings-title" className="os-label" style={{ color: "var(--text)" }}>
-            System settings
+            Settings
           </h2>
           <button
             type="button"

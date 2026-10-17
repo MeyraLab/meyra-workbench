@@ -3,20 +3,20 @@ import { SectionCard } from "./SectionCard";
 
 export function CompostSection() {
   const [checklist, setChecklist] = useState([
-    { id: 1, text: "Inbox 未用内容 → 直接丢 Compost", checked: false },
-    { id: 2, text: "只保留：真正用过的 3–5 个", checked: false },
-    { id: 3, text: "Core 只留可复制版本", checked: false },
-    { id: 4, text: "给本周的 1 个主题命名", checked: false },
+    { id: 1, text: "Inbox 没用的 → Compost", checked: false },
+    { id: 2, text: "只留用过的 3–5 个", checked: false },
+    { id: 3, text: "Core 只留可复制的", checked: false },
+    { id: 4, text: "给本周主题命名", checked: false },
     { id: 5, text: "写一句 Anchor：Incompressible", checked: false },
   ]);
 
   return (
     <SectionCard
       title="F. Compost"
-      instructions={["每周五花 5 分钟清理", "不要留恋未使用的内容", "保持系统轻量，才能持续运转"]}
+      instructions={["周五 5 分钟", "没用的扔掉", "轻才能转"]}
     >
       <div className="space-y-4">
-        <p className="os-label">Weekly 5-minute clear</p>
+        <p className="os-label">Friday, 5 min</p>
         <div className="space-y-2">
           {checklist.map((item) => (
             <label key={item.id} className="flex min-h-11 cursor-pointer items-start gap-3">
@@ -44,7 +44,7 @@ export function CompostSection() {
         </div>
         <p className="text-sm">
           Incompressible
-          <span className="mt-1 block text-xs text-mute">只保留最不可压缩的部分</span>
+          <span className="mt-1 block text-xs text-mute">只留不可压缩的</span>
         </p>
       </div>
     </SectionCard>
