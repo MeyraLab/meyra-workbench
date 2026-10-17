@@ -28,6 +28,7 @@ export function CashflowEdge({
   const kind = data?.kind ?? "in";
   const outgoing = kind === "out" || kind === "drain";
   const color = outgoing ? "var(--pink)" : "var(--system)";
+  const showLabel = monthly > 0 && kind !== "reinvest" && kind !== "link";
   return (
     <>
       <BaseEdge
@@ -40,14 +41,16 @@ export function CashflowEdge({
           strokeDasharray: kind === "drain" || kind === "link" ? "7 5" : undefined,
         }}
       />
-      <EdgeLabelRenderer>
-        <div
-          className={`os-flow-elabel${outgoing ? " is-out" : ""}${selected ? " is-on" : ""}`}
-          style={{ transform: `translate(-50%, -50%) translate(${labelX}px, ${labelY}px)` }}
-        >
-          {formatCny(outgoing ? -Math.abs(monthly) : monthly)}/月
-        </div>
-      </EdgeLabelRenderer>
+      {showLabel ? (
+        <EdgeLabelRenderer>
+          <div
+            className={`os-flow-elabel nodrag nopan${selected ? " is-on" : ""}`}
+            style={{ transform: `translate(-50%, -50%) translate(${labelX}px, ${labelY}px)` }}
+          >
+            {formatCny(outgoing ? -Math.abs(monthly) : monthly)}
+          </div>
+        </EdgeLabelRenderer>
+      ) : null}
     </>
   );
 }
